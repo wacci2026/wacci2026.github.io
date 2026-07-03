@@ -16,6 +16,21 @@ export const navItems = [
   },
   {
     type: 'link',
+    label: 'Program',
+    href: '/program',
+  },
+  {
+    type: 'link',
+    label: 'Submission',
+    href: '/submission',
+  },
+  {
+    type: 'link',
+    label: 'Registration',
+    href: '/registration',
+  },
+  {
+    type: 'link',
     label: 'Contact',
     href: '/contact',
   },
