@@ -16,18 +16,18 @@ export const navItems = [
   },
   {
     type: 'link',
-    label: 'Contact',
-    href: '/contact',
+    label: 'Program',
+    href: '/program',
   },
   {
-    type: 'dropdown',
-    label: 'Pages',
-    items: [
-      { href: '/signin', label: 'Sign In' },
-      { href: '/signup', label: 'Sign Up' },
-      { href: '/reset-password', label: 'Reset Password' },
-      { href: '/not-found', label: '404 Error' },
-    ],
+    type: 'link',
+    label: 'Submission',
+    href: '/submission',
+  },
+  {
+    type: 'link',
+    label: 'Registration',
+    href: '/registration',
   },
 ] satisfies NavItem[];
 
