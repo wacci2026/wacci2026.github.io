@@ -1,6 +1,26 @@
 export const navItems = [
   {
     type: "link",
+    label: "Home",
+    href: "/home",
+  },
+  {
+    type: "link",
+    label: "About",
+    href: "/about",
+  },
+  {
+    type: "link",
+    label: "Program",
+    href: "/program",
+  },
+  {
+    type: "link",
+    label: "Speakers",
+    href: "/speakers",
+  },
+  {
+    type: "link",
     label: "Venue",
     href: "/venue",
   },
@@ -11,33 +31,18 @@ export const navItems = [
   },
   {
     type: "link",
-    href: "/",
-    label: "Home",
+    label: "Abstract Submission",
+    href: "/submission",
   },
   {
     type: "link",
-    label: "Chat",
-    href: "/text-generator",
-  },
-  {
-    type: "link",
-    label: "Pricing",
-    href: "/pricing",
+    label: "Registration",
+    href: "/registration",
   },
   {
     type: "link",
     label: "Contact",
     href: "/contact",
-  },
-  {
-    type: "dropdown",
-    label: "Pages",
-    items: [
-      { href: "/signin", label: "Sign In" },
-      { href: "/signup", label: "Sign Up" },
-      { href: "/reset-password", label: "Reset Password" },
-      { href: "/not-found", label: "404 Error" },
-    ],
   },
 ] satisfies NavItem[];
 
