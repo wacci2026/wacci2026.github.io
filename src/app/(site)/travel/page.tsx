@@ -96,7 +96,7 @@ export default function TravelPage() {
               <p className="text-primary-300 font-semibold text-sm md:text-base mb-2 tracking-wider uppercase">
                 Chile &bull; Araucanía Region
               </p>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-3 leading-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-3 leading-tight">
                 Welcome to Pucón
               </h1>
               <p className="text-white/80 text-lg md:text-xl max-w-2xl leading-relaxed">
@@ -113,7 +113,7 @@ export default function TravelPage() {
           <div className="max-w-[1000px] mx-auto">
             <div className="grid md:grid-cols-5 gap-10">
               <div className="md:col-span-3">
-                <h2 className="text-3xl md:text-title-lg font-bold text-gray-800 dark:text-white/90 mb-4">
+                <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-4">
                   About Pucón
                 </h2>
                 <div className="space-y-4 text-gray-500 dark:text-gray-400 leading-relaxed">
@@ -148,7 +148,7 @@ export default function TravelPage() {
 
               <div className="md:col-span-2">
                 <div className="sticky top-28 rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary p-6 shadow-theme-sm">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white/90 mb-4">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">
                     Quick Facts
                   </h3>
                   <div className="space-y-4">
@@ -161,7 +161,7 @@ export default function TravelPage() {
                           <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
                             {fact.label}
                           </p>
-                          <p className="text-sm font-semibold text-gray-800 dark:text-white/90">
+                          <p className="text-sm font-semibold text-gray-900">
                             {fact.value}
                           </p>
                         </div>
@@ -182,7 +182,7 @@ export default function TravelPage() {
         <div className="wrapper">
           <div className="max-w-[1000px] mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-title-lg font-bold text-gray-800 dark:text-white/90 mb-3">
+              <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
                 Things to Do in Pucón
               </h2>
               <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
@@ -198,7 +198,7 @@ export default function TravelPage() {
                   className="rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary p-6 shadow-theme-sm hover:shadow-theme-lg transition-shadow"
                 >
                   <span className="text-3xl block mb-3">{activity.icon}</span>
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white/90 mb-2">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">
                     {activity.title}
                   </h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
@@ -215,7 +215,7 @@ export default function TravelPage() {
         <div className="wrapper">
           <div className="max-w-[1000px] mx-auto">
             <div className="text-center mb-10">
-              <h2 className="text-3xl md:text-title-lg font-bold text-gray-800 dark:text-white/90 mb-3">
+              <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
                 Getting There
               </h2>
               <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
@@ -226,7 +226,7 @@ export default function TravelPage() {
             <div className="grid sm:grid-cols-3 gap-6 mb-12">
               <div className="rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary p-6 shadow-theme-sm text-center">
                 <span className="text-2xl block mb-2">✈️</span>
-                <h3 className="font-bold text-gray-800 dark:text-white/90 mb-1">
+                <h3 className="font-bold text-gray-900 mb-1">
                   By Air
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
@@ -236,7 +236,7 @@ export default function TravelPage() {
               </div>
               <div className="rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary p-6 shadow-theme-sm text-center">
                 <span className="text-2xl block mb-2">🚌</span>
-                <h3 className="font-bold text-gray-800 dark:text-white/90 mb-1">
+                <h3 className="font-bold text-gray-900 mb-1">
                   By Bus
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
@@ -246,7 +246,7 @@ export default function TravelPage() {
               </div>
               <div className="rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary p-6 shadow-theme-sm text-center">
                 <span className="text-2xl block mb-2">🚗</span>
-                <h3 className="font-bold text-gray-800 dark:text-white/90 mb-1">
+                <h3 className="font-bold text-gray-900 mb-1">
                   By Car
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">

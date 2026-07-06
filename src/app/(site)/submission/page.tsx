@@ -17,7 +17,7 @@ export default function SubmissionPage() {
       <div className="container px-4 mx-auto relative z-10 max-w-3xl">
         <div className="text-center mb-16">
           <span className="text-primary-500 font-semibold tracking-wider uppercase text-sm mb-4 block">Call for Papers</span>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Abstract Submission
           </h1>
         </div>
@@ -34,7 +34,7 @@ export default function SubmissionPage() {
           </p>
 
           <div className="mt-8 p-6 bg-primary-50 dark:bg-primary-900/10 rounded-2xl border border-primary-100 dark:border-primary-900/30">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Important Dates</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Important Dates</h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <span className="font-semibold min-w-[220px]">1-page abstract submission deadline:</span>

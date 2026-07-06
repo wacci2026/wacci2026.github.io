@@ -10,7 +10,7 @@ export default function VenuePage() {
       <section className="py-20 md:py-28 relative overflow-hidden">
         <div className="wrapper">
           <div className="max-w-[800px] mx-auto">
-            <h1 className="text-4xl md:text-title-lg font-bold text-gray-800 dark:text-white/90 mb-4">
+            <h1 className="text-4xl md:text-title-lg font-bold text-gray-900 mb-4">
               Venue
             </h1>
 
@@ -27,11 +27,11 @@ export default function VenuePage() {
               .
             </p>
 
-            <h2 className="mb-6 text-3xl font-semibold text-gray-800 dark:text-white/90 md:text-title-lg">
+            <h2 className="mb-6 text-3xl font-semibold text-gray-900 md:text-title-lg">
               Transportation to the hotel from Carrasco International Airport
             </h2>
 
-            <h3 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white/90 mb-3">
+            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
               By taxi or Uber
             </h3>
             <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-8">
@@ -57,7 +57,7 @@ export default function VenuePage() {
               your arrival.
             </p>
 
-            <h3 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white/90 mb-3">
+            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
               By bus
             </h3>
             <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-10">

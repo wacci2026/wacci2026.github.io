@@ -24,10 +24,12 @@ const scheduleData = {
   ]
 };
 
-export default function ProgramContent() {
-  const [activeTab, setActiveTab] = useState<'all' | 'day1' | 'day2' | 'day3'>('all');
+type ProgramTab = 'all' | keyof typeof scheduleData;
 
-  const tabs = [
+export default function ProgramContent() {
+  const [activeTab, setActiveTab] = useState<ProgramTab>('all');
+
+  const tabs: Array<{ id: ProgramTab; label: string }> = [
     { id: 'all', label: 'All Days' },
     { id: 'day1', label: 'Day 1 (Oct 15)' },
     { id: 'day2', label: 'Day 2 (Oct 16)' },
@@ -51,7 +53,7 @@ export default function ProgramContent() {
             <div className="text-xs font-semibold text-gray-400 uppercase mt-1 tracking-wide">{item.type}</div>
           </div>
           <div>
-            <h3 className={`text-xl font-bold mb-2 ${item.type === 'break' ? 'text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>
+            <h3 className={`text-xl font-bold mb-2 ${item.type === 'break' ? 'text-gray-500 dark:text-gray-400' : 'text-gray-900'}`}>
               {item.title}
             </h3>
             {item.speaker && (
@@ -81,7 +83,7 @@ export default function ProgramContent() {
       <div className="container px-4 mx-auto relative z-10 max-w-5xl">
         <div className="text-center mb-16">
           <span className="text-primary-500 font-semibold tracking-wider uppercase text-sm mb-4 block">Schedule</span>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Conference Program
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -94,7 +96,7 @@ export default function ProgramContent() {
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 py-4 px-2 min-w-[120px] text-center font-medium transition-colors border-b-2 ${
                   activeTab === tab.id
                     ? 'text-primary-500 border-primary-500 bg-primary-50/50 dark:bg-primary-900/10'
