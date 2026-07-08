@@ -9,65 +9,78 @@ export const metadata: Metadata = {
 
 export default function RegistrationPage() {
   return (
-    <main className="min-h-screen py-16 lg:py-24 bg-gray-50 dark:bg-dark-secondary relative overflow-hidden">
-      {/* Background gradients */}
-      <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob" />
-      <div className="absolute top-0 -right-4 w-72 h-72 bg-primary-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob" style={{ animationDelay: '2000ms' }} />
+    <main className="min-h-screen py-16 lg:py-24 bg-[#FAFAFA] relative overflow-hidden">
+      {/* Subtle light background gradients matching photo_2 */}
+      <div className="absolute top-20 -left-20 w-96 h-96 bg-primary-100 rounded-full mix-blend-multiply filter blur-3xl animate-blob opacity-60" />
+      <div className="absolute top-20 -right-20 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl animate-blob opacity-60" style={{ animationDelay: '2000ms' }} />
 
-      <div className="container px-4 mx-auto relative z-10 max-w-3xl">
-        <div className="text-center mb-16">
-          <span className="text-primary-500 font-semibold tracking-wider uppercase text-sm mb-4 block">Join Us</span>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+      <div className="container px-4 lg:px-8 mx-auto relative z-10 max-w-[1440px]">
+        <div className="text-center mb-16 section-title-motion">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-primary-500 mb-4">
             Conference Registration
           </h1>
+          <span className="text-primary-500 font-bold tracking-widest uppercase text-xs mb-6 block">Join Us</span>
         </div>
 
-        <div className="bg-white dark:bg-dark-primary rounded-3xl shadow-xl border border-gray-100 dark:border-gray-800 p-8 md:p-12 text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
           
-          <div className="p-6 bg-primary-50 dark:bg-primary-900/10 rounded-2xl border border-primary-100 dark:border-primary-900/30">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Important Dates</h3>
-            <ul className="space-y-2">
-              <li className="flex items-start gap-3">
-                <span className="font-semibold min-w-[240px]">Advanced registration deadline:</span>
-                <span className="font-bold text-primary-600 dark:text-primary-400">November 11</span>
-              </li>
-            </ul>
+          {/* Left Column: Google Form */}
+          <div className="bg-white rounded-[24px] shadow-lg shadow-gray-200/50 border border-gray-100 p-2 md:p-4 w-full h-full animate-fade-up animate-delay-2 flex flex-col overflow-y-auto overflow-x-hidden">
+             <iframe 
+               src="https://docs.google.com/forms/d/e/1FAIpQLSfbGKAy2txYXRW6thTqB7DGsfhxxzG5sDIqLdDPwwnHmBlicw/viewform?embedded=true" 
+               width="100%" 
+               height="100%" 
+               frameBorder="0" 
+               marginHeight={0} 
+               marginWidth={0}
+               className="flex-1 rounded-[16px] min-w-[300px] min-h-[600px]"
+             >
+               Loading…
+             </iframe>
           </div>
 
-          <div>
-            <h3 className="text-xl font-bold text-gray-900 mb-4">WACCI Registration Fee</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-gray-50 dark:bg-dark-secondary p-6 rounded-2xl border border-gray-100 dark:border-gray-700 transition-all hover:shadow-md">
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Advanced registration fee</div>
-                <div className="text-3xl font-extrabold text-gray-900">US$100</div>
-              </div>
-              <div className="bg-gray-50 dark:bg-dark-secondary p-6 rounded-2xl border border-gray-100 dark:border-gray-700 transition-all hover:shadow-md">
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Standard registration fee</div>
-                <div className="text-3xl font-extrabold text-gray-900">US$130</div>
+          {/* Right Column: Existing Information */}
+          <div className="bg-white rounded-[24px] shadow-lg shadow-gray-200/50 border border-gray-100 p-8 md:p-10 text-base md:text-lg text-gray-600 leading-relaxed space-y-8 animate-fade-up animate-delay-3 h-full flex flex-col justify-center">
+            
+            <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100">
+              <h3 className="text-lg font-bold text-primary-500 mb-4">Important Dates</h3>
+              <ul className="space-y-2 text-sm md:text-base">
+                <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3">
+                  <span className="font-semibold text-gray-800 min-w-[240px]">Advanced registration deadline:</span>
+                  <span className="font-bold text-primary-500">November 11</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-primary-500 mb-4">WACCI Registration Fee</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
+                  <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Advanced fee</div>
+                  <div className="text-3xl font-extrabold text-primary-500">US$100</div>
+                </div>
+                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
+                  <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Standard fee</div>
+                  <div className="text-3xl font-extrabold text-primary-500">US$130</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div>
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Notes</h3>
-            <ul className="space-y-3 list-none pl-0">
-              <li className="flex items-start gap-3">
-                <span className="text-primary-500 font-bold">a.</span>
-                <span>Registration fee includes participation in the workshop, coffee breaks and banquet.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-primary-500 font-bold">b.</span>
-                <span>Online payment instructions available with the registration form.</span>
-              </li>
-            </ul>
-          </div>
-          
-          <div className="pt-8">
-            <Link href="/online-registration" className="w-full flex justify-center py-4 px-4 border border-transparent rounded-full shadow-sm text-lg font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all hover:shadow-lg hover:-translate-y-0.5">
-              Online registration
-            </Link>
-          </div>
+            <div>
+              <h3 className="text-lg font-bold text-primary-500 mb-4">Notes</h3>
+              <ul className="space-y-3 list-none pl-0 text-sm md:text-base text-gray-600">
+                <li className="flex items-start gap-3">
+                  <span className="text-primary-500 font-bold">a.</span>
+                  <span>Registration fee includes participation in the workshop, coffee breaks and banquet.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-primary-500 font-bold">b.</span>
+                  <span>Online payment instructions available with the registration form.</span>
+                </li>
+              </ul>
+            </div>
 
+          </div>
         </div>
       </div>
     </main>
