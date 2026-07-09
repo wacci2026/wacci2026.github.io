@@ -21,25 +21,27 @@ export default async function Contact() {
         <div className="wrapper">
           <div className="max-w-[860px] mx-auto">
             <div className="text-center">
-              <Subheading text="WACCI 2026" />
-
               <div className="animate-soft-scale animate-delay-1 mt-5 mx-auto inline-flex w-full max-w-[760px] flex-col items-center gap-4 rounded-2xl border border-white/25 bg-black/25 px-5 py-6 text-white shadow-2xl shadow-black/25 backdrop-blur-md sm:mt-7 sm:gap-5 sm:px-10 sm:py-9">
                 <h1 className="animate-fade-up animate-delay-2 mx-auto max-w-[680px] text-3xl font-bold leading-tight text-gray-100 sm:text-[46px] sm:leading-[56px]">
                   Contact Us
                 </h1>
                 <div className="animate-fade-up animate-delay-3 h-px w-24 bg-white/35" />
                 <p className="animate-fade-up animate-delay-3 text-3xl font-semibold leading-tight sm:text-3xl">
-                  wacci2026@gmail.com
+                  <a href="mailto:wacci2026@gmail.com">wacci2026@gmail.com</a>
                 </p>
                 <p className="animate-fade-up animate-delay-4 text-lg font-medium text-white/85 sm:text-2xl">
                   For inquiries regarding abstract submission, registration, or
                   technical issues, please contact us at the email address
                   above. We will respond to your inquiry as soon as possible.
                 </p>
+                <div className="animate-fade-up animate-delay-4 h-px w-16 bg-white/25" />
+                <p className="animate-fade-up animate-delay-4 text-base font-medium text-white/75 sm:text-lg">
+                  Pucón, Araucanía, Chile
+                </p>
               </div>
-              <p className="animate-fade-up animate-delay-4 mt-12 text-center mx-auto text-lg font-medium text-white/90 sm:text-xl">
+              {/*<p className="animate-fade-up animate-delay-4 mt-12 text-center mx-auto text-lg font-medium text-white/90 sm:text-xl">
                 See you soon!
-              </p>
+              </p>*/}
             </div>
           </div>
           <div className="max-w-[1000px] mx-auto relative">
