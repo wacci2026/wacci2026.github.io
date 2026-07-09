@@ -96,7 +96,7 @@ export default function TravelPage() {
               <p className="text-primary-300 font-semibold text-sm md:text-base mb-2 tracking-wider uppercase">
                 Chile &bull; Araucanía Region
               </p>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-3 leading-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-3 leading-tight">
                 Welcome to Pucón
               </h1>
               <p className="text-white/80 text-lg md:text-xl max-w-2xl leading-relaxed">
