@@ -1,10 +1,11 @@
 import Image from "next/image";
+import { withBasePath } from "@/lib/base-path";
 
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden px-5 py-14 text-white">
       <Image
-        src="/images/footer/footer.webp"
+        src={withBasePath("/images/footer/footer.webp")}
         alt=""
         fill
         sizes="100vw"
@@ -15,7 +16,7 @@ export default function Footer() {
 
       <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-5 text-center">
         <Image
-          src="/images/wacci-122x64.png"
+          src={withBasePath("/images/wacci-122x64.png")}
           alt="WACCI"
           width={122}
           height={64}

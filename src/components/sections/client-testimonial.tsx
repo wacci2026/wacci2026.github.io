@@ -2,13 +2,14 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { withBasePath } from '@/lib/base-path';
 
  const testimonials = [
  {
  id: 1,
  name: 'Ralph Edwards',
  company: 'Big Kahuna Burger Ltd',
- image: '/images/users/user-1.png',
+ image: withBasePath('/images/users/user-1.png'),
  testimonial:
  'As a Senior Software Developer I found TailAdmin perfect write code that easy can be used in my projects, which some are production already.',
  },
@@ -16,7 +17,7 @@ import { useState } from 'react';
  id: 2,
  name: 'Albert Flores',
  company: 'Biffco Enterprises Ltd.',
- image: '/images/users/user-2.png',
+ image: withBasePath('/images/users/user-2.png'),
  testimonial:
  'As a Senior Software Developer I found TailAdmin perfect write code that easy can be used in my projects, which some are production already.',
  },
@@ -24,7 +25,7 @@ import { useState } from 'react';
  id: 3,
  name: 'Jenny Wilson',
  company: 'Acme Co.',
- image: '/images/users/user-3.png',
+ image: withBasePath('/images/users/user-3.png'),
  testimonial:
  'As a Senior Software Developer I found TailAdmin perfect write code that easy can be used in my projects, which some are production already.',
  },
@@ -32,7 +33,7 @@ import { useState } from 'react';
  id: 4,
  name: 'Esther Howard',
  company: 'Barone LLC.',
- image: '/images/users/user-4.png',
+ image: withBasePath('/images/users/user-4.png'),
  testimonial:
  'As a Senior Software Developer I found TailAdmin perfect write code that easy can be used in my projects, which some are production already.',
  },
@@ -40,7 +41,7 @@ import { useState } from 'react';
  id: 5,
  name: 'Darlene Robertson',
  company: 'Abstergo Ltd.',
- image: '/images/users/user-1.png',
+ image: withBasePath('/images/users/user-1.png'),
  testimonial:
  'As a Senior Software Developer I found TailAdmin perfect write code that easy can be used in my projects, which some are production already.',
  },
@@ -48,7 +49,7 @@ import { useState } from 'react';
  id: 6,
  name: 'Devon Lane',
  company: 'Binford Ltd.',
- image: '/images/users/user-2.png',
+ image: withBasePath('/images/users/user-2.png'),
  testimonial:
  'As a Senior Software Developer I found TailAdmin perfect write code that easy can be used in my projects, which some are production already.',
  },
@@ -56,7 +57,7 @@ import { useState } from 'react';
  id: 7,
  name: 'Ralph Edwards',
  company: 'Big Kahuna Burger Ltd',
- image: '/images/users/user-1.png',
+ image: withBasePath('/images/users/user-1.png'),
  testimonial:
  'As a Senior Software Developer I found TailAdmin perfect write code that easy can be used in my projects, which some are production already.',
  },
@@ -64,7 +65,7 @@ import { useState } from 'react';
  id: 8,
  name: 'Darlene Robertson',
  company: 'Abstergo Ltd.',
- image: '/images/users/user-2.png',
+ image: withBasePath('/images/users/user-2.png'),
  testimonial:
  'As a Senior Software Developer I found TailAdmin perfect write code that easy can be used in my projects, which some are production already.',
  },
@@ -72,7 +73,7 @@ import { useState } from 'react';
  id: 9,
  name: 'Devon Lane',
  company: 'Binford Ltd.',
- image: '/images/users/user-3.png',
+ image: withBasePath('/images/users/user-3.png'),
  testimonial:
  'As a Senior Software Developer I found TailAdmin perfect write code that easy can be used in my projects, which some are production already.',
  },

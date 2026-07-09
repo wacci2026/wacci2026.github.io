@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { withBasePath } from '@/lib/base-path';
 
 type SVGPropsType = React.SVGProps<SVGSVGElement>;
 
@@ -6,7 +7,7 @@ export function GradientBlob() {
   return (
     <div className="overflow-hidden">
       <Image
-        src="/images/gen-glow.png"
+        src={withBasePath("/images/gen-glow.png")}
         className="absolute bottom-0 w-full left-1/2 z-10 -translate-x-1/2 pointer-events-none"
         role="presentation"
         alt=""

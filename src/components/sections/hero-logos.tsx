@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import { withBasePath } from "@/lib/base-path";
 
 export default function HeroLogos() {
   return (
@@ -10,49 +11,49 @@ export default function HeroLogos() {
         </p>
         <div className="flex flex-wrap justify-center items-center gap-7 md:gap-14 mt-10">
           <Image
-            src="/images/brands/br-1.svg"
+            src={withBasePath("/images/brands/br-1.svg")}
             className="opacity-50 transition hover:opacity-100"
             alt=""
             width={80}
             height={32}
           />
           <Image
-            src="/images/brands/br-2.svg"
+            src={withBasePath("/images/brands/br-2.svg")}
             className="opacity-50 transition hover:opacity-100"
             width={80}
             height={32}
             alt=""
           />
           <Image
-            src="/images/brands/br-3.svg"
+            src={withBasePath("/images/brands/br-3.svg")}
             className="opacity-50 transition hover:opacity-100"
             width={80}
             height={32}
             alt=""
           />
           <Image
-            src="/images/brands/br-4.svg"
+            src={withBasePath("/images/brands/br-4.svg")}
             className="opacity-50 transition hover:opacity-100"
             alt=""
             width={80}
             height={32}
           />
           <Image
-            src="/images/brands/br-5.svg"
+            src={withBasePath("/images/brands/br-5.svg")}
             className="opacity-50 transition hover:opacity-100"
             width={80}
             height={32}
             alt=""
           />
           <Image
-            src="/images/brands/br-6.svg"
+            src={withBasePath("/images/brands/br-6.svg")}
             className="opacity-50 transition hover:opacity-100"
             width={80}
             height={32}
             alt=""
           />
           <Image
-            src="/images/brands/br-7.svg"
+            src={withBasePath("/images/brands/br-7.svg")}
             className="opacity-50 transition hover:opacity-100"
             width={80}
             height={32}

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+import { withBasePath } from "@/lib/base-path";
 
 export const metadata: Metadata = {
   title: "Travel – Pucón, Chile",
@@ -82,7 +83,7 @@ export default function TravelPage() {
     <>
       <section className="relative h-[70vh] min-h-[500px] overflow-hidden">
         <Image
-          src="/images/pucon_chile.png"
+          src={withBasePath("/images/pucon_chile.png")}
           alt="Villarrica Volcano and Lake Villarrica, Pucón"
           fill
           className="object-cover"

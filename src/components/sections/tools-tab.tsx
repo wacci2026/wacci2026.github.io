@@ -12,6 +12,7 @@ import {
 } from '@/icons/icons';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { withBasePath } from '@/lib/base-path';
 
 // Define the tab type
 interface Tab {
@@ -33,8 +34,8 @@ export default function AIToolsTabs() {
       id: 'text',
       label: 'Text Generator',
       icon: <TextGeneratorIcon className="w-8 h-8" />,
-      lightImage: '/images/tab-image/tab-image-1.jpg',
-      darkImage: '/images/tab-image/tab-image-1-dark.jpg',
+      lightImage: withBasePath('/images/tab-image/tab-image-1.jpg'),
+      darkImage: withBasePath('/images/tab-image/tab-image-1-dark.jpg'),
       title: 'Easiest way to generate text',
       description:
         'Unlock the Potential of Innovation. Discover the Advanced AI Tools Transforming Your Ideas into Reality with Unmatched Precision and Intelligence.',
@@ -43,8 +44,8 @@ export default function AIToolsTabs() {
       id: 'image',
       label: 'Image Generator',
       icon: <ImageGeneratorIcon className="w-8 h-8" />,
-      lightImage: '/images/tab-image/tab-image-2.jpg',
-      darkImage: '/images/tab-image/tab-image-2-dark.jpg',
+      lightImage: withBasePath('/images/tab-image/tab-image-2.jpg'),
+      darkImage: withBasePath('/images/tab-image/tab-image-2-dark.jpg'),
       title: 'Create stunning images with AI',
       description:
         'Unlock the Potential of Innovation. Discover the Advanced AI Tools Transforming Your Ideas into Reality with Unmatched Precision and Intelligence.',
@@ -53,8 +54,8 @@ export default function AIToolsTabs() {
       id: 'code',
       label: 'Code Generator',
       icon: <CodeGeneratorIcon className="w-8 h-8" />,
-      lightImage: '/images/tab-image/tab-image-3.jpg',
-      darkImage: '/images/tab-image/tab-image-3-dark.jpg',
+      lightImage: withBasePath('/images/tab-image/tab-image-3.jpg'),
+      darkImage: withBasePath('/images/tab-image/tab-image-3-dark.jpg'),
       title: 'Generate code in any language',
       description:
         'Unlock the Potential of Innovation. Discover the Advanced AI Tools Transforming Your Ideas into Reality with Unmatched Precision and Intelligence.',
@@ -63,8 +64,8 @@ export default function AIToolsTabs() {
       id: 'video',
       label: 'Video Generator',
       icon: <VideoGeneratorIcon className="w-8 h-8" />,
-      lightImage: '/images/tab-image/tab-image-4.jpg',
-      darkImage: '/images/tab-image/tab-image-4-dark.jpg',
+      lightImage: withBasePath('/images/tab-image/tab-image-4.jpg'),
+      darkImage: withBasePath('/images/tab-image/tab-image-4-dark.jpg'),
       title: 'Create engaging videos with AI',
       description:
         'Unlock the Potential of Innovation. Discover the Advanced AI Tools Transforming Your Ideas into Reality with Unmatched Precision and Intelligence.',
@@ -73,8 +74,8 @@ export default function AIToolsTabs() {
       id: 'email',
       label: 'Email Generator',
       icon: <EmailGeneratorIcon className="w-8 h-8" />,
-      lightImage: '/images/tab-image/tab-image-5.jpg',
-      darkImage: '/images/tab-image/tab-image-5-dark.jpg',
+      lightImage: withBasePath('/images/tab-image/tab-image-5.jpg'),
+      darkImage: withBasePath('/images/tab-image/tab-image-5-dark.jpg'),
       title: 'Write professional emails instantly',
       description:
         'Unlock the Potential of Innovation. Discover the Advanced AI Tools Transforming Your Ideas into Reality with Unmatched Precision and Intelligence.',

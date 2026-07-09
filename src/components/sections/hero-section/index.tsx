@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import { Subheading } from './subheading';
+import { withBasePath } from '@/lib/base-path';
 
 export default function HeroSection() {
  return (
  <section className="relative overflow-hidden pt-14 pb-24 sm:pt-18 sm:pb-30 lg:pt-20 lg:pb-36">
  <Image
- src="/images/hero/pucon.webp"
+ src={withBasePath("/images/hero/pucon.webp")}
  alt=""
  fill
  priority

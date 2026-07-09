@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { withBasePath } from "@/lib/base-path";
 
 export default function BenefitsGrid() {
   return (
@@ -162,7 +163,7 @@ export default function BenefitsGrid() {
                   </svg>
 
                   <Image
-                    src="/images/benefits/bn-1.svg"
+                    src={withBasePath("/images/benefits/bn-1.svg")}
                     className="-mb-8 md:-mb-13 w-full"
                     alt=""
                     width={488}
@@ -176,7 +177,7 @@ export default function BenefitsGrid() {
               <div className="benefits-bg rounded-[20px] p-12 overflow-hidden">
                 <div>
                   <Image
-                    src="/images/benefits/bn-2.svg"
+                    src={withBasePath("/images/benefits/bn-2.svg")}
                     alt=""
                     width={306}
                     height={279}
@@ -212,7 +213,7 @@ export default function BenefitsGrid() {
                 </div>
                 <div>
                   <Image
-                    src="/images/benefits/bn-3.svg"
+                    src={withBasePath("/images/benefits/bn-3.svg")}
                     className="hidden lg:block relative z-10"
                     alt=""
                     width={359}
@@ -220,7 +221,7 @@ export default function BenefitsGrid() {
                   />
                 </div>
                 <Image
-                  src="/images/benefits/blur-shape.png"
+                  src={withBasePath("/images/benefits/blur-shape.png")}
                   alt=""
                   className="h-full w-full -z-0 absolute top-0 right-0"
                   width={399}

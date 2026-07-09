@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import DesktopNav from './desktop-nav';
 import MainMobileNav from './main-mobile-nav';
 import { usePathname } from 'next/navigation';
+import { withBasePath } from '@/lib/base-path';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function Header() {
           <div className="flex items-center">
             <Link href="/" className="flex items-end gap-2">
               <Image
-                src="/images/wacci-122x64.png"
+                src={withBasePath("/images/wacci-122x64.png")}
                 alt="WACCI 2026"
                 width={122}
                 height={64}

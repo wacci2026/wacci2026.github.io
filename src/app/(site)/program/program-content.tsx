@@ -24,10 +24,12 @@ const scheduleData = {
   ]
 };
 
-export default function ProgramContent() {
-  const [activeTab, setActiveTab] = useState<'all' | 'day1' | 'day2' | 'day3'>('all');
+type ProgramTab = 'all' | 'day1' | 'day2' | 'day3';
 
-  const tabs = [
+export default function ProgramContent() {
+  const [activeTab, setActiveTab] = useState<ProgramTab>('all');
+
+  const tabs: { id: ProgramTab; label: string }[] = [
     { id: 'all', label: 'All Days' },
     { id: 'day1', label: 'Day 1 (Oct 15)' },
     { id: 'day2', label: 'Day 2 (Oct 16)' },
@@ -135,7 +137,7 @@ export default function ProgramContent() {
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 py-4 px-2 min-w-[120px] text-center text-sm font-semibold transition-all border-b-2 ${
                   activeTab === tab.id
                     ? 'text-primary-500 border-primary-500'

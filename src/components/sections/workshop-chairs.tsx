@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { withBasePath } from "@/lib/base-path";
 
 const sectionContent = {
  hidden: { opacity: 0, y: 56 },
@@ -25,19 +26,19 @@ const WORKSHOP_CHAIRS = [
  name: "Dr. Pablo Meza",
  affiliation: "Universidad de La Frontera",
  country: "Chile",
- imageUrl: "/images/speakers/pablo-meza.jpg",
+ imageUrl: withBasePath("/images/speakers/pablo-meza.jpg"),
  },
  {
  name: "Dr. Esteban Vera",
  affiliation: "Pontificia Universidad Catolica de Valparaiso",
  country: "Chile",
- imageUrl: "/images/speakers/esteban-vera.jpg",
+ imageUrl: withBasePath("/images/speakers/esteban-vera.jpg"),
  },
  {
  name: "Dr. Nelson Diaz",
  affiliation: "Universidad Tecnica Federico Santa Maria",
  country: "Chile",
- imageUrl: "/images/speakers/nelson-diaz.jpg",
+ imageUrl: withBasePath("/images/speakers/nelson-diaz.jpg"),
  },
 ];
 

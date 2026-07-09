@@ -4,6 +4,7 @@ import SectionDivider from "@/components/sections/section-divider";
 import WorkshopChairs from "@/components/sections/workshop-chairs";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { withBasePath } from "@/lib/base-path";
 
 const topics = [
   "Compressive sensing",
@@ -26,19 +27,19 @@ const archiveItems = [
   {
     title: "WACCI 2019",
     location: "Valparaiso, Chile",
-    imageUrl: "/archive/valp-1400x878.jpg",
+    imageUrl: withBasePath("/archive/valp-1400x878.jpg"),
     href: "https://wacci2019.pucv.cl/",
   },
   {
     title: "WACCI 2022",
     location: "Bucaramanga, Colombia",
-    imageUrl: "/archive/bucaramanga.jpg",
+    imageUrl: withBasePath("/archive/bucaramanga.jpg"),
     href: "https://wacci2022.github.io/",
   },
   {
     title: "WACCI 2024",
     location: "Montevideo, Uruguay",
-    imageUrl: "/archive/Kibon.png",
+    imageUrl: withBasePath("/archive/Kibon.png"),
     href: "https://wacci2024.github.io/index.html",
   },
 ];
@@ -48,19 +49,19 @@ const programCommittee = [
     name: "Member to be announced",
     affiliation: "Affiliation to be announced",
     country: "Country to be announced",
-    imageUrl: "/images/speakers/pablo-meza.jpg",
+    imageUrl: withBasePath("/images/speakers/pablo-meza.jpg"),
   },
   {
     name: "Member to be announced",
     affiliation: "Affiliation to be announced",
     country: "Country to be announced",
-    imageUrl: "/images/speakers/esteban-vera.jpg",
+    imageUrl: withBasePath("/images/speakers/esteban-vera.jpg"),
   },
   {
     name: "Member to be announced",
     affiliation: "Affiliation to be announced",
     country: "Country to be announced",
-    imageUrl: "/images/speakers/nelson-diaz.jpg",
+    imageUrl: withBasePath("/images/speakers/nelson-diaz.jpg"),
   },
 ];
 
@@ -69,19 +70,19 @@ const organizingCommittee = [
     name: "Member to be announced",
     affiliation: "Affiliation to be announced",
     country: "Country to be announced",
-    imageUrl: "/images/speakers/pablo-meza.jpg",
+    imageUrl: withBasePath("/images/speakers/pablo-meza.jpg"),
   },
   {
     name: "Member to be announced",
     affiliation: "Affiliation to be announced",
     country: "Country to be announced",
-    imageUrl: "/images/speakers/esteban-vera.jpg",
+    imageUrl: withBasePath("/images/speakers/esteban-vera.jpg"),
   },
   {
     name: "Member to be announced",
     affiliation: "Affiliation to be announced",
     country: "Country to be announced",
-    imageUrl: "/images/speakers/nelson-diaz.jpg",
+    imageUrl: withBasePath("/images/speakers/nelson-diaz.jpg"),
   },
 ];
 
@@ -103,23 +104,23 @@ const partnerItems = [
 const sponsorItems = [
   {
     name: "Optica",
-    imageUrl: "/sponsors/logo_optica_knockout_rgb_300dpi.png",
+    imageUrl: withBasePath("/sponsors/logo_optica_knockout_rgb_300dpi.png"),
   },
   {
     name: "Air Force Research Laboratory",
-    imageUrl: "/sponsors/Air_Force_Research_Laboratory.png",
+    imageUrl: withBasePath("/sponsors/Air_Force_Research_Laboratory.png"),
   },
   {
     name: "United States Army",
-    imageUrl: "/sponsors/Logo_of_the_United_States_Army.svg.webp",
+    imageUrl: withBasePath("/sponsors/Logo_of_the_United_States_Army.svg.webp"),
   },
   {
     name: "Office of Naval Research",
-    imageUrl: "/sponsors/logo.png",
+    imageUrl: withBasePath("/sponsors/logo.png"),
   },
   {
     name: "Thorlabs",
-    imageUrl: "/sponsors/logo_red_rgb.svg",
+    imageUrl: withBasePath("/sponsors/logo_red_rgb.svg"),
   },
 ];
 
