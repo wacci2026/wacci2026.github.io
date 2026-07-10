@@ -7,8 +7,10 @@ export const metadata: Metadata = {
 export default function VenuePage() {
   return (
     <>
-      <section className="py-20 md:py-28 relative overflow-hidden">
-        <div className="wrapper">
+      <section className="py-20 md:py-28 relative overflow-hidden bg-[#FAFAFA]">
+        <div className="absolute top-20 -left-20 h-96 w-96 rounded-full bg-blue-100 opacity-60 mix-blend-multiply blur-3xl" aria-hidden="true" />
+        <div className="absolute top-20 -right-20 h-96 w-96 rounded-full bg-blue-100 opacity-60 mix-blend-multiply blur-3xl" aria-hidden="true" />
+        <div className="wrapper relative z-10">
           <div className="max-w-[800px] mx-auto">
             <h1 className="text-4xl md:text-title-lg font-bold text-gray-900 mb-4">
               Venue

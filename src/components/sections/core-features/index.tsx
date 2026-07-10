@@ -23,9 +23,11 @@ const cardMotion = {
 
 export function SpeakersSection() {
  return (
- <section className="py-12 sm:py-15 bg-gray-50 px-5">
+ <section className="relative overflow-hidden bg-[#FAFAFA] px-5 py-12 sm:py-15">
+ <div className="absolute top-20 -left-20 h-96 w-96 rounded-full bg-blue-100 opacity-60 mix-blend-multiply blur-3xl" aria-hidden="true" />
+ <div className="absolute top-20 -right-20 h-96 w-96 rounded-full bg-blue-100 opacity-60 mix-blend-multiply blur-3xl" aria-hidden="true" />
  <motion.div
- className="max-w-[72rem] mx-auto"
+ className="relative z-10 max-w-[72rem] mx-auto"
  initial="hidden"
  whileInView="visible"
  viewport={{ once: true, amount: 0.2 }}
@@ -51,9 +53,13 @@ export function SpeakersSection() {
 
  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-8">
  {INVITED_SPEAKERS.map((speaker, index) => (
- <motion.article
+ <motion.a
  key={speaker.name}
- className="person-card-motion group relative min-h-[380px] overflow-hidden rounded-[24px] border border-white/20 bg-gray-900 shadow-[0px_28px_70px_-36px_rgba(14,23,38,0.55)]"
+ href={speaker.scholarUrl}
+ target="_blank"
+ rel="noreferrer"
+ aria-label={`View ${speaker.name} on Google Scholar`}
+ className="person-card-motion group relative min-h-[380px] overflow-hidden rounded-[24px] border border-white/20 bg-gray-900 shadow-[0px_28px_70px_-36px_rgba(14,23,38,0.55)] focus:outline-none focus:ring-2 focus:ring-primary-500"
  initial="hidden"
  whileInView="visible"
  viewport={{ once: true, amount: 0.25 }}
@@ -66,10 +72,14 @@ export function SpeakersSection() {
  alt={speaker.name}
  fill
  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
- className="object-cover transition duration-500 group-hover:scale-105"
+ className={`object-cover transition duration-500 ${
+ speaker.name === "Dr. Pablo Meza"
+ ? "scale-110 group-hover:scale-[1.15]"
+ : "group-hover:scale-105"
+ }`}
  />
  </div>
- <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/35 to-black/5" />
+ <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
  <div className="relative flex h-full min-h-[380px] flex-col items-center justify-end p-5 text-center text-white">
  <h3 className="text-2xl font-bold leading-tight">
  {speaker.name}
@@ -81,7 +91,7 @@ export function SpeakersSection() {
  {speaker.country}
  </p>
  </div>
- </motion.article>
+ </motion.a>
  ))}
  </div>
  </motion.div>

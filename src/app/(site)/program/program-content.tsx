@@ -117,8 +117,8 @@ export default function ProgramContent() {
 
   return (
     <main className="min-h-screen py-16 lg:py-24 bg-[#FAFAFA] relative overflow-hidden">
-      {/* Subtle light background gradients matching photo_2 */}
-      <div className="absolute top-20 -left-20 w-96 h-96 bg-primary-100 rounded-full mix-blend-multiply filter blur-3xl animate-blob opacity-60" />
+      {/* Blue-only background gradients */}
+      <div className="absolute top-20 -left-20 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl animate-blob opacity-60" />
       <div className="absolute top-20 -right-20 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl animate-blob opacity-60" style={{ animationDelay: '2000ms' }} />
 
       <div className="container px-4 mx-auto relative z-10 max-w-7xl">

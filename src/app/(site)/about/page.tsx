@@ -46,45 +46,71 @@ const archiveItems = [
 
 const programCommittee = [
   {
-    name: "Member to be announced",
-    affiliation: "Affiliation to be announced",
-    country: "Country to be announced",
-    imageUrl: withBasePath("/images/speakers/pablo-meza.jpg"),
+    name: "Dr. Ariel Fernández",
+    affiliation: "Universidad de la República",
+    country: "Uruguay",
+    imageUrl: withBasePath("/images/org_committee/Ariel Fernandez.jpg"),
+    scholarUrl: "https://scholar.google.com/citations?user=pKnXApcAAAAJ&hl=en",
   },
   {
-    name: "Member to be announced",
-    affiliation: "Affiliation to be announced",
-    country: "Country to be announced",
-    imageUrl: withBasePath("/images/speakers/esteban-vera.jpg"),
+    name: "Dr. Edgar Salazar",
+    affiliation: "Universidad Privada Boliviana",
+    country: "Bolivia",
+    imageUrl: withBasePath("/images/org_committee/Edgar Salazar.png"),
+    scholarUrl: "https://scholar.google.com/citations?user=eBrLPiEAAAAJ&hl=en",
   },
   {
-    name: "Member to be announced",
-    affiliation: "Affiliation to be announced",
-    country: "Country to be announced",
-    imageUrl: withBasePath("/images/speakers/nelson-diaz.jpg"),
+    name: "Dr. Felipe Guzman",
+    affiliation: "The University of Tokyo",
+    country: "Japan",
+    imageUrl: withBasePath("/images/org_committee/Felipe Guzman.jpg"),
+    scholarUrl: "https://scholar.google.com/citations?hl=en&user=5coO9WgAAAAJ&view_op=list_works&sortby=pubdate",
+  },
+  {
+    name: "Dr. Hoover Rueda-Chacón",
+    affiliation: "Universidad Industrial de Santander",
+    country: "Colombia",
+    imageUrl: withBasePath("/images/org_committee/Hoover_Rueda-Chacon.jpeg"),
+    scholarUrl: "https://scholar.google.com/citations?user=seyRms4AAAAJ&hl=en",
+  },
+  {
+    name: "Dr. Jorge Tapia",
+    affiliation: "Universidad Téc. Federico Santa María",
+    country: "Chile",
+    imageUrl: withBasePath("/images/org_committee/Jorge Tapia.jpg"),
+    scholarUrl: "https://scholar.google.com/citations?user=HXsly_4AAAAJ&hl=en",
+  },
+  {
+    name: "Dra. Julia R. Alonso",
+    affiliation: "Universidad de la República",
+    country: "Uruguay",
+    imageUrl: withBasePath("/images/org_committee/Julia Alonso.jpg"),
+    scholarUrl: "https://scholar.google.com/citations?user=5qltrLYAAAAJ&hl=en",
+  },
+  {
+    name: "Dr. Miguel Marquez",
+    affiliation: "INRS",
+    country: "Canada",
+    imageUrl: withBasePath("/images/org_committee/Miguel Marquez.jpeg"),
+    scholarUrl: "https://scholar.google.com/citations?user=-avLBEoAAAAJ&hl=es&oi=ao",
+  },
+  {
+    name: "Dr. Nelson Diaz",
+    affiliation: "Universidad Téc. Federico Santa María",
+    country: "Chile",
+    imageUrl: withBasePath("/images/org_committee/Nelson Diìaz.JPG"),
+    scholarUrl: "https://scholar.google.com/citations?user=JQXNzLUAAAAJ&hl=en",
+  },
+  {
+    name: "Dr. Samuel Pinilla",
+    affiliation: "Diamond Light Source",
+    country: "UK",
+    imageUrl: withBasePath("/images/org_committee/Samuel Pinilla.jpeg"),
+    scholarUrl: "https://scholar.google.com/citations?user=yGayy7sAAAAJ&hl=en",
   },
 ];
 
-const organizingCommittee = [
-  {
-    name: "Member to be announced",
-    affiliation: "Affiliation to be announced",
-    country: "Country to be announced",
-    imageUrl: withBasePath("/images/speakers/pablo-meza.jpg"),
-  },
-  {
-    name: "Member to be announced",
-    affiliation: "Affiliation to be announced",
-    country: "Country to be announced",
-    imageUrl: withBasePath("/images/speakers/esteban-vera.jpg"),
-  },
-  {
-    name: "Member to be announced",
-    affiliation: "Affiliation to be announced",
-    country: "Country to be announced",
-    imageUrl: withBasePath("/images/speakers/nelson-diaz.jpg"),
-  },
-];
+const organizingCommittee: [] = [];
 
 const partnerItems = [
   {
@@ -163,6 +189,7 @@ type CommitteePerson = {
   affiliation: string;
   country: string;
   imageUrl: string;
+  scholarUrl?: string;
 };
 
 function CommitteeSection({
@@ -202,8 +229,13 @@ function CommitteeSection({
           />
         </motion.div>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {people.map((person, index) => (
+        {people.length === 0 ? (
+          <p className="text-center text-xl font-medium text-gray-500">
+            To be defined
+          </p>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-3">
+            {people.map((person, index) => (
             <motion.article
               key={`${title}-${index}`}
               className="person-card-motion group relative min-h-[380px] overflow-hidden rounded-[24px] border border-white/20 bg-gray-900 shadow-[0px_28px_70px_-36px_rgba(14,23,38,0.55)]"
@@ -227,7 +259,7 @@ function CommitteeSection({
                   className="object-cover transition duration-500 group-hover:scale-105"
                 />
               </div>
-              <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/35 to-black/5" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
               <div className="relative flex h-full min-h-[380px] flex-col items-center justify-end p-5 text-center text-white">
                 <h3 className="text-2xl font-bold leading-tight">
                   {person.name}
@@ -239,9 +271,19 @@ function CommitteeSection({
                   {person.country}
                 </p>
               </div>
+              {person.scholarUrl && (
+                <a
+                  href={person.scholarUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`View ${person.name} on Google Scholar`}
+                  className="absolute inset-0 z-20 rounded-[24px] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-inset"
+                />
+              )}
             </motion.article>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
@@ -340,8 +382,10 @@ function SponsorsSection() {
 export default function AboutPage() {
   return (
     <main className="bg-gray-50">
-      <section className="px-5 py-10 sm:py-18">
-        <div className="mx-auto max-w-7xl">
+      <section className="relative overflow-hidden bg-[#FAFAFA] px-5 py-10 sm:py-18">
+        <div className="absolute top-20 -left-20 h-96 w-96 rounded-full bg-blue-100 opacity-60 mix-blend-multiply blur-3xl" aria-hidden="true" />
+        <div className="absolute top-20 -right-20 h-96 w-96 rounded-full bg-blue-100 opacity-60 mix-blend-multiply blur-3xl" aria-hidden="true" />
+        <div className="relative z-10 mx-auto max-w-7xl">
           <motion.div
             className="mx-auto max-w-4xl text-center"
             initial="hidden"
