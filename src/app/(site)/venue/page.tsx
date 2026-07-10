@@ -1,99 +1,82 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Venue",
+  title: "Venue | WACCI 2026",
+  description: "Venue information for WACCI 2026 in Pucón, Chile.",
 };
 
 export default function VenuePage() {
   return (
-    <>
-      <section className="py-20 md:py-28 relative overflow-hidden bg-[#FAFAFA]">
-        <div className="absolute top-20 -left-20 h-96 w-96 rounded-full bg-blue-100 opacity-60 mix-blend-multiply blur-3xl" aria-hidden="true" />
-        <div className="absolute top-20 -right-20 h-96 w-96 rounded-full bg-blue-100 opacity-60 mix-blend-multiply blur-3xl" aria-hidden="true" />
-        <div className="wrapper relative z-10">
-          <div className="max-w-[800px] mx-auto">
-            <h1 className="text-4xl md:text-title-lg font-bold text-gray-900 mb-4">
-              Venue
-            </h1>
+    <main className="min-h-screen py-16 lg:py-24 bg-[#FAFAFA] relative overflow-hidden">
+      <div className="absolute top-20 -left-20 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl animate-blob opacity-60" />
+      <div className="absolute top-20 -right-20 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl animate-blob opacity-60" style={{ animationDelay: "2000ms" }} />
 
-            <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-8">
-              The Venue for the Workshop will be{" "}
-              <a
-                href="https://www.marriott.com/en-us/hotels/mvdal-aloft-montevideo-hotel/overview/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary-500 hover:text-primary-600 font-semibold"
-              >
-                Aloft Montevideo Hotel
-              </a>
-              .
+      <div className="container px-4 mx-auto relative z-10 max-w-5xl">
+        <div className="text-center mb-16 section-title-motion">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-primary-500 mb-4">
+            Venue
+          </h1>
+          <span className="text-primary-500 font-bold tracking-widest uppercase text-xs mb-6 block">
+            Pucón, Chile
+          </span>
+        </div>
+
+        <div className="bg-white rounded-[24px] shadow-lg shadow-gray-200/50 border border-gray-100 p-8 md:p-12 text-base md:text-lg text-gray-600 leading-relaxed space-y-6 animate-fade-up animate-delay-2">
+          <h2 className="text-xl font-bold text-gray-900">
+            Getting to Pucón
+          </h2>
+
+          <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100">
+            <h3 className="text-lg font-bold text-primary-500 mb-4">By Taxi or Uber</h3>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              From La Araucanía International Airport (ZCO) in Temuco, the journey to Pucón takes
+              approximately 1.5 hours by car. Taxis and Uber are available at the airport. Official
+              airport taxis accept credit cards. Ride-sharing apps like Uber are usually a convenient
+              and affordable option.
             </p>
-
-            <h2 className="mb-6 text-3xl font-semibold text-gray-900 md:text-title-lg">
-              Transportation to the hotel from Carrasco International Airport
-            </h2>
-
-            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-              By taxi or Uber
-            </h3>
-            <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-8">
-              The journey to downtown Montevideo takes approximately 40 minutes.
-              Official airport taxis charge around 55 USD and accept credit
-              cards (
-              <a
-                href="http://www.taxisaeropuerto.com/en/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary-500 hover:text-primary-600"
-              >
-                taxisaeropuerto.com
-              </a>
-              ). Uber is usually a convenient and affordable option. Pickups are
-              located at the departure level on the upper floor (cost depending
-              on demand).{" "}
-              <span className="font-semibold text-gray-700 dark:text-gray-300">
-                Important note:
-              </span>{" "}
-              Please be aware that the availability of services like Uber or
-              public taxis from the airport may vary depending on the time of
+            <p className="text-sm text-gray-600 leading-relaxed mt-3">
+              <span className="font-semibold text-gray-700">Important note:</span>{" "}
+              Availability of services like Uber or public taxis may vary depending on the time of
               your arrival.
             </p>
+          </div>
 
-            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-              By bus
-            </h3>
-            <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-10">
-              The journey takes approximately 1 hour. Public buses offer a more
-              economical option at around 5 USD (payable in Uruguayan pesos).
-              The airport provides currency exchange services. Information about
-              available bus lines can be obtained at the airport&apos;s
-              information desk (
-              <a
-                href="https://aeropuertodecarrasco.com.uy/en/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary-500 hover:text-primary-600"
-              >
-                aeropuertodecarrasco.com.uy
-              </a>
-              ).
+          <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100">
+            <h3 className="text-lg font-bold text-primary-500 mb-4">By Bus</h3>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              Direct buses from Santiago (10–12 hrs) and other major cities arrive at Pucón&apos;s
+              central terminal. Public buses offer a more economical option for traveling around
+              the region.
             </p>
+          </div>
 
-            <div className="w-full overflow-hidden rounded-xl shadow-theme-sm">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1635.6417500088794!2d-56.158852289105496!3d-34.92442626258438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f817818a890d7%3A0x82d7f9d9b2de1fe!2sAloft%20Montevideo%20Hotel!5e0!3m2!1ses!2suy!4v1722984527784!5m2!1ses!2suy"
-                width="100%"
-                height="450"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full"
-              />
-            </div>
+          <div className="mt-6 text-center animate-fade-up animate-delay-3">
+            <a
+              href="https://www.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
+            >
+              Open in Google Maps
+            </a>
           </div>
         </div>
-      </section>
-    </>
+
+        <div className="mt-10 bg-white rounded-[24px] shadow-lg shadow-gray-200/50 border border-gray-100 p-4 animate-fade-up animate-delay-4">
+          <div className="w-full overflow-hidden rounded-xl">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d311399.9197434677!2d-72.09927454229588!3d-39.27289552721453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x96149e8b2eb5349b%3A0xae9dd2c89ad12cf4!2sPuc%C3%B3n%2C%20Araucan%C3%ADa%2C%20Chile!5e0!3m2!1ses!2suy!4v1722984527784!5m2!1ses!2suy"
+              width="100%"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full"
+            />
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
