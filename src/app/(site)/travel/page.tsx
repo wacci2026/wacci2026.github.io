@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { withBasePath } from "@/lib/base-path";
+import SectionDivider from "@/components/sections/section-divider";
 
 export const metadata: Metadata = {
   title: "Travel – Pucón, Chile",
@@ -9,13 +10,13 @@ export const metadata: Metadata = {
 const facts = [
   {
     label: "Time Zone",
-    value: "UTC−4 (CLT)",
-    note: "DST: UTC−3 (CLST)",
+    value: "UTC−03:00 (Chile Summer Time)",
+    note: "December",
   },
   {
     label: "Currency",
     value: "Chilean Peso (CLP)",
-    note: "≈ $1 USD = $950 CLP",
+    note: "Credit/debit cards widely accepted",
   },
   {
     label: "Languages",
@@ -24,8 +25,8 @@ const facts = [
   },
   {
     label: "Avg. Temperature",
-    value: "14°C (57°F)",
-    note: "Summer 25°C / Winter 5°C",
+    value: "21°C / 8°C (70°F / 46°F)",
+    note: "December average",
   },
   {
     label: "Elevation",
@@ -115,34 +116,19 @@ export default function TravelPage() {
             <div className="grid md:grid-cols-5 gap-10">
               <div className="md:col-span-3">
                 <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-4">
-                  About Pucón
+                  Welcome to Pucón
                 </h2>
                 <div className="space-y-4 text-gray-500 dark:text-gray-400 leading-relaxed">
                   <p>
-                    Nestled on the shores of Lake Villarrica at the foot of the
-                    majestic Villarrica Volcano, Pucón is Chile&apos;s premier
-                    adventure tourism destination. Located in the heart of the
-                    Chilean Lake District, this charming town of approximately
-                    28,000 residents comes alive with travelers from around the
-                    globe seeking outdoor thrills, natural beauty, and
-                    world-class relaxation.
+                    Pucón, located in the Araucanía Region of southern Chile, is
+                    renowned as a hub for both adventure and relaxation. Nestled by
+                    Lake Villarrica and shadowed by the active Villarrica Volcano,
+                    it offers visitors a unique blend of breathtaking landscapes,
+                    national parks, and thermal springs.
                   </p>
                   <p>
-                    Pucón serves as the gateway to an extraordinary array of
-                    natural wonders. From the snow-capped peak of the active
-                    Villarrica Volcano to the ancient araucaria forests of
-                    Huerquehue National Park, from steaming thermal springs to
-                    pristine rivers perfect for rafting &mdash; the region
-                    offers an unmatched variety of experiences in every season.
-                  </p>
-                  <p>
-                    The town itself blends modern tourism infrastructure with
-                    authentic Chilean culture. You&apos;ll find excellent
-                    restaurants serving fresh lake fish and traditional cuisine,
-                    cozy lodges and luxury resorts, craft markets, and a
-                    welcoming local community. Whether you&apos;re seeking
-                    adrenaline-fueled adventures or serene moments in nature,
-                    Pucón delivers an unforgettable experience.
+                    The town provides an exceptional environment to unwind after a
+                    productive day of scientific sessions.
                   </p>
                 </div>
               </div>
@@ -179,7 +165,34 @@ export default function TravelPage() {
         </div>
       </section>
 
+      <SectionDivider />
+
       <section className="py-16 md:py-20 bg-gray-50 dark:bg-[#141b29] relative overflow-hidden">
+        <div className="wrapper">
+          <div className="max-w-[1000px] mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
+                Visa Information
+              </h2>
+              <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                Obtain information about required documentation needed to travel to Chile.
+              </p>
+              <a
+                href="https://www.chile.travel/en/visas/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-4 px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
+              >
+                Visa Information
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      <section className="py-16 md:py-20 relative overflow-hidden">
         <div className="wrapper">
           <div className="max-w-[1000px] mx-auto">
             <div className="text-center mb-12">
@@ -211,6 +224,119 @@ export default function TravelPage() {
           </div>
         </div>
       </section>
+
+      <SectionDivider />
+
+      <section className="py-16 md:py-20 bg-gray-50 dark:bg-[#141b29] relative overflow-hidden">
+        <div className="wrapper">
+          <div className="max-w-[1000px] mx-auto">
+            <div className="grid md:grid-cols-2 gap-10">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  Travel Guides
+                </h2>
+                <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
+                  Pucón is often considered Chile&apos;s adventure capital, offering a wide range of
+                  outdoor activities. From trekking Villarrica Volcano and exploring Huerquehue
+                  National Park to relaxing in thermal hot springs like Termas Geométricas,
+                  there&apos;s something for every nature lover.
+                </p>
+                <div className="space-y-3">
+                  <a
+                    href="https://www.chile.travel/en/destinations/pucon/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
+                  >
+                    <span className="text-xl">📖</span>
+                    <div>
+                      <h3 className="font-bold text-gray-900 text-sm">
+                        Chile Travel: Pucón
+                      </h3>
+                      <p className="text-xs text-primary-500">English</p>
+                    </div>
+                  </a>
+                  <a
+                    href="https://www.lonelyplanet.com/chile/araucania/pucon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
+                  >
+                    <span className="text-xl">🌍</span>
+                    <div>
+                      <h3 className="font-bold text-gray-900 text-sm">
+                        Lonely Planet: Pucón
+                      </h3>
+                      <p className="text-xs text-primary-500">English</p>
+                    </div>
+                  </a>
+                  <a
+                    href="https://puraaventura.com/chile/pucon/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
+                  >
+                    <span className="text-xl">🏔️</span>
+                    <div>
+                      <h3 className="font-bold text-gray-900 text-sm">
+                        Pura Aventura: Pucón
+                      </h3>
+                      <p className="text-xs text-primary-500">English</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  Dining
+                </h2>
+                <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
+                  Pucón has a diverse food scene shaped by Mapuche traditions, German influence,
+                  and modern Chilean cuisine. You&apos;ll find great local meats, fresh trout, and
+                  artisanal chocolates, especially around the town center and main streets.
+                </p>
+                <div className="space-y-3">
+                  <a
+                    href="https://www.tripadvisor.com/Restaurants-g303681-Pucon_Araucania_Region.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
+                  >
+                    <span className="text-xl">🍽️</span>
+                    <div>
+                      <h3 className="font-bold text-gray-900 text-sm">
+                        Top 10 Best Restaurants in Pucón
+                      </h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        Discover the best dining options in the Araucanía region
+                      </p>
+                    </div>
+                  </a>
+                  <a
+                    href="https://www.tripadvisor.com/Restaurants-g303681-zfp2552-Pucon_Araucania_Region.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
+                  >
+                    <span className="text-xl">🥗</span>
+                    <div>
+                      <h3 className="font-bold text-gray-900 text-sm">
+                        Best spots for lunch in Pucón
+                      </h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        Great options for a midday meal during your stay
+                      </p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
 
       <section className="py-16 md:py-20 relative overflow-hidden">
         <div className="wrapper">
