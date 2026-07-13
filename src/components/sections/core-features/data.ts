@@ -2,19 +2,38 @@ import { withBasePath } from "@/lib/base-path";
 
 export const INVITED_SPEAKERS = [
   {
-    name: "Dr. Pablo Meza",
-    affiliation: "Universidad de La Frontera",
-    country: "Chile",
-    imageUrl: withBasePath("/images/speakers/pablo_peza.png"),
-    scholarUrl:
-      "https://scholar.google.com/citations?hl=es&user=X3UDDjoAAAAJ&view_op=list_works&sortby=pubdate",
+    name: "David Brady",
+    affiliation: "University of Southern California",
+    country: "United States",
+    imageUrl: withBasePath("/images/speakers/daavid-brady.jpeg"),
+    scholarUrl: "https://scholar.google.com/citations?user=tOwfL60AAAAJ&hl=en",
   },
   {
-    name: "Dr. Esteban Vera",
-    affiliation: "Pontificia Universidad Católica de Valparaiso",
-    country: "Chile",
-    imageUrl: withBasePath("/images/speakers/esteban-vera.jpg"),
-    scholarUrl:
-      "https://scholar.google.com/citations?hl=es&user=ymoqnSgAAAAJ&view_op=list_works&sortby=pubdate",
+    name: "Enrique Tajahuerce",
+    affiliation: "University Jaume I",
+    country: "Spain",
+    imageUrl: withBasePath("/images/speakers/enrique-tajahuerce.jpeg"),
+    scholarUrl: "https://scholar.google.com/citations?user=wvDwqPQAAAAJ&hl=es",
+  },
+  {
+    name: "Demetri Psaltis",
+    affiliation: "Ecole Polytechnique Federale de Lausanne",
+    country: "Switzerland",
+    imageUrl: withBasePath("/images/speakers/demetri-psaltis.jpg"),
+    scholarUrl: "https://scholar.google.com/citations?user=-CVR2h8AAAAJ&hl=en",
+  },
+  {
+    name: "Xin Yuan",
+    affiliation: "Westlake University",
+    country: "China",
+    imageUrl: withBasePath("/images/speakers/xin-yuan.jpg"),
+    scholarUrl: "https://scholar.google.com/citations?user=cS9CbWkAAAAJ&hl=en",
+  },
+  {
+    name: "Marcus Carlsson",
+    affiliation: "Lund University",
+    country: "Sweden",
+    imageUrl: withBasePath("/images/speakers/marcus-carlsson.webp"),
+    scholarUrl: "https://scholar.google.com/citations?user=m6lEHxAAAAAJ&hl=sv",
   },
 ];

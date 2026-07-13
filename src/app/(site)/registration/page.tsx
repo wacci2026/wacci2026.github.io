@@ -16,14 +16,15 @@ export default function RegistrationPage() {
       <div className="container px-4 lg:px-8 mx-auto relative z-10 max-w-[1440px]">
         <div className="text-center mb-16 section-title-motion">
           <h1 className="text-4xl md:text-5xl font-extrabold text-primary-500 mb-4">
-            Conference Registration
+            Registration
           </h1>
-          <span className="text-primary-500 font-bold tracking-widest uppercase text-xs mb-6 block">Join Us</span>
+          <span className="text-primary-500 font-bold tracking-widest uppercase text-xs mb-6 block">To be defined</span>
         </div>
 
+        {/*
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
           
-          {/* Left Column: Google Form */}
+          Left Column: Google Form
           <div className="bg-white rounded-[24px] shadow-lg shadow-gray-200/50 border border-gray-100 p-2 md:p-4 w-full h-full animate-fade-up animate-delay-2 flex flex-col overflow-y-auto overflow-x-hidden">
              <iframe 
                src="https://docs.google.com/forms/d/e/1FAIpQLSfbGKAy2txYXRW6thTqB7DGsfhxxzG5sDIqLdDPwwnHmBlicw/viewform?embedded=true" 
@@ -38,7 +39,7 @@ export default function RegistrationPage() {
              </iframe>
           </div>
 
-          {/* Right Column: Existing Information */}
+          Right Column: Existing Information
           <div className="bg-white rounded-[24px] shadow-lg shadow-gray-200/50 border border-gray-100 p-8 md:p-10 text-base md:text-lg text-gray-600 leading-relaxed space-y-8 animate-fade-up animate-delay-3 h-full flex flex-col justify-center">
             
             <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100">
@@ -81,6 +82,7 @@ export default function RegistrationPage() {
 
           </div>
         </div>
+        */}
       </div>
     </main>
   );

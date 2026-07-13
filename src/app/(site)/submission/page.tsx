@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Abstract Submission | WACCI 2026',
@@ -30,23 +29,8 @@ export default function SubmissionPage() {
             Presentation can be either &quot;Oral&quot; or &quot;Poster&quot;. Corresponding session allocation is subject to the Chairs&apos; discretion given schedule availability.
           </p>
           <p>
-            The abstract must be submitted in PDF format and should follow the formatting rules that can be found in <Link href="/guidelines" className="text-primary-500 hover:text-primary-400 font-bold underline underline-offset-4">Submission Guidelines</Link>.
+            The abstract submission portal will be enabled soon.
           </p>
-
-          <div className="mt-8 p-6 bg-gray-50 rounded-2xl border border-gray-100">
-            <h3 className="text-lg font-bold text-primary-500 mb-4">Important Dates</h3>
-            <ul className="space-y-3 text-sm md:text-base text-gray-600">
-              <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3">
-                <span className="font-semibold text-gray-800 min-w-[260px]">1-page abstract submission deadline:</span>
-                <span><del className="text-gray-400 mr-2">September 23</del> <span className="font-bold text-primary-500">October 4</span></span>
-              </li>
-              <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3">
-                <span className="font-semibold text-gray-800 min-w-[260px]">Acceptance:</span>
-                <span><del className="text-gray-400 mr-2">October 10</del> <span className="font-bold text-primary-500">October 14</span></span>
-              </li>
-            </ul>
-          </div>
-
         </div>
       </div>
     </main>

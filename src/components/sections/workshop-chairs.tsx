@@ -26,7 +26,7 @@ const WORKSHOP_CHAIRS = [
  name: "Dr. Pablo Meza",
  affiliation: "Universidad de La Frontera",
  country: "Chile",
- imageUrl: withBasePath("/images/speakers/pablo_peza.png"),
+ imageUrl: withBasePath("/images/chairs/pablo_peza.png"),
  scholarUrl:
  "https://scholar.google.com/citations?hl=es&user=X3UDDjoAAAAJ&view_op=list_works&sortby=pubdate",
  },
@@ -34,7 +34,7 @@ const WORKSHOP_CHAIRS = [
  name: "Dr. Esteban Vera",
  affiliation: "Pontificia Universidad Catolica de Valparaiso",
  country: "Chile",
- imageUrl: withBasePath("/images/speakers/esteban-vera.jpg"),
+ imageUrl: withBasePath("/images/chairs/esteban-vera.jpg"),
  scholarUrl:
  "https://scholar.google.com/citations?hl=es&user=ymoqnSgAAAAJ&view_op=list_works&sortby=pubdate",
  },
