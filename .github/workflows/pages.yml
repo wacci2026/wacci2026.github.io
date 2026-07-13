@@ -34,7 +34,11 @@ jobs:
         run: npm ci
 
       - name: Build static site
-        run: npm run build
+        run: |
+          if [ "$GITHUB_REPOSITORY" = "wacci2026/wacci2026.github.io" ]; then
+            touch .deploy-root
+          fi
+          env -u GITHUB_REPOSITORY npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

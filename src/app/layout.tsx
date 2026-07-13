@@ -1,11 +1,6 @@
 import type { Metadata } from 'next';
-import { Onest } from 'next/font/google';
 import './globals.css';
 import { ToasterProvider } from './providers/toaster';
-
-const onest = Onest({
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   title: {
@@ -23,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-gray-50 min-h-screen flex flex-col ${onest.className}`}>
+      <body className="bg-gray-50 min-h-screen flex flex-col">
         {/* ToasterProvider must render before the children components */}
         {/* https://github.com/emilkowalski/sonner/issues/168#issuecomment-1773734618 */}
         <ToasterProvider />

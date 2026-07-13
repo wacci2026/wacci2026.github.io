@@ -1,15 +1,25 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import type { NextConfig } from "next";
 
 const isProduction = process.env.NODE_ENV === "production";
+const isRootDeployment = existsSync(join(process.cwd(), ".deploy-root"));
+const productionBasePath =
+  process.env.NEXT_PUBLIC_BASE_PATH ??
+  (isProduction && !isRootDeployment ? "/WACCI-2026" : "");
 
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: isProduction ? "/WACCI-2026" : "",
-  assetPrefix: isProduction ? "/WACCI-2026/" : "",
+  ...(productionBasePath
+    ? {
+        basePath: productionBasePath,
+        assetPrefix: `${productionBasePath}/`,
+        env: {
+          NEXT_PUBLIC_BASE_PATH: productionBasePath,
+        },
+      }
+    : {}),
   trailingSlash: true,
-  env: {
-    NEXT_PUBLIC_BASE_PATH: isProduction ? "/WACCI-2026" : "",
-  },
   images: {
     unoptimized: true,
     remotePatterns: [
