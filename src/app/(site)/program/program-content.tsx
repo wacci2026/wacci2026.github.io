@@ -126,47 +126,53 @@ export default function ProgramContent() {
           <h1 className="text-4xl md:text-5xl font-extrabold text-primary-500 mb-4">
             Conference Program
           </h1>
-          <span className="text-primary-500 font-bold tracking-widest uppercase text-xs mb-6 block">Schedule</span>
-          <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto section-copy-motion leading-relaxed">
-            Explore the packed schedule of WACCI 2026. Featuring world-class keynotes, deep-dive sessions, and unparalleled networking opportunities in computational and compressive imaging.
-          </p>
+          <span className="text-primary-500 font-bold tracking-widest uppercase text-xs mb-6 block">To be defined</span>
         </div>
 
-        <div className="bg-white rounded-[24px] shadow-lg shadow-gray-200/50 border border-gray-100 overflow-hidden mb-12 animate-fade-up animate-delay-2">
-          <div className="flex flex-wrap border-b border-gray-100 px-4 pt-4">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 py-4 px-2 min-w-[120px] text-center text-sm font-semibold transition-all border-b-2 ${
-                  activeTab === tab.id
-                    ? 'text-primary-500 border-primary-500'
-                    : 'text-gray-500 border-transparent hover:text-primary-400'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+        {/* Program details are commented out until the schedule is defined. */}
+        {false && (
+          <>
+            <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto section-copy-motion leading-relaxed">
+              Explore the packed schedule of WACCI 2026. Featuring world-class keynotes, deep-dive sessions, and unparalleled networking opportunities in computational and compressive imaging.
+            </p>
 
-          <div className="p-6 md:p-8">
-            {activeTab === 'all' && (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-                {renderCompactSchedule(scheduleData.day1, 'Day 1 (Oct 15)')}
-                {renderCompactSchedule(scheduleData.day2, 'Day 2 (Oct 16)')}
-                {renderCompactSchedule(scheduleData.day3, 'Day 3 (Oct 17)')}
+            <div className="bg-white rounded-[24px] shadow-lg shadow-gray-200/50 border border-gray-100 overflow-hidden mb-12 animate-fade-up animate-delay-2">
+              <div className="flex flex-wrap border-b border-gray-100 px-4 pt-4">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`flex-1 py-4 px-2 min-w-[120px] text-center text-sm font-semibold transition-all border-b-2 ${
+                      activeTab === tab.id
+                        ? 'text-primary-500 border-primary-500'
+                        : 'text-gray-500 border-transparent hover:text-primary-400'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
               </div>
-            )}
-            
-            {activeTab !== 'all' && (
-              <div className="max-w-4xl mx-auto">
-                {activeTab === 'day1' && renderSchedule(scheduleData.day1)}
-                {activeTab === 'day2' && renderSchedule(scheduleData.day2)}
-                {activeTab === 'day3' && renderSchedule(scheduleData.day3)}
+
+              <div className="p-6 md:p-8">
+                {activeTab === 'all' && (
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+                    {renderCompactSchedule(scheduleData.day1, 'Day 1 (Oct 15)')}
+                    {renderCompactSchedule(scheduleData.day2, 'Day 2 (Oct 16)')}
+                    {renderCompactSchedule(scheduleData.day3, 'Day 3 (Oct 17)')}
+                  </div>
+                )}
+                
+                {activeTab !== 'all' && (
+                  <div className="max-w-4xl mx-auto">
+                    {activeTab === 'day1' && renderSchedule(scheduleData.day1)}
+                    {activeTab === 'day2' && renderSchedule(scheduleData.day2)}
+                    {activeTab === 'day3' && renderSchedule(scheduleData.day3)}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </div>
+            </div>
+          </>
+        )}
       </div>
     </main>
   );
