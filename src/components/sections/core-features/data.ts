@@ -3,10 +3,10 @@ import { withBasePath } from "@/lib/base-path";
 export const INVITED_SPEAKERS = [
   {
     name: "David Brady",
-    affiliation: "University of Southern California",
+    affiliation: "University of Arizona",
     country: "United States",
-    imageUrl: withBasePath("/images/speakers/daavid-brady.jpeg"),
-    scholarUrl: "https://scholar.google.com/citations?user=tOwfL60AAAAJ&hl=en",
+    imageUrl: withBasePath("/images/speakers/david-brady.webp"),
+    scholarUrl: "https://scholar.google.com.mx/citations?user=CcSZwTsAAAAJ&hl=es&oi=ao",
   },
   {
     name: "Enrique Tajahuerce",
