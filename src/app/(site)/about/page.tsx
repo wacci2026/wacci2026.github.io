@@ -74,6 +74,13 @@ const programCommittee = [
     scholarUrl: "https://scholar.google.com/citations?user=seyRms4AAAAJ&hl=en",
   },
   {
+    name: "Dr. Jorge Bacca",
+    affiliation: "Universidad Industrial de Santander",
+    country: "Colombia",
+    imageUrl: withBasePath("/images/org_committee/Jorge Bacca.png"),
+    scholarUrl: "https://scholar.google.com/citations?user=I5f1HjEAAAAJ&hl=es",
+  },
+  {
     name: "Dr. Jorge Tapia",
     affiliation: "Universidad Téc. Federico Santa María",
     country: "Chile",
