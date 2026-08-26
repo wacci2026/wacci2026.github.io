@@ -5,6 +5,7 @@ import WorkshopChairs from "@/components/sections/workshop-chairs";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { withBasePath } from "@/lib/base-path";
+import { useDesktopMotion } from "@/hooks/use-desktop-motion";
 
 const topics = [
   "Compressive sensing",
@@ -210,6 +211,8 @@ function CommitteeSection({
   className?: string;
   showBackgroundAccent?: boolean;
 }) {
+  const isDesktop = useDesktopMotion();
+
   return (
     <section className={`${className} relative overflow-hidden px-5 py-16 sm:py-20`}>
       {showBackgroundAccent && (
@@ -220,12 +223,15 @@ function CommitteeSection({
       )}
       <div className="relative mx-auto max-w-6xl">
         <motion.div
+          key={isDesktop ? "desktop" : "static"}
           className="mx-auto mb-10 max-w-2xl text-center"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={fadeUp}
-          transition={{ type: "spring", stiffness: 80, damping: 20 }}
+          {...(isDesktop && {
+            initial: "hidden",
+            whileInView: "visible",
+            viewport: { once: true, amount: 0.5 },
+            variants: fadeUp,
+            transition: { type: "spring", stiffness: 80, damping: 20 },
+          })}
         >
           <h2 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl">
             {title}
@@ -244,18 +250,20 @@ function CommitteeSection({
           <div className="grid gap-6 md:grid-cols-3">
             {people.map((person, index) => (
             <motion.article
-              key={`${title}-${index}`}
+              key={`${title}-${index}-${isDesktop ? "desktop" : "static"}`}
               className="person-card-motion group relative min-h-[380px] overflow-hidden rounded-[24px] border border-white/20 bg-gray-900 shadow-[0px_28px_70px_-36px_rgba(14,23,38,0.55)]"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardFadeUp}
-              transition={{
-                type: "spring",
-                stiffness: 85,
-                damping: 18,
-                delay: index * 0.12,
-              }}
+              {...(isDesktop && {
+                initial: "hidden",
+                whileInView: "visible",
+                viewport: { once: true, amount: 0.3 },
+                variants: cardFadeUp,
+                transition: {
+                  type: "spring",
+                  stiffness: 85,
+                  damping: 18,
+                  delay: index * 0.12,
+                },
+              })}
             >
               <div className="absolute inset-0">
                 <Image

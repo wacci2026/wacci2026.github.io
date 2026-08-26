@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { withBasePath } from "@/lib/base-path";
+import { useDesktopMotion } from "@/hooks/use-desktop-motion";
 
 const sectionContent = {
  hidden: { opacity: 0, y: 56 },
@@ -41,6 +42,8 @@ const WORKSHOP_CHAIRS = [
 ];
 
 export default function WorkshopChairs() {
+ const isDesktop = useDesktopMotion();
+
  return (
  <section className="relative overflow-hidden py-16 sm:py-20 bg-[#073A4B] px-5">
  <div
@@ -48,20 +51,13 @@ export default function WorkshopChairs() {
  aria-hidden="true"
  />
  <motion.div
+ key={isDesktop ? "desktop" : "static"}
  className="relative max-w-[72rem] mx-auto"
- initial="hidden"
- whileInView="visible"
- viewport={{ once: true, amount: 0.2 }}
- variants={sectionContent}
- transition={{ type: "spring", stiffness: 70, damping: 18, mass: 0.7 }}
+ {...(isDesktop && { initial: "hidden", whileInView: "visible", viewport: { once: true, amount: 0.2 }, variants: sectionContent, transition: { type: "spring", stiffness: 70, damping: 18, mass: 0.7 } })}
  >
  <motion.div
  className="mb-12 text-center"
- initial="hidden"
- whileInView="visible"
- viewport={{ once: true, amount: 0.45 }}
- variants={sectionContent}
- transition={{ type: "spring", stiffness: 80, damping: 20 }}
+ {...(isDesktop && { initial: "hidden", whileInView: "visible", viewport: { once: true, amount: 0.45 }, variants: sectionContent, transition: { type: "spring", stiffness: 80, damping: 20 } })}
  >
  <h2 className="font-bold text-white text-3xl md:text-title-lg max-w-xl mx-auto">
  Workshop Chairs
@@ -81,11 +77,7 @@ export default function WorkshopChairs() {
  rel="noreferrer"
  aria-label={`View ${chair.name} on Google Scholar`}
  className="person-card-motion group relative min-h-[380px] overflow-hidden rounded-[24px] border border-white/20 bg-gray-900 shadow-[0px_28px_70px_-36px_rgba(14,23,38,0.55)] focus:outline-none focus:ring-2 focus:ring-white/70"
- initial="hidden"
- whileInView="visible"
- viewport={{ once: true, amount: 0.25 }}
- variants={cardMotion}
- transition={{ type: "spring", stiffness: 85, damping: 18, delay: index * 0.12 }}
+ {...(isDesktop && { initial: "hidden", whileInView: "visible", viewport: { once: true, amount: 0.25 }, variants: cardMotion, transition: { type: "spring", stiffness: 85, damping: 18, delay: index * 0.12 } })}
  >
  <div className="absolute inset-0">
  <Image
