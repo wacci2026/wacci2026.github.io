@@ -54,7 +54,7 @@ export const INVITED_SPEAKERS = [
     name: "Lars Lötgering",
     affiliation: "ZEISS",
     country: "Germany",
-    imageUrl: withBasePath("/images/speakers/lars-loetgering.jpeg"),
+    imageUrl: withBasePath("/images/speakers/lars-loetgering.webp"),
     scholarUrl: "https://scholar.google.com/citations?user=RPBTQIcAAAAJ&hl=en",
   },
   {
