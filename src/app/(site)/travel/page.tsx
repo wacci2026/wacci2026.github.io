@@ -242,7 +242,7 @@ export default function TravelPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-14 relative overflow-hidden">
+      <section className="py-16 md:py-20 relative overflow-hidden">
         <div className="wrapper">
           <div className="max-w-[1000px] mx-auto">
             <div className="grid md:grid-cols-5 gap-10">
@@ -262,22 +262,23 @@ export default function TravelPage() {
                     The town provides an exceptional environment to unwind after a
                     productive day of scientific sessions.
                   </p>
-                </div>
-                <h2 className="mt-10 text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
-                  Visa Information
-                </h2>
-                <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-                  Obtain information about required documentation needed to travel to Chile.
-                </p>
-                <div className="text-center mb-12">
-                  <a
-                    href=" https://chile.travel/en/good-to-know/entry-and-visa-requirements/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 mt-4 px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
-                  >
-                    Visa Information
-                  </a>
+                  <p>
+                    <em>
+                      <strong>General recommendation:</strong> given that December constitutes peak
+                      season in Pucón, it is highly recommended to secure lodging well
+                      in advance, particularly when seeking a cost-effective and
+                      centrally located option.
+                    </em>
+                  </p>
+                  <p>
+                    <em>
+                      <strong>Note:</strong> The Pucón Campus of the Universidad de La Frontera, the conference venue,
+                      is located at 78 Caupolicán Street, just steps from downtown Pucón. All subsequent
+                      recommendations are designed to be accessible within walking distance or a few
+                      minutes by car or taxi from the campus, and can be enjoyed during a free
+                      afternoon or, at most, a full day.
+                    </em>
+                  </p>
                 </div>
               </div>
 
@@ -313,31 +314,28 @@ export default function TravelPage() {
         </div>
       </section>
 
-       {/*<SectionDivider />
+      <SectionDivider />
 
       <section className="py-16 md:py-20 bg-gray-50 dark:bg-[#141b29] relative overflow-hidden">
-        <div className="wrapper">
-          <div className="max-w-[1000px] mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
-                Visa Information
-              </h2>
-              <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-                Obtain information about required documentation needed to travel to Chile.
-              </p>
-              <a
-                href=" https://chile.travel/en/good-to-know/entry-and-visa-requirements/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mt-4 px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
-              >
-                Visa Information
-              </a>
-            </div>
+        <div className="text-center">
+          <h2 className="mt-10 text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
+            Visa Information
+          </h2>
+          <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+            Obtain information about required documentation needed to travel to Chile.
+          </p>
+          <div className="text-center mb-12">
+            <a
+              href=" https://chile.travel/en/good-to-know/entry-and-visa-requirements/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-4 px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
+            >
+              Visa Information
+            </a>
           </div>
         </div>
-     </section>*/}
-
+      </section>
 
        <SectionDivider />
 
@@ -535,117 +533,6 @@ export default function TravelPage() {
           </div>
         </div>
       </section>
-
-      {/*<SectionDivider />
-
-      <section className="py-16 md:py-20 bg-gray-50 dark:bg-[#141b29] relative overflow-hidden">
-        <div className="wrapper">
-          <div className="max-w-[1000px] mx-auto">
-            <div className="grid md:grid-cols-2 gap-10">
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  Travel Guides
-                </h2>
-                <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
-                  Pucón is often considered Chile&apos;s adventure capital, offering a wide range of
-                  outdoor activities. From trekking Villarrica Volcano and exploring Huerquehue
-                  National Park to relaxing in thermal hot springs like Termas Geométricas,
-                  there&apos;s something for every nature lover.
-                </p>
-                <div className="space-y-3">
-                  <a
-                    href="https://www.chile.travel/en/destinations/pucon/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
-                  >
-                    <span className="text-xl">📖</span>
-                    <div>
-                      <h3 className="font-bold text-gray-900 text-sm">
-                        Chile Travel: Pucón
-                      </h3>
-                      <p className="text-xs text-primary-500">English</p>
-                    </div>
-                  </a>
-                  <a
-                    href="https://www.lonelyplanet.com/chile/araucania/pucon"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
-                  >
-                    <span className="text-xl">🌍</span>
-                    <div>
-                      <h3 className="font-bold text-gray-900 text-sm">
-                        Lonely Planet: Pucón
-                      </h3>
-                      <p className="text-xs text-primary-500">English</p>
-                    </div>
-                  </a>
-                  <a
-                    href="https://puraaventura.com/chile/pucon/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
-                  >
-                    <span className="text-xl">🏔️</span>
-                    <div>
-                      <h3 className="font-bold text-gray-900 text-sm">
-                        Pura Aventura: Pucón
-                      </h3>
-                      <p className="text-xs text-primary-500">English</p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  Dining
-                </h2>
-                <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
-                  Pucón has a diverse food scene shaped by Mapuche traditions, German influence,
-                  and modern Chilean cuisine. You&apos;ll find great local meats, fresh trout, and
-                  artisanal chocolates, especially around the town center and main streets.
-                </p>
-                <div className="space-y-3">
-                  <a
-                    href="https://www.tripadvisor.com/Restaurants-g303681-Pucon_Araucania_Region.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
-                  >
-                    <span className="text-xl">🍽️</span>
-                    <div>
-                      <h3 className="font-bold text-gray-900 text-sm">
-                        Top 10 Best Restaurants in Pucón
-                      </h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        Discover the best dining options in the Araucanía region
-                      </p>
-                    </div>
-                  </a>
-                  <a
-                    href="https://www.tripadvisor.com/Restaurants-g303681-zfp2552-Pucon_Araucania_Region.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
-                  >
-                    <span className="text-xl">🥗</span>
-                    <div>
-                      <h3 className="font-bold text-gray-900 text-sm">
-                        Best spots for lunch in Pucón
-                      </h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        Great options for a midday meal during your stay
-                      </p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>*/}
 
       <SectionDivider />
 
