@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import { withBasePath } from "@/lib/base-path";
 
 export const metadata: Metadata = {
   title: "Venue | WACCI 2026",
@@ -17,7 +19,7 @@ export default function VenuePage() {
             Venue
           </h1>
           <span className="text-primary-500 font-bold tracking-widest uppercase text-xs mb-6 block">
-            Pucón, Chile
+            UFRO Campus Pucón, Pucón, Chile
           </span>
         </div>
 
@@ -49,15 +51,27 @@ export default function VenuePage() {
               the region.
             </p>
           </div>
+        </div>
 
+        <div className="mt-10 bg-white rounded-[24px] shadow-lg shadow-gray-200/50 border border-gray-100 p-8 md:p-12 text-base md:text-lg text-gray-600 leading-relaxed space-y-6 animate-fade-up animate-delay-2">
+          <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden">
+            <Image
+              src={withBasePath("/images/venue/Campus_pucon.jpg")}
+              alt="UFRO Campus Pucón"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+              className="object-cover"
+              priority
+            />
+          </div>
           <div className="mt-6 text-center animate-fade-up animate-delay-3">
             <a
-              href="https://www.google.com"
+              href="https://campuspucon.ufro.cl/index.php/campus-pucon"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
             >
-              Open in Google Maps
+              UFRO Campus Pucón
             </a>
           </div>
         </div>
@@ -65,7 +79,7 @@ export default function VenuePage() {
         <div className="mt-10 bg-white rounded-[24px] shadow-lg shadow-gray-200/50 border border-gray-100 p-4 animate-fade-up animate-delay-4">
           <div className="w-full overflow-hidden rounded-xl">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d311399.9197434677!2d-72.09927454229588!3d-39.27289552721453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x96149e8b2eb5349b%3A0xae9dd2c89ad12cf4!2sPuc%C3%B3n%2C%20Araucan%C3%ADa%2C%20Chile!5e0!3m2!1ses!2suy!4v1722984527784!5m2!1ses!2suy"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6177.257052086832!2d-71.98229592314259!3d-39.273994371646175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x96147f144a88be9b%3A0x374196831ebd5664!2sUniversidad%20de%20La%20Frontera%20Campus%20Puc%C3%B3n!5e0!3m2!1ses!2sco!4v1788542175752!5m2!1ses!2sco"
               width="100%"
               height="450"
               style={{ border: 0 }}
