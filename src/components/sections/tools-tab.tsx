@@ -19,8 +19,7 @@ interface Tab {
   id: string;
   label: string;
   icon: React.ReactNode;
-  lightImage: string;
-  darkImage: string;
+  image: string;
   title: string;
   description: string;
 }
@@ -34,8 +33,7 @@ export default function AIToolsTabs() {
       id: 'text',
       label: 'Text Generator',
       icon: <TextGeneratorIcon className="w-8 h-8" />,
-      lightImage: withBasePath('/images/tab-image/tab-image-1.jpg'),
-      darkImage: withBasePath('/images/tab-image/tab-image-1-dark.jpg'),
+      image: withBasePath('/images/tab-image/tab-image-1.jpg'),
       title: 'Easiest way to generate text',
       description:
         'Unlock the Potential of Innovation. Discover the Advanced AI Tools Transforming Your Ideas into Reality with Unmatched Precision and Intelligence.',
@@ -44,8 +42,7 @@ export default function AIToolsTabs() {
       id: 'image',
       label: 'Image Generator',
       icon: <ImageGeneratorIcon className="w-8 h-8" />,
-      lightImage: withBasePath('/images/tab-image/tab-image-2.jpg'),
-      darkImage: withBasePath('/images/tab-image/tab-image-2-dark.jpg'),
+      image: withBasePath('/images/tab-image/tab-image-2.jpg'),
       title: 'Create stunning images with AI',
       description:
         'Unlock the Potential of Innovation. Discover the Advanced AI Tools Transforming Your Ideas into Reality with Unmatched Precision and Intelligence.',
@@ -54,8 +51,7 @@ export default function AIToolsTabs() {
       id: 'code',
       label: 'Code Generator',
       icon: <CodeGeneratorIcon className="w-8 h-8" />,
-      lightImage: withBasePath('/images/tab-image/tab-image-3.jpg'),
-      darkImage: withBasePath('/images/tab-image/tab-image-3-dark.jpg'),
+      image: withBasePath('/images/tab-image/tab-image-3.jpg'),
       title: 'Generate code in any language',
       description:
         'Unlock the Potential of Innovation. Discover the Advanced AI Tools Transforming Your Ideas into Reality with Unmatched Precision and Intelligence.',
@@ -64,8 +60,7 @@ export default function AIToolsTabs() {
       id: 'video',
       label: 'Video Generator',
       icon: <VideoGeneratorIcon className="w-8 h-8" />,
-      lightImage: withBasePath('/images/tab-image/tab-image-4.jpg'),
-      darkImage: withBasePath('/images/tab-image/tab-image-4-dark.jpg'),
+      image: withBasePath('/images/tab-image/tab-image-4.jpg'),
       title: 'Create engaging videos with AI',
       description:
         'Unlock the Potential of Innovation. Discover the Advanced AI Tools Transforming Your Ideas into Reality with Unmatched Precision and Intelligence.',
@@ -74,8 +69,7 @@ export default function AIToolsTabs() {
       id: 'email',
       label: 'Email Generator',
       icon: <EmailGeneratorIcon className="w-8 h-8" />,
-      lightImage: withBasePath('/images/tab-image/tab-image-5.jpg'),
-      darkImage: withBasePath('/images/tab-image/tab-image-5-dark.jpg'),
+      image: withBasePath('/images/tab-image/tab-image-5.jpg'),
       title: 'Write professional emails instantly',
       description:
         'Unlock the Potential of Innovation. Discover the Advanced AI Tools Transforming Your Ideas into Reality with Unmatched Precision and Intelligence.',
@@ -86,13 +80,13 @@ export default function AIToolsTabs() {
   const currentTab = tabs.find((tab) => tab.id === activeTab) || tabs[0];
 
   return (
-    <section className="py-14 md:py-28 dark:bg-dark-primary">
+    <section className="py-14 md:py-28">
       <div className="wrapper">
         <div className="max-w-2xl mx-auto mb-12 text-center">
-          <h2 className="mb-3 font-bold text-center text-gray-800 dark:text-white/90 text-3xl md:text-title-lg">
+          <h2 className="mb-3 font-bold text-center text-gray-800 text-3xl md:text-title-lg">
             All the AI tools you need, at your Fingertips.
           </h2>
-          <p className="max-w-2xl mx-auto leading-6 text-gray-500 dark:text-gray-400">
+          <p className="max-w-2xl mx-auto leading-6 text-gray-500">
             Unlock the Potential of Innovation, Discover the Advanced AI Tools
             Transforming Your Ideas into Reality with Unmatched Precision and
             Intelligence.
@@ -103,15 +97,15 @@ export default function AIToolsTabs() {
           <div>
             {/* Tab Navigation */}
             <div className="overflow-x-auto custom-scrollbar mx-auto max-w-fit relative">
-              <div className="flex gap-2 min-w-max rounded-full bg-gray-100 dark:bg-white/5 p-1">
+              <div className="flex gap-2 min-w-max rounded-full bg-gray-100 p-1">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex items-center h-12 gap-2 px-4 py-3 text-sm font-medium transition-colors duration-200 rounded-full ${
                       activeTab === tab.id
-                        ? 'bg-white dark:text-white/90 dark:bg-white/10 text-gray-800'
-                        : 'text-gray-500 dark:text-gray-400 bg-transparent'
+                        ? 'bg-white text-gray-800'
+                        : 'text-gray-500 bg-transparent'
                     }`}
                   >
                     {tab.icon}
@@ -128,25 +122,12 @@ export default function AIToolsTabs() {
                 {tabs.map((tab) => (
                   <Fragment key={tab.id}>
                     <Image
-                      src={tab.lightImage || '/placeholder.svg'}
+                      src={tab.image || '/placeholder.svg'}
                       alt={tab.label}
                       width={936}
                       height={535}
                       className={cn(
-                        'w-full rounded-2xl block dark:hidden',
-                        currentTab.id !== tab.id && 'hidden!'
-                      )}
-                      quality={90}
-                      priority
-                    />
-
-                    <Image
-                      src={tab.darkImage || '/placeholder.svg'}
-                      alt={tab.label}
-                      width={936}
-                      height={535}
-                      className={cn(
-                        'w-full rounded-2xl hidden dark:block',
+                        'w-full rounded-2xl block',
                         currentTab.id !== tab.id && 'hidden!'
                       )}
                       quality={90}
@@ -159,10 +140,10 @@ export default function AIToolsTabs() {
 
             {/* Bottom Section */}
             <div className="mt-6 text-center">
-              <h2 className="mb-2 text-xl font-bold text-gray-800 dark:text-white/90">
+              <h2 className="mb-2 text-xl font-bold text-gray-800">
                 {currentTab.title}
               </h2>
-              <p className="max-w-xl mx-auto mb-6 text-sm text-gray-500 dark:text-gray-400">
+              <p className="max-w-xl mx-auto mb-6 text-sm text-gray-500">
                 {currentTab.description}
               </p>
               <button className="px-6 py-3 text-sm font-medium text-white transition-colors rounded-full bg-primary-500 hover:bg-primary-600">
