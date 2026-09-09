@@ -250,7 +250,7 @@ export default function TravelPage() {
                 <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-4">
                   Welcome to Pucón
                 </h2>
-                <div className="space-y-4 text-gray-500 dark:text-gray-400 leading-relaxed">
+                <div className="space-y-4 text-gray-700 leading-relaxed text-justify">
                   <p>
                     Pucón, located in the Araucanía Region of southern Chile, is
                     renowned as a hub for both adventure and relaxation. Nestled by
@@ -266,7 +266,7 @@ export default function TravelPage() {
                 <h2 className="mt-10 text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
                   Visa Information
                 </h2>
-                <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                <p className="text-gray-700 max-w-2xl text-justify">
                   Obtain information about required documentation needed to travel to Chile.
                 </p>
                 <div className="text-center mb-12">
@@ -282,7 +282,7 @@ export default function TravelPage() {
               </div>
 
               <div className="md:col-span-2">
-                <div className="sticky rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary p-6 shadow-theme-sm">
+                <div className="sticky rounded-2xl border border-gray-100 bg-white p-6 shadow-theme-sm">
                   <h3 className="text-lg font-bold text-gray-900 mb-4">
                     Quick Facts
                   </h3>
@@ -290,17 +290,17 @@ export default function TravelPage() {
                     {facts.map((fact) => (
                       <div
                         key={fact.label}
-                        className="flex items-start justify-between gap-3 pb-3 border-b border-gray-100 dark:border-gray-800 last:border-0 last:pb-0"
+                        className="flex items-start justify-between gap-3 pb-3 border-b border-gray-100 last:border-0 last:pb-0"
                       >
                         <div>
-                          <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+                          <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             {fact.label}
                           </p>
                           <p className="text-sm font-semibold text-gray-900">
                             {fact.value}
                           </p>
                         </div>
-                        <p className="text-xs text-gray-400 dark:text-gray-500 shrink-0 text-right max-w-[120px]">
+                        <p className="text-xs text-gray-600 shrink-0 text-right max-w-[120px]">
                           {fact.note}
                         </p>
                       </div>
@@ -315,14 +315,14 @@ export default function TravelPage() {
 
        {/*<SectionDivider />
 
-      <section className="py-16 md:py-20 bg-gray-50 dark:bg-[#141b29] relative overflow-hidden">
+      <section className="py-16 md:py-20 bg-gray-50 relative overflow-hidden">
         <div className="wrapper">
           <div className="max-w-[1000px] mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
                 Visa Information
               </h2>
-              <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+              <p className="text-gray-500 max-w-2xl mx-auto">
                 Obtain information about required documentation needed to travel to Chile.
               </p>
               <a
@@ -341,14 +341,14 @@ export default function TravelPage() {
 
        <SectionDivider />
 
-       <section className="py-16 md:py-20 bg-gray-50 dark:bg-[#141b29] relative overflow-hidden">
+       <section className="py-16 md:py-20 bg-gray-50 relative overflow-hidden">
          <div className="wrapper">
            <div className="max-w-[1000px] mx-auto">
              <div className="text-center mb-12">
                <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
                  Food in Pucón
                </h2>
-               <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+               <p className="text-gray-700 max-w-2xl mx-auto">
                  Traditional dishes and dining spots to fuel your stay.
                </p>
              </div>
@@ -356,16 +356,16 @@ export default function TravelPage() {
              <h3 className="text-2xl font-bold text-gray-900 mb-1 text-center">
                Traditional Chilean Food
              </h3>
-             <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed mb-8 text-center">
+             <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed mb-8 text-center">
                Don&apos;t miss these regional specialties while you are in town.
              </p>
              <div className="grid sm:grid-cols-2 gap-6 mb-14">
                {traditionalFoods.map((food) => (
                  <div
                    key={food.name}
-                   className="overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm"
+                   className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-theme-sm"
                  >
-                   <div className="relative h-40 w-full overflow-hidden bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                   <div className="relative h-40 w-full overflow-hidden bg-gray-100 flex items-center justify-center">
                      {food.image ? (
                        // eslint-disable-next-line @next/next/no-img-element
                        <img
@@ -374,7 +374,7 @@ export default function TravelPage() {
                          className="h-full w-full object-cover"
                        />
                      ) : (
-                       <span className="text-sm text-gray-400 dark:text-gray-500">
+                       <span className="text-sm text-gray-600">
                          🍽️ Image coming soon
                        </span>
                      )}
@@ -383,7 +383,7 @@ export default function TravelPage() {
                      <h4 className="text-lg font-bold text-gray-900 mb-2">
                        {food.name}
                      </h4>
-                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                     <p className="text-sm text-gray-700 leading-relaxed text-center">
                        {food.description}
                      </p>
                    </div>
@@ -394,7 +394,7 @@ export default function TravelPage() {
              <h3 className="text-2xl font-bold text-gray-900 mb-1 text-center">
                Where to Eat
              </h3>
-             <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed mb-8 text-center">
+             <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed mb-8 text-center">
                A selection of recommended restaurants in Pucón.
              </p>
              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -404,12 +404,12 @@ export default function TravelPage() {
                    href={restaurant.href || "#"}
                    target="_blank"
                    rel="noopener noreferrer"
-                   className="group block rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary p-6 shadow-theme-sm hover:-translate-y-1 hover:border-primary-200 dark:hover:border-primary-800 hover:shadow-theme-lg transition-all duration-300 cursor-pointer"
+                   className="group block rounded-2xl border border-gray-100 bg-white p-6 shadow-theme-sm hover:-translate-y-1 hover:border-primary-200 hover:shadow-theme-lg transition-all duration-300 cursor-pointer"
                  >
                    <h4 className="text-lg font-bold text-gray-900 mb-2 text-center">
                      {restaurant.name}
                    </h4>
-                   <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed text-center">
+                   <p className="text-sm text-gray-700 leading-relaxed text-center">
                      {restaurant.description}
                    </p>
                    <p className="text-center text-sm font-bold text-primary-500 mt-3 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
@@ -419,7 +419,7 @@ export default function TravelPage() {
                ))}
              </div>
 
-             <p className="text-sm text-gray-500 dark:text-gray-400 max-w-3xl mx-auto text-center leading-relaxed">
+             <p className="text-sm text-gray-700 max-w-3xl mx-auto text-center leading-relaxed">
                Those preferring something more casual can also explore <strong>Fresia</strong> and
               <strong> O&apos;Higgins</strong> streets, where cafés, sandwich shops, and bars with
                craft beer are concentrated, all a short distance from the Campus.
@@ -430,14 +430,14 @@ export default function TravelPage() {
 
       <SectionDivider />
 
-      <section className="py-16 md:py-20 bg-gray-50 dark:bg-[#141b29] relative overflow-hidden">
+      <section className="py-16 md:py-20 bg-gray-50 relative overflow-hidden">
         <div className="wrapper">
           <div className="max-w-[1000px] mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
                 Accommodation in Pucón
               </h2>
-              <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+              <p className="text-gray-700 max-w-2xl mx-auto">
                 From hostels to executive hotels, find a place to stay within
                 walking distance of the venue.
               </p>
@@ -449,7 +449,7 @@ export default function TravelPage() {
                   <h3 className="text-xl font-bold text-gray-900 mb-1 text-center">
                     {accommodation.subtitle}
                   </h3>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm mb-6 max-w-2xl mx-auto leading-relaxed text-center">
+                  <p className="text-gray-700 text-sm mb-6 max-w-2xl mx-auto leading-relaxed text-center">
                     {accommodation.description}
                   </p>
                   <div className="flex flex-wrap justify-center gap-6">
@@ -459,7 +459,7 @@ export default function TravelPage() {
                         href={item.href || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group block w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary p-6 shadow-theme-sm hover:-translate-y-1 hover:border-primary-200 dark:hover:border-primary-800 hover:shadow-theme-lg transition-all duration-300 cursor-pointer"
+                        className="group block w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] rounded-2xl border border-gray-100 bg-white p-6 shadow-theme-sm hover:-translate-y-1 hover:border-primary-200 hover:shadow-theme-lg transition-all duration-300 cursor-pointer"
                       >
                         <span className="text-sm font-bold text-primary-500 mb-2 block text-center">
                           {accommodation.tier}
@@ -467,10 +467,10 @@ export default function TravelPage() {
                         <h4 className="text-center text-lg font-bold text-gray-900 mb-2">
                           {item.name}
                         </h4>
-                        <p className="text-center text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        <p className="text-center text-sm text-gray-700 leading-relaxed">
                           {item.description}
                         </p>
-                        <p className="text-center text-xs font-semibold text-gray-400 dark:text-gray-500 mt-3">
+                        <p className="text-center text-xs font-semibold text-gray-600 mt-3">
                           {item.distance} from venue
                         </p>
                         <p className="text-center text-sm font-bold text-primary-500 mt-3 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
@@ -495,7 +495,7 @@ export default function TravelPage() {
               <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
                 Things to Do in Pucón
               </h2>
-              <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+              <p className="text-gray-700 max-w-2xl mx-auto">
                 From volcano treks to thermal soaks, every day brings a new
                 adventure in Pucón.
               </p>
@@ -505,9 +505,9 @@ export default function TravelPage() {
               {activities.map((activity) => (
                 <div
                   key={activity.title}
-                  className="overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm"
+                  className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-theme-sm"
                 >
-                  <div className="relative h-40 w-full overflow-hidden bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                  <div className="relative h-40 w-full overflow-hidden bg-gray-100 flex items-center justify-center">
                     {activity.image ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -516,7 +516,7 @@ export default function TravelPage() {
                         className="h-full w-full object-cover"
                       />
                     ) : (
-                      <span className="text-sm text-gray-400 dark:text-gray-500">
+                      <span className="text-sm text-gray-600">
                         Image coming soon
                       </span>
                     )}
@@ -525,7 +525,7 @@ export default function TravelPage() {
                     <h3 className="text-lg font-bold text-gray-900 mb-2">
                       {activity.title}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                    <p className="text-sm text-gray-700 leading-relaxed">
                       {activity.description}
                     </p>
                   </div>
@@ -538,7 +538,7 @@ export default function TravelPage() {
 
       {/*<SectionDivider />
 
-      <section className="py-16 md:py-20 bg-gray-50 dark:bg-[#141b29] relative overflow-hidden">
+      <section className="py-16 md:py-20 bg-gray-50 relative overflow-hidden">
         <div className="wrapper">
           <div className="max-w-[1000px] mx-auto">
             <div className="grid md:grid-cols-2 gap-10">
@@ -546,7 +546,7 @@ export default function TravelPage() {
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
                   Travel Guides
                 </h2>
-                <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
+                <p className="text-gray-500 leading-relaxed mb-6">
                   Pucón is often considered Chile&apos;s adventure capital, offering a wide range of
                   outdoor activities. From trekking Villarrica Volcano and exploring Huerquehue
                   National Park to relaxing in thermal hot springs like Termas Geométricas,
@@ -557,7 +557,7 @@ export default function TravelPage() {
                     href="https://www.chile.travel/en/destinations/pucon/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 bg-white shadow-theme-sm hover:shadow-theme-lg transition-shadow"
                   >
                     <span className="text-xl">📖</span>
                     <div>
@@ -571,7 +571,7 @@ export default function TravelPage() {
                     href="https://www.lonelyplanet.com/chile/araucania/pucon"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 bg-white shadow-theme-sm hover:shadow-theme-lg transition-shadow"
                   >
                     <span className="text-xl">🌍</span>
                     <div>
@@ -585,7 +585,7 @@ export default function TravelPage() {
                     href="https://puraaventura.com/chile/pucon/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 bg-white shadow-theme-sm hover:shadow-theme-lg transition-shadow"
                   >
                     <span className="text-xl">🏔️</span>
                     <div>
@@ -602,7 +602,7 @@ export default function TravelPage() {
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
                   Dining
                 </h2>
-                <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
+                <p className="text-gray-500 leading-relaxed mb-6">
                   Pucón has a diverse food scene shaped by Mapuche traditions, German influence,
                   and modern Chilean cuisine. You&apos;ll find great local meats, fresh trout, and
                   artisanal chocolates, especially around the town center and main streets.
@@ -612,14 +612,14 @@ export default function TravelPage() {
                     href="https://www.tripadvisor.com/Restaurants-g303681-Pucon_Araucania_Region.html"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 bg-white shadow-theme-sm hover:shadow-theme-lg transition-shadow"
                   >
                     <span className="text-xl">🍽️</span>
                     <div>
                       <h3 className="font-bold text-gray-900 text-sm">
                         Top 10 Best Restaurants in Pucón
                       </h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-gray-500">
                         Discover the best dining options in the Araucanía region
                       </p>
                     </div>
@@ -628,14 +628,14 @@ export default function TravelPage() {
                     href="https://www.tripadvisor.com/Restaurants-g303681-zfp2552-Pucon_Araucania_Region.html"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary shadow-theme-sm hover:shadow-theme-lg transition-shadow"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 bg-white shadow-theme-sm hover:shadow-theme-lg transition-shadow"
                   >
                     <span className="text-xl">🥗</span>
                     <div>
                       <h3 className="font-bold text-gray-900 text-sm">
                         Best spots for lunch in Pucón
                       </h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-gray-500">
                         Great options for a midday meal during your stay
                       </p>
                     </div>
@@ -656,38 +656,38 @@ export default function TravelPage() {
               <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
                 Getting There
               </h2>
-              <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+              <p className="text-gray-700 max-w-2xl mx-auto">
                 Pucón is easily accessible by road from major Chilean cities.
               </p>
             </div>
 
             <div className="grid sm:grid-cols-3 gap-6 mb-12">
-              <div className="rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary p-6 shadow-theme-sm text-center">
+              <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-theme-sm text-center">
                 <span className="text-2xl block mb-2">✈️</span>
                 <h3 className="font-bold text-gray-900 mb-1">
                   By Air
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                <p className="text-sm text-gray-700 leading-relaxed">
                   Fly to La Araucanía International Airport (ZCO) in Temuco,
                   then drive 1.5 hours to Pucón.
                 </p>
               </div>
-              <div className="rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary p-6 shadow-theme-sm text-center">
+              <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-theme-sm text-center">
                 <span className="text-2xl block mb-2">🚌</span>
                 <h3 className="font-bold text-gray-900 mb-1">
                   By Bus
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                <p className="text-sm text-gray-700 leading-relaxed">
                   Direct buses from Santiago (10–12 hrs) and other cities arrive
                   at Pucón&apos;s central terminal.
                 </p>
               </div>
-              <div className="rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-dark-primary p-6 shadow-theme-sm text-center">
+              <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-theme-sm text-center">
                 <span className="text-2xl block mb-2">🚗</span>
                 <h3 className="font-bold text-gray-900 mb-1">
                   By Car
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                <p className="text-sm text-gray-700 leading-relaxed">
                   Take Route 5 south to Temuco, then Route 199-CH east. About 10
                   hours from Santiago.
                 </p>

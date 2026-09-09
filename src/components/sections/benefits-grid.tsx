@@ -8,10 +8,10 @@ export default function BenefitsGrid() {
     <section className="bg-gray-900 py-14 md:py-28">
       <div className="wrapper">
         <div className="max-w-2xl mx-auto mb-12 text-center">
-          <h2 className="max-w-lg mx-auto mb-3 font-bold text-center text-white dark:text-white/90 text-3xl md:text-title-lg">
+          <h2 className="max-w-lg mx-auto mb-3 font-bold text-center text-white text-3xl md:text-title-lg">
             The key benefits of using our tools.
           </h2>
-          <p className="max-w-2xl mx-auto text-base dark: font-normal leading-6 text-white/50">
+          <p className="max-w-2xl mx-auto text-base font-normal leading-6 text-white/50">
             Unlock the Potential of Innovation. Discover the Advanced AI Tools
             Transforming Your Ideas into Reality with Unmatched Precision and
             Intelligence.
