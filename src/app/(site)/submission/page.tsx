@@ -26,10 +26,28 @@ export default function SubmissionPage() {
             The 1-page abstract must be original and summarize their novel contribution in the Computational Imaging field.
           </p>
           <p>
-            Presentation can be either &quot;Oral&quot; or &quot;Poster&quot;. Corresponding session allocation is subject to the Chairs&apos; discretion given schedule availability.
+            Abstract must be submitted in English.
           </p>
           <p>
-            The abstract submission portal will be enabled soon.
+            The abstract must be submitted in PDF format and should follow the formatting rules found in the{' '}
+            <a href="https://www.dropbox.com/scl/fi/9phebcqz38y8zmsq4181h/ExtendedAbstract.pdf?rlkey=6esflk4st7msiu6sskil1ytd3&st=2wi9qpyn&e=1&dl=0" className="text-primary-500 underline hover:text-primary-600 transition-colors">
+              Sample PDF
+            </a>{' '}
+            file or follow {' '}
+            <a href="https://www.dropbox.com/scl/fi/ltu299hy6lrvb9eu1df39/WACCI2024-Template.rar?rlkey=7qwcisb3czclvvkn7v6cctcyd&st=iitc1ov0&e=1&dl=0" className="text-primary-500 underline hover:text-primary-600 transition-colors">
+              latex example
+            </a>
+            .
+          </p>
+          <p>
+            Presentation can be either &quot;Oral&quot; or &quot;Poster&quot;. Corresponding session allocation is subject to the Chairs&apos; discretion given schedule availability. Instructions for oral and poster presentations shall be found later from the &quot;For Authors/Presenters&quot; link. The poster should follow the formatting rules found in the following{' '}
+            <a href="https://www.dropbox.com/scl/fi/ltu299hy6lrvb9eu1df39/WACCI2024-Template.rar?rlkey=7qwcisb3czclvvkn7v6cctcyd&st=iitc1ov0&e=1&dl=0" className="text-primary-500 underline hover:text-primary-600 transition-colors">
+              latex example
+            </a>
+            .
+          </p>
+          <p>
+            To ensure a high-quality workshop, all submitted works will be reviewed by the Program Committee for technical merit and suitability of content. Conference Chairs reserve the right to reject for presentation any paper that does not meet content or presentation expectations.
           </p>
         </div>
       </div>
