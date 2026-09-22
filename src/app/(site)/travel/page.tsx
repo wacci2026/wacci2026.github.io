@@ -262,6 +262,23 @@ export default function TravelPage() {
                     The town provides an exceptional environment to unwind after a
                     productive day of scientific sessions.
                   </p>
+                  <p>
+                    <em>
+                      <strong>General recommendation:</strong> given that December constitutes peak
+                      season in Pucón, it is highly recommended to secure lodging well
+                      in advance, particularly when seeking a cost-effective and
+                      centrally located option.
+                    </em>
+                  </p>
+                  <p>
+                    <em>
+                      <strong>Note:</strong> The Pucón Campus of the Universidad de La Frontera, the conference venue,
+                      is located at 78 Caupolicán Street, just steps from downtown Pucón. All subsequent
+                      recommendations are designed to be accessible within walking distance or a few
+                      minutes by car or taxi from the campus, and can be enjoyed during a free
+                      afternoon or, at most, a full day.
+                    </em>
+                  </p>
                 </div>
                 <h2 className="mt-10 text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
                   Visa Information
