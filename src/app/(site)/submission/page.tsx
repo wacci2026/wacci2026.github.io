@@ -13,6 +13,7 @@ const IMPORTANT_DATES = [
     date: 'November 4, 2026',
   },
 ];
+const EASYCHAIR_SUBMIT_URL = 'https://easychair.org/account/signin?l=3858238102073482698.1790101418.8d58686b';
 
 const SERIES_BASE_URL = 'https://www.dropbox.com/scl/fi';
 
@@ -298,6 +299,32 @@ export default function SubmissionPage() {
               </motion.div>
             ))}
           </div>
+        </motion.div>
+
+        {/* Primary CTA — redirects to EasyChair */}
+        <motion.div
+          className="flex justify-center mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={fadeUp}
+          transition={{ type: 'spring', stiffness: 80, damping: 20 }}
+        >
+          <a
+            href={EASYCHAIR_SUBMIT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Submit Your Abstract via EasyChair (opens in a new tab)"
+            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary-500 text-white text-base font-semibold rounded-[20px] shadow-lg shadow-primary-500/20 transition-all duration-300 hover:bg-primary-600 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+          >
+            Submit Your Abstract
+            <span
+              className="transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </a>
         </motion.div>
 
         {/* Content card */}
