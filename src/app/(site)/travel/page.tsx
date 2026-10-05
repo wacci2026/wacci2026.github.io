@@ -216,7 +216,7 @@ export default function TravelPage() {
     <>
       <section className="relative h-[70vh] min-h-[500px] overflow-hidden">
         <Image
-          src={withBasePath("/images/pucon_chile.png")}
+          src={withBasePath("/images/hero/pucon.webp")}
           alt="Villarrica Volcano and Lake Villarrica, Pucón"
           fill
           className="object-cover"
