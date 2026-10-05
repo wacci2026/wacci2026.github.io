@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden px-5 py-14 text-white">
       <Image
-        src={withBasePath("/images/footer/footer.webp")}
+        src={withBasePath("/images/footer/pie_pagina1.jpg")}
         alt=""
         fill
         sizes="100vw"
