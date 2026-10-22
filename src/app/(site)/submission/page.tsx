@@ -22,6 +22,7 @@ const SERIES_BASE_URL = 'https://www.dropbox.com/scl/fi';
 const SERIES_FILES = {
   samplePdf: `${SERIES_BASE_URL}/9phebcqz38y8zmsq4181h/ExtendedAbstract.pdf?rlkey=6esflk4st7msiu6sskil1ytd3&st=2wi9qpyn&e=1&dl=0`,
   latexTemplate: `${SERIES_BASE_URL}/ltu299hy6lrvb9eu1df39/WACCI2024-Template.rar?rlkey=7qwcisb3czclvvkn7v6cctcyd&st=iitc1ov0&e=1&dl=0`,
+  posterTemplate: `${SERIES_BASE_URL}/zj1ac67xoca8hcl4nestm/Poster_Template_WACCI-2024.rar?rlkey=sfo92mbe9m4vzjklztihn2fdm&st=h9orcpfp&e=1&dl=0`,
 };
 
 const fadeUp = {
@@ -406,7 +407,7 @@ export default function SubmissionPage() {
               <p className="text-base md:text-lg text-gray-700 leading-[1.7]">
                 The poster should follow the formatting rules found in the following{' '}
                 <TemplateLink
-                  href={SERIES_FILES.latexTemplate}
+                  href={SERIES_FILES.posterTemplate}
                   label="LaTeX example"
                   ariaLabel="Download LaTeX template for poster"
                 />
