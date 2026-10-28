@@ -2,18 +2,18 @@ import { withBasePath } from "@/lib/base-path";
 
 export const INVITED_SPEAKERS = [
   {
+    name: "Amit Ashok",
+    affiliation: "University of Arizona",
+    country: "United States",
+    imageUrl: withBasePath("/images/speakers/amit-ashok.webp"),
+    scholarUrl: "https://scholar.google.com/citations?user=Io606VwAAAAJ&hl=en",
+  },
+  {
     name: "David Brady",
     affiliation: "University of Arizona",
     country: "United States",
     imageUrl: withBasePath("/images/speakers/david-brady.webp"),
     scholarUrl: "https://scholar.google.com.mx/citations?user=CcSZwTsAAAAJ&hl=es&oi=ao",
-  },
-  {
-    name: "Enrique Tajahuerce",
-    affiliation: "University Jaume I",
-    country: "Spain",
-    imageUrl: withBasePath("/images/speakers/enrique-tajahuerce.jpeg"),
-    scholarUrl: "https://scholar.google.com/citations?user=wvDwqPQAAAAJ&hl=es",
   },
   {
     name: "Demetri Psaltis",
@@ -23,18 +23,11 @@ export const INVITED_SPEAKERS = [
     scholarUrl: "https://scholar.google.com/citations?user=-CVR2h8AAAAJ&hl=en",
   },
   {
-    name: "Xin Yuan",
-    affiliation: "Westlake University",
-    country: "China",
-    imageUrl: withBasePath("/images/speakers/xin-yuan.jpg"),
-    scholarUrl: "https://scholar.google.com/citations?user=cS9CbWkAAAAJ&hl=en",
-  },
-  {
-    name: "Marcus Carlsson",
-    affiliation: "Lund University",
-    country: "Sweden",
-    imageUrl: withBasePath("/images/speakers/marcus-carlsson.webp"),
-    scholarUrl: "https://scholar.google.com/citations?user=m6lEHxAAAAAJ&hl=sv",
+    name: "Enrique Tajahuerce",
+    affiliation: "University Jaume I",
+    country: "Spain",
+    imageUrl: withBasePath("/images/speakers/enrique-tajahuerce.jpeg"),
+    scholarUrl: "https://scholar.google.com/citations?user=wvDwqPQAAAAJ&hl=es",
   },
   {
     name: "Gonzalo R. Arce",
@@ -44,11 +37,11 @@ export const INVITED_SPEAKERS = [
     scholarUrl: "https://scholar.google.com/citations?user=1JyQMewAAAAJ&hl=en",
   },
   {
-    name: "Amit Ashok",
-    affiliation: "University of Arizona",
-    country: "United States",
-    imageUrl: withBasePath("/images/speakers/amit-ashok.webp"),
-    scholarUrl: "https://scholar.google.com/citations?user=Io606VwAAAAJ&hl=en",
+    name: "Kristina Irsch",
+    affiliation: "Institut de la Vision, Paris",
+    country: "France",
+    imageUrl: withBasePath("/images/speakers/kristina-irsch.webp"),
+    scholarUrl: "https://scholar.google.com/citations?user=RknkHNgAAAAJ&hl=en",
   },
   {
     name: "Lars Lötgering",
@@ -58,6 +51,20 @@ export const INVITED_SPEAKERS = [
     scholarUrl: "https://scholar.google.com/citations?user=RPBTQIcAAAAJ&hl=en",
   },
   {
+    name: "Marcus Carlsson",
+    affiliation: "Lund University",
+    country: "Sweden",
+    imageUrl: withBasePath("/images/speakers/marcus-carlsson.webp"),
+    scholarUrl: "https://scholar.google.com/citations?user=m6lEHxAAAAAJ&hl=sv",
+  },
+  {
+    name: "Rafael Piestun",
+    affiliation: "University of Colorado Boulder",
+    country: "United States",
+    imageUrl: withBasePath("/images/speakers/rafael_piestun.jpg"),
+    scholarUrl: "https://scholar.google.com/citations?view_op=list_works&hl=en&user=X4UhnLAAAAAJ&sortby=pubdate",
+  },
+  {
     name: "Rajesh Menon",
     affiliation: "University of Utah",
     country: "United States",
@@ -65,10 +72,10 @@ export const INVITED_SPEAKERS = [
     scholarUrl: "https://scholar.google.com/citations?user=Z7boqrwAAAAJ&hl=en",
   },
   {
-    name: "Vivek Goyal",
-    affiliation: "Boston University",
-    country: "United States",
-    imageUrl: withBasePath("/images/speakers/vivek-goyal.jpg"),
-    scholarUrl: "https://scholar.google.com/citations?user=nM77MX0AAAAJ&hl=es",
+    name: "Xin Yuan",
+    affiliation: "Westlake University",
+    country: "China",
+    imageUrl: withBasePath("/images/speakers/xin-yuan.jpg"),
+    scholarUrl: "https://scholar.google.com/citations?user=cS9CbWkAAAAJ&hl=en",
   },
 ];
