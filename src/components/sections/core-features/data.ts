@@ -58,6 +58,13 @@ export const INVITED_SPEAKERS = [
     scholarUrl: "https://scholar.google.com/citations?user=m6lEHxAAAAAJ&hl=sv",
   },
   {
+    name: "Mauro Dalla Mura",
+    affiliation: "Grenoble INP - UGA",
+    country: "France",
+    imageUrl: withBasePath("/images/speakers/Mauro-Dalla-Mura.webp"),
+    scholarUrl: "https://scholar.google.com/citations?user=qbdbtn4AAAAJ&hl=en",
+  },
+  {
     name: "Rafael Piestun",
     affiliation: "University of Colorado Boulder",
     country: "United States",
