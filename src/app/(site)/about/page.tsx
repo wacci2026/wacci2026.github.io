@@ -126,11 +126,11 @@ const partnerItems = [
     initials: "P1",
   },
   {
-    name: "Imaging Hub",
+    name: "Partner Two",
     initials: "IH",
   },
   {
-    name: "Photonics Group",
+    name: "Partner Three",
     initials: "PG",
   },
 ];
