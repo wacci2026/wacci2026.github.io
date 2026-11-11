@@ -22,11 +22,11 @@ export const isValidRegistrationEndpoint = (url: string) =>
 export const REGISTRATION_INFO = {
   advancedFee: 'US$100',
   standardFee: 'US$130',
-  advancedDeadline: 'November 11',
+  advancedDeadline: 'November 15',
   travelGrantAmount: 'US$500',
   codeOfConductUrl: 'https://www.optica.org/events/code_of_conduct/',
   // TODO: replace with the 2026 receipt-upload form if it changed.
-  receiptUploadUrl: 'https://forms.gle/JUQLd4nAq2gkP4tq5',
+  receiptUploadUrl: '',
   contactEmail: 'wacci2026@gmail.com',
 } as const;
 

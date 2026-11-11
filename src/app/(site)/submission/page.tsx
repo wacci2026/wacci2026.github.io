@@ -6,23 +6,20 @@ import { motion } from 'framer-motion';
 const IMPORTANT_DATES = [
   {
     label: 'Abstract Submission',
-    previousDate: 'October 21, 2026',
-    date: 'October 30, 2026',
+    date: 'October 21, 2026',
   },
   {
     label: 'Acceptance Notification',
-    previousDate: 'November 4, 2026',
-    date: 'November 13, 2026',
+    date: 'November 4, 2026',
   },
 ];
-const EASYCHAIR_SUBMIT_URL = 'https://easychair.org/conferences/?conf=wacci2026';
+const EASYCHAIR_SUBMIT_URL = 'https://easychair.org/account/signin?l=3858238102073482698.1790101418.8d58686b';
 
 const SERIES_BASE_URL = 'https://www.dropbox.com/scl/fi';
 
 const SERIES_FILES = {
   samplePdf: `${SERIES_BASE_URL}/9phebcqz38y8zmsq4181h/ExtendedAbstract.pdf?rlkey=6esflk4st7msiu6sskil1ytd3&st=2wi9qpyn&e=1&dl=0`,
   latexTemplate: `${SERIES_BASE_URL}/ltu299hy6lrvb9eu1df39/WACCI2024-Template.rar?rlkey=7qwcisb3czclvvkn7v6cctcyd&st=iitc1ov0&e=1&dl=0`,
-  posterTemplate: `${SERIES_BASE_URL}/zj1ac67xoca8hcl4nestm/Poster_Template_WACCI-2024.rar?rlkey=sfo92mbe9m4vzjklztihn2fdm&st=h9orcpfp&e=1&dl=0`,
 };
 
 const fadeUp = {
@@ -291,9 +288,6 @@ export default function SubmissionPage() {
                   <p className="text-xs font-bold uppercase tracking-widest text-primary-600 mb-1">
                     {item.label}
                   </p>
-                  <p className="text-sm text-gray-500 mb-1">
-                    <del>{item.previousDate}</del>
-                  </p>
                   <p className="text-xl font-extrabold text-primary-500">
                     {item.date}
                   </p>
@@ -407,7 +401,7 @@ export default function SubmissionPage() {
               <p className="text-base md:text-lg text-gray-700 leading-[1.7]">
                 The poster should follow the formatting rules found in the following{' '}
                 <TemplateLink
-                  href={SERIES_FILES.posterTemplate}
+                  href={SERIES_FILES.latexTemplate}
                   label="LaTeX example"
                   ariaLabel="Download LaTeX template for poster"
                 />

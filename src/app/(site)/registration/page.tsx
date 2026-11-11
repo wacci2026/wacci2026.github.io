@@ -42,7 +42,7 @@ export default function RegistrationPage() {
               <ul className="space-y-2 text-sm md:text-base">
                 <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3">
                   <span className="font-semibold text-gray-800">
-                    Advanced registration deadline:
+                    Estimated registration deadline:
                   </span>
                   <span className="font-bold text-primary-500">
                     {REGISTRATION_INFO.advancedDeadline}
