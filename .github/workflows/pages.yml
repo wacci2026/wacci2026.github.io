@@ -34,6 +34,9 @@ jobs:
         run: npm ci
 
       - name: Build static site
+        env:
+          # Apps Script /exec URL — set in Settings → Secrets and variables → Actions → Variables
+          NEXT_PUBLIC_REGISTRATION_ENDPOINT: ${{ vars.REGISTRATION_ENDPOINT }}
         run: |
           if [ "$GITHUB_REPOSITORY" = "wacci2026/wacci2026.github.io" ]; then
             touch .deploy-root
