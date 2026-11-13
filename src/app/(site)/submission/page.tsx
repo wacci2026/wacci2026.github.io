@@ -6,11 +6,11 @@ import { motion } from 'framer-motion';
 const IMPORTANT_DATES = [
   {
     label: 'Abstract Submission',
-    date: 'October 21, 2026',
+    date: 'October 30, 2026',
   },
   {
     label: 'Acceptance Notification',
-    date: 'November 4, 2026',
+    date: 'November 13, 2026',
   },
 ];
 const EASYCHAIR_SUBMIT_URL = 'https://easychair.org/account/signin?l=3858238102073482698.1790101418.8d58686b';
