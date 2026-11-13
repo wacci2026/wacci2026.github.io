@@ -17,6 +17,8 @@ import {
   parsePaperIds,
 } from '@/lib/registration';
 
+const REGISTRATION_ENABLED = false;
+
 type FormValues = {
   fullName: string;
   email: string;
@@ -191,7 +193,7 @@ export default function RegistrationForm() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (submitting) return;
+    if (!REGISTRATION_ENABLED || submitting) return;
 
     const clientErrors = validate(values);
     setErrors(clientErrors);
@@ -508,7 +510,7 @@ export default function RegistrationForm() {
 
           <button
             type="submit"
-            disabled={submitting}
+            disabled={!REGISTRATION_ENABLED || submitting}
             className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary-500 text-white text-base font-semibold rounded-[20px] shadow-lg shadow-primary-500/20 transition-all duration-300 hover:bg-primary-600 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
           >
             {submitting ? (
