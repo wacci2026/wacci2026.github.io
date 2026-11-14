@@ -280,22 +280,6 @@ export default function TravelPage() {
                     </em>
                   </p>
                 </div>
-                <h2 className="mt-10 text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
-                  Visa Information
-                </h2>
-                <p className="text-gray-700 max-w-2xl text-justify">
-                  Obtain information about required documentation needed to travel to Chile.
-                </p>
-                <div className="text-center mb-12">
-                  <a
-                    href=" https://chile.travel/en/good-to-know/entry-and-visa-requirements/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 mt-4 px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
-                  >
-                    Visa Information
-                  </a>
-                </div>
               </div>
 
               <div className="md:col-span-2">
@@ -330,20 +314,20 @@ export default function TravelPage() {
         </div>
       </section>
 
-       {/*<SectionDivider />
+      <SectionDivider />
 
-      <section className="py-16 md:py-20 bg-gray-50 relative overflow-hidden">
+      <section className="py-24 md:py-32 bg-gray-50 relative overflow-hidden" aria-labelledby="visa-information-heading">
         <div className="wrapper">
           <div className="max-w-[1000px] mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
+            <div className="text-center">
+              <h2 id="visa-information-heading" className="text-3xl md:text-title-lg font-bold text-gray-900 mb-3">
                 Visa Information
               </h2>
               <p className="text-gray-500 max-w-2xl mx-auto">
                 Obtain information about required documentation needed to travel to Chile.
               </p>
               <a
-                href=" https://chile.travel/en/good-to-know/entry-and-visa-requirements/"
+                href="https://chile.travel/en/good-to-know/entry-and-visa-requirements/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 mt-4 px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
@@ -353,7 +337,7 @@ export default function TravelPage() {
             </div>
           </div>
         </div>
-     </section>*/}
+      </section>
 
 
        <SectionDivider />
