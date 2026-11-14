@@ -122,16 +122,8 @@ const organizingCommittee: [] = [];
 
 const partnerItems = [
   {
-    name: "Partner One",
-    initials: "P1",
-  },
-  {
-    name: "Partner Two",
-    initials: "IH",
-  },
-  {
-    name: "Partner Three",
-    initials: "PG",
+    name: "Universidad de La Frontera (UFRO)",
+    imageUrl: withBasePath("/images/partners/ufro.png"),
   },
 ];
 
@@ -332,7 +324,7 @@ function SupportGrid({
         </h3>
       </motion.div>
 
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className={items.length === 1 ? "mx-auto grid max-w-sm gap-5" : "grid gap-5 sm:grid-cols-2 lg:grid-cols-3"}>
         {items.map((item, index) => (
           <motion.article
             key={item.name}
@@ -352,7 +344,7 @@ function SupportGrid({
               className="absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-primary-500/45 to-transparent"
               aria-hidden="true"
             />
-            <div className="relative flex h-24 w-full max-w-56 shrink-0 items-center justify-center p-2 transition duration-300 group-hover:scale-105">
+            <div className={`relative flex ${items.length === 1 ? "h-48" : "h-24"} w-full max-w-56 shrink-0 items-center justify-center p-2 transition duration-300 group-hover:scale-105`}>
               {item.imageUrl ? (
                 <Image
                   src={item.imageUrl}
