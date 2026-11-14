@@ -18,6 +18,7 @@ import {
 } from '@/lib/registration';
 
 const REGISTRATION_ENABLED = false;
+const SHOW_FEE_AGREEMENT = false;
 
 type FormValues = {
   fullName: string;
@@ -133,7 +134,7 @@ function validate(values: FormValues): FieldErrors {
   else if (values.codeOfConduct !== 'accept')
     errors.codeOfConduct = 'Accepting the Code of Conduct is required to attend WACCI 2026.';
 
-  if (!values.feeOption) errors.feeOption = 'Please select an option.';
+  if (SHOW_FEE_AGREEMENT && !values.feeOption) errors.feeOption = 'Please select an option.';
 
   return errors;
 }
@@ -486,16 +487,18 @@ export default function RegistrationForm() {
                 error={errors.codeOfConduct}
                 onChange={(v) => setField('codeOfConduct', v)}
               />
-              <RadioGroup
-                name="feeOption"
-                errorId={errorId('feeOption')}
-                required
-                legend={`By submitting, you agree to pay the advanced registration fee of ${REGISTRATION_INFO.advancedFee} before ${REGISTRATION_INFO.advancedDeadline}?`}
-                options={FEE_OPTIONS}
-                value={values.feeOption}
-                error={errors.feeOption}
-                onChange={(v) => setField('feeOption', v)}
-              />
+              {SHOW_FEE_AGREEMENT && (
+                <RadioGroup
+                  name="feeOption"
+                  errorId={errorId('feeOption')}
+                  required
+                  legend={`By submitting, you agree to pay the advanced registration fee of ${REGISTRATION_INFO.advancedFee} before ${REGISTRATION_INFO.advancedDeadline}?`}
+                  options={FEE_OPTIONS}
+                  value={values.feeOption}
+                  error={errors.feeOption}
+                  onChange={(v) => setField('feeOption', v)}
+                />
+              )}
             </Section>
           </fieldset>
 
