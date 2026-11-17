@@ -18,7 +18,7 @@ import {
 } from '@/lib/registration';
 
 const REGISTRATION_ENABLED = false;
-const SHOW_FEE_AGREEMENT = false;
+const SHOW_FEE_AGREEMENT = true;
 
 type FormValues = {
   fullName: string;
@@ -29,6 +29,7 @@ type FormValues = {
   paperIds: string;
   position: string;
   travelGrant: string;
+  feeWaiver: string;
   codeOfConduct: string;
   feeOption: string;
   website: string; // honeypot — must stay empty
@@ -61,6 +62,7 @@ const INITIAL_VALUES: FormValues = {
   paperIds: '',
   position: '',
   travelGrant: '',
+  feeWaiver: '',
   codeOfConduct: '',
   feeOption: '',
   website: '',
@@ -76,6 +78,7 @@ const FIELD_ORDER: FieldName[] = [
   'paperIds',
   'position',
   'travelGrant',
+  'feeWaiver',
   'codeOfConduct',
   'feeOption',
 ];
@@ -130,6 +133,9 @@ function validate(values: FormValues): FieldErrors {
   if (asksTravelGrant(values.authorStatus, values.position) && !values.travelGrant)
     errors.travelGrant = 'Please select an option.';
 
+  if (asksTravelGrant(values.authorStatus, values.position) && !values.feeWaiver)
+    errors.feeWaiver = 'Please select an option.';
+
   if (!values.codeOfConduct) errors.codeOfConduct = 'Please select an option.';
   else if (values.codeOfConduct !== 'accept')
     errors.codeOfConduct = 'Accepting the Code of Conduct is required to attend WACCI 2026.';
@@ -153,6 +159,7 @@ function buildPayload(values: FormValues, token: string) {
     paperIds: author ? (parsePaperIds(values.paperIds) ?? []).join(', ') : '',
     position: author ? values.position : '',
     travelGrant: grant ? values.travelGrant : '',
+    feeWaiver: grant ? values.feeWaiver : '',
     codeOfConduct: values.codeOfConduct,
     feeOption: values.feeOption,
     website: values.website,
@@ -452,7 +459,7 @@ export default function RegistrationForm() {
             )}
 
             {showTravelGrant && (
-              <Section title="Travel Grant">
+              <Section title="Student Financial Support">
                 <RadioGroup
                   name="travelGrant"
                   errorId={errorId('travelGrant')}
@@ -462,6 +469,16 @@ export default function RegistrationForm() {
                   value={values.travelGrant}
                   error={errors.travelGrant}
                   onChange={(v) => setField('travelGrant', v)}
+                />
+                <RadioGroup
+                  name="feeWaiver"
+                  errorId={errorId('feeWaiver')}
+                  required
+                  legend={`Do you want to apply for a registration fee waiver (${REGISTRATION_INFO.registrationFeeWaiverAmount})?`}
+                  options={TRAVEL_GRANT_OPTIONS}
+                  value={values.feeWaiver}
+                  error={errors.feeWaiver}
+                  onChange={(v) => setField('feeWaiver', v)}
                 />
               </Section>
             )}
@@ -492,7 +509,7 @@ export default function RegistrationForm() {
                   name="feeOption"
                   errorId={errorId('feeOption')}
                   required
-                  legend={`By submitting, you agree to pay the advanced registration fee of ${REGISTRATION_INFO.advancedFee} before ${REGISTRATION_INFO.advancedDeadline}?`}
+                  legend={`By submitting, you agree to pay the advance registration fee of ${REGISTRATION_INFO.advancedFee} by ${REGISTRATION_INFO.advancedDeadline}?`}
                   options={FEE_OPTIONS}
                   value={values.feeOption}
                   error={errors.feeOption}

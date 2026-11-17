@@ -45,9 +45,10 @@ The script finds columns **by header text, not by position**. That means:
 | G | `Author Status` | `Yes, I am a presenting author` | One of the 3 labels below. |
 | H | `Paper IDs` | `12, 34` | EasyChair IDs, stored as **text**. Empty for non-authors. |
 | I | `Position` | `Postdoc` | Empty for non-authors. |
-| J | `Travel Grant` | `Yes` | Required for author students/postdocs; empty for everyone else (not asked). |
-| K | `Code of Conduct` | `Yes, I accept` | Always this value (declining blocks the registration). |
-| L | `Registration Fee` | `Advanced fee (US$100 before November 11)` | One of the 2 labels below. |
+| J | `Travel Grant` | `Yes` | Required for student authors; empty for everyone else (not asked). |
+| K | `Registration Fee Waiver` | `No` | Required for student authors; empty for everyone else. |
+| L | `Code of Conduct` | `Yes, I accept` | Always this value (declining blocks the registration). |
+| M | `Registration Fee` | `Advance fee (US$150 by November 22, 2026)` | One of the 2 labels below. |
 
 ### Optional organizer column
 
@@ -62,14 +63,15 @@ The script finds columns **by header text, not by position**. That means:
 | Author Status | `Yes, I am a presenting author` · `Yes, I am an author` · `No, I am not` |
 | Position | `Student` · `Postdoc` · `Professor` · *(empty)* |
 | Travel Grant | `Yes` · `No` · *(empty)* |
+| Registration Fee Waiver | `Yes` · `No` · *(empty)* |
 | Code of Conduct | `Yes, I accept` |
-| Registration Fee | `Advanced fee (US$100 before November 11)` · `Pay later (US$130)` |
+| Registration Fee | `Advance fee (US$150 by November 22, 2026)` · `Pay after November 22, 2026 (US$180)` |
 
 Branching (same as the original Google Form):
 
 ```
-Author Status = "No, I am not"  → Paper IDs, Position, Travel Grant are empty
-Position      = "Professor"     → Travel Grant is empty
+Author Status = "No, I am not"  → Paper IDs, Position, Travel Grant, Registration Fee Waiver are empty
+Position      = "Professor" or "Postdoc" → Travel Grant and Registration Fee Waiver are empty
 ```
 
 ## 3. Rules to avoid breaking the connection
@@ -142,3 +144,5 @@ the registration is still saved; only the email is skipped (logged as a warning)
 | `Could not obtain lock` | Many simultaneous submissions | Usually transient; user is told to retry |
 | `No spreadsheet: bind this script…` | Standalone script without ID | Set `CONFIG.SPREADSHEET_ID` |
 | No execution appears at all | Wrong URL, `/dev` URL, or access ≠ *Anyone* | Recheck deployment step 7–9 |
+
+After updating either backend script for the student funding questions, run `setupSheet()` to append the `Registration Fee Waiver` header, then deploy a new Apps Script version. Existing rows are preserved.

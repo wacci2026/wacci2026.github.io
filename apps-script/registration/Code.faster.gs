@@ -51,9 +51,9 @@ const CONFIG = {
   CONTACT_EMAIL: 'wacci2026@gmail.com',
 
   // Text shown in the sheet / emails. Keep in sync with src/lib/registration.ts.
-  ADVANCED_FEE: 'US$100',
-  STANDARD_FEE: 'US$130',
-  ADVANCED_DEADLINE: 'November 11',
+  ADVANCED_FEE: 'US$150',
+  STANDARD_FEE: 'US$180',
+  ADVANCED_DEADLINE: 'November 22, 2026',
   RECEIPT_UPLOAD_URL: 'https://forms.gle/JUQLd4nAq2gkP4tq5',
 
   LOCK_TIMEOUT_MS: 25000,
@@ -76,6 +76,7 @@ const COLUMNS = [
   { key: 'paperIds', title: 'Paper IDs' },
   { key: 'position', title: 'Position' },
   { key: 'travelGrant', title: 'Travel Grant' },
+  { key: 'feeWaiver', title: 'Registration Fee Waiver' },
   { key: 'codeOfConduct', title: 'Code of Conduct' },
   { key: 'feeOption', title: 'Registration Fee' },
 ];
@@ -98,6 +99,10 @@ const OPTIONS = {
     postdoc: 'Postdoc',
     professor: 'Professor',
   },
+  feeWaiver: {
+    yes: 'Yes',
+    no: 'No',
+  },
   travelGrant: {
     yes: 'Yes',
     no: 'No',
@@ -107,8 +112,8 @@ const OPTIONS = {
     decline: 'No, I don’t accept',
   },
   feeOption: {
-    advanced: 'Advanced fee (' + CONFIG.ADVANCED_FEE + ' before ' + CONFIG.ADVANCED_DEADLINE + ')',
-    later: 'Pay later (' + CONFIG.STANDARD_FEE + ')',
+    advanced: 'Advance fee (' + CONFIG.ADVANCED_FEE + ' by ' + CONFIG.ADVANCED_DEADLINE + ')',
+    later: 'Pay after ' + CONFIG.ADVANCED_DEADLINE + ' (' + CONFIG.STANDARD_FEE + ')',
   },
 };
 
@@ -215,6 +220,7 @@ function validate_(input) {
     paperIds: str_(input.paperIds),
     position: str_(input.position),
     travelGrant: str_(input.travelGrant),
+    feeWaiver: str_(input.feeWaiver),
     codeOfConduct: str_(input.codeOfConduct),
     feeOption: str_(input.feeOption),
   };
@@ -244,18 +250,21 @@ function validate_(input) {
 
     if (!has_(OPTIONS.position, d.position)) errors.position = 'Please select your position.';
 
-    const asksGrant = d.position === 'student' || d.position === 'postdoc';
+    const asksGrant = d.position === 'student';
     if (asksGrant) {
       // Required when asked (only the Country question is optional).
       if (!has_(OPTIONS.travelGrant, d.travelGrant)) errors.travelGrant = 'Please select an option.';
+      if (!has_(OPTIONS.feeWaiver, d.feeWaiver)) errors.feeWaiver = 'Please select an option.';
     } else {
-      d.travelGrant = ''; // Professors are not asked (Google Form skip logic).
+      d.travelGrant = ''; // Funding questions are only asked to students.
+      d.feeWaiver = '';
     }
   } else {
     // Non-authors skip the Attendance and Travel Grant sections.
     d.paperIds = '';
     d.position = '';
     d.travelGrant = '';
+    d.feeWaiver = '';
   }
 
   if (!has_(OPTIONS.codeOfConduct, d.codeOfConduct)) errors.codeOfConduct = 'Please select an option.';
@@ -317,6 +326,7 @@ function saveRegistration_(d, token) {
     paperIds: d.paperIds,
     position: d.position ? OPTIONS.position[d.position] : '',
     travelGrant: d.travelGrant ? OPTIONS.travelGrant[d.travelGrant] : '',
+      feeWaiver: d.feeWaiver ? OPTIONS.feeWaiver[d.feeWaiver] : '',
     codeOfConduct: OPTIONS.codeOfConduct[d.codeOfConduct],
     feeOption: OPTIONS.feeOption[d.feeOption],
   };
@@ -590,6 +600,7 @@ function runSelfTests() {
     paperIds: '12, 34',
     position: 'student',
     travelGrant: 'yes',
+    feeWaiver: 'no',
     codeOfConduct: 'accept',
     feeOption: 'advanced',
   };
@@ -600,7 +611,10 @@ function runSelfTests() {
     ['valid non-author drops author fields', w({ authorStatus: 'not_author', paperIds: '', position: '' }), true],
     ['valid professor drops travel grant', w({ position: 'professor', travelGrant: 'yes' }), true],
     ['travel grant required for student', w({ travelGrant: '' }), false, 'travelGrant'],
-    ['travel grant required for postdoc', w({ position: 'postdoc', travelGrant: '' }), false, 'travelGrant'],
+    ['funding not required for postdoc', w({ position: 'postdoc', travelGrant: '', feeWaiver: '' }), true],
+    ['fee waiver required for student', w({ feeWaiver: '' }), false, 'feeWaiver'],
+    ['invalid fee waiver value', w({ feeWaiver: 'maybe' }), false, 'feeWaiver'],
+    ['fee waiver independent of travel grant', w({ travelGrant: 'no', feeWaiver: 'yes' }), true],
     ['travel grant not required for professor', w({ position: 'professor', travelGrant: '' }), true],
     ['country optional', w({ country: '' }), true],
     ['paper IDs with # and ;', w({ paperIds: '#12; 34 / 56' }), true],
@@ -629,9 +643,9 @@ function runSelfTests() {
 
   // Normalization checks
   const nonAuthor = validate_(w({ authorStatus: 'not_author' }));
-  check_('non-author fields cleared', nonAuthor.ok && nonAuthor.data.paperIds === '' && nonAuthor.data.position === '' && nonAuthor.data.travelGrant === '') || failures++;
+  check_('non-author fields cleared', nonAuthor.ok && nonAuthor.data.paperIds === '' && nonAuthor.data.position === '' && nonAuthor.data.travelGrant === '' && nonAuthor.data.feeWaiver === '') || failures++;
   const prof = validate_(w({ position: 'professor' }));
-  check_('professor travel grant cleared', prof.ok && prof.data.travelGrant === '') || failures++;
+  check_('professor travel grant cleared', prof.ok && prof.data.travelGrant === '' && prof.data.feeWaiver === '') || failures++;
   const ids = validate_(w({ paperIds: '12,12, 34' }));
   check_('paper IDs normalized + deduped', ids.ok && ids.data.paperIds === '12, 34') || failures++;
   check_('email lowercased', validate_(w({ email: 'ADA@Example.COM' })).data.email === 'ada@example.com') || failures++;

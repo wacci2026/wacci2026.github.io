@@ -18,12 +18,13 @@ export const REGISTRATION_ENDPOINT = (process.env.NEXT_PUBLIC_REGISTRATION_ENDPO
 export const isValidRegistrationEndpoint = (url: string) =>
   /^https:\/\/script\.google\.com\/(a\/macros\/[^/]+|macros)\/s\/[^/]+\/exec$/.test(url);
 
-// TODO: confirm fees / deadline for 2026 — these come from the previous edition's form.
+// Registration fees and early registration deadline for 2026.
 export const REGISTRATION_INFO = {
-  advancedFee: 'US$100',
-  standardFee: 'US$130',
-  advancedDeadline: 'To be defined',
+  advancedFee: 'US$150',
+  standardFee: 'US$180',
+  advancedDeadline: 'November 22, 2026',
   travelGrantAmount: 'US$500',
+  registrationFeeWaiverAmount: 'CLP 150,000 / US$150',
   codeOfConductUrl: 'https://www.optica.org/events/code_of_conduct/',
   // TODO: replace with the 2026 receipt-upload form if it changed.
   receiptUploadUrl: '',
@@ -56,7 +57,7 @@ export const FEE_OPTIONS = [
   { value: 'advanced', label: 'I agree' },
   {
     value: 'later',
-    label: `I will pay later (${REGISTRATION_INFO.standardFee})`,
+    label: `I will pay after ${REGISTRATION_INFO.advancedDeadline} (${REGISTRATION_INFO.standardFee})`,
   },
 ] as const;
 
@@ -77,9 +78,9 @@ export const FIELD_LIMITS = {
 
 export const isAuthor = (status: string) => status === 'presenting_author' || status === 'author';
 
-/** Travel grant is only asked to authors who are students or postdocs. */
+/** Student funding questions are only asked to student authors. */
 export const asksTravelGrant = (status: string, position: string) =>
-  isAuthor(status) && (position === 'student' || position === 'postdoc');
+  isAuthor(status) && position === 'student';
 
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 

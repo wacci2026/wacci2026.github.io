@@ -42,7 +42,7 @@ export default function RegistrationPage() {
               <ul className="space-y-2 text-sm md:text-base">
                 <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3">
                   <span className="font-semibold text-gray-800">
-                    Estimated registration deadline:
+                    Early registration payment deadline:
                   </span>
                   <span className="font-bold text-primary-500">
                     {REGISTRATION_INFO.advancedDeadline}
@@ -56,11 +56,12 @@ export default function RegistrationPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
                   <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">
-                    Advanced fee
+                    Advance fee
                   </div>
                   <div className="text-3xl font-extrabold text-primary-500">
                     {REGISTRATION_INFO.advancedFee}
                   </div>
+                  <p className="mt-2 text-sm text-gray-500">By {REGISTRATION_INFO.advancedDeadline}</p>
                 </div>
                 <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
                   <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">
@@ -69,6 +70,7 @@ export default function RegistrationPage() {
                   <div className="text-3xl font-extrabold text-primary-500">
                     {REGISTRATION_INFO.standardFee}
                   </div>
+                  <p className="mt-2 text-sm text-gray-500">After {REGISTRATION_INFO.advancedDeadline}</p>
                 </div>
               </div>
             </div>

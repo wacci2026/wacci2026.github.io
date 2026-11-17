@@ -35,7 +35,7 @@ curl -sL "$URL"
 curl -sL -H 'Content-Type: text/plain;charset=utf-8' "$URL" -d '{
   "submissionToken":"curl-test-0001",
   "fullName":"Test Student","email":"test+01@example.com","institution":"UIS","country":"Colombia",
-  "authorStatus":"presenting_author","paperIds":"12, 34","position":"student","travelGrant":"yes",
+  "authorStatus":"presenting_author","paperIds":"12, 34","position":"student","travelGrant":"yes","feeWaiver":"no",
   "codeOfConduct":"accept","feeOption":"advanced"}'
 # {"ok":true,"submissionId":"WACCI-XXXXXXXX"}
 ```
@@ -65,7 +65,7 @@ Expected `code: VALIDATION_ERROR` with `fieldErrors` for `fullName`, `email`, `i
 ```bash
 curl -sL -H 'Content-Type: text/plain' "$URL" -d '{
   "fullName":"Non Author","email":"test+02@example.com","institution":"X",
-  "authorStatus":"not_author","paperIds":"99","position":"student","travelGrant":"yes",
+  "authorStatus":"not_author","paperIds":"99","position":"student","travelGrant":"yes","feeWaiver":"no",
   "codeOfConduct":"accept","feeOption":"later"}'
 ```
 `ok:true`, but in the sheet `Paper IDs`, `Position`, `Travel Grant` are **empty**.
