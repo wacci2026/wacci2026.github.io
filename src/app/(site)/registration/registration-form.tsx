@@ -20,7 +20,7 @@ import {
   parsePaperIds,
 } from '@/lib/registration';
 
-const REGISTRATION_ENABLED = false;
+const REGISTRATION_ENABLED = true;
 const SHOW_FEE_AGREEMENT = true;
 
 type FormValues = {
