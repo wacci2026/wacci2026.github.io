@@ -286,25 +286,10 @@ export default function RegistrationForm() {
     <div ref={containerRef} className="scroll-mt-28">
       {status.kind === 'success' ? (
         <div className="p-6 md:p-8 space-y-6" role="status" aria-live="polite">
-          <div className="flex items-center gap-3">
-            <span
-              className="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl"
-              aria-hidden="true"
-            >
-              ✓
-            </span>
-            <div>
-              <h2 className="text-2xl font-extrabold text-primary-500">Registration received</h2>
-              <p className="text-sm text-gray-500">
-                Reference:{' '}
-                <span className="font-mono font-semibold text-gray-700">{status.submissionId}</span>
-              </p>
-            </div>
-          </div>
-
           <PaymentStep
             submissionId={status.submissionId}
             receiptToken={status.receiptToken}
+            email={status.email}
             onRegisterAnother={() => setStatus({ kind: 'idle' })}
           />
         </div>

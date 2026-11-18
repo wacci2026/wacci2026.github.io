@@ -57,6 +57,7 @@ Additional required headers (appended automatically by `setupSheet()`):
 | `Receipt Upload Token` | Private upload credential. Keep this column and the spreadsheet restricted to organizers. |
 | `Payment Receipt PDF` | Link to the PDF stored in a private Google Drive folder. Empty until uploaded. |
 | `Receipt Uploaded At` | Timestamp of receipt upload. |
+| `Confirmation Email Sent At` | Internal timestamp used to avoid resending a completed confirmation. |
 
 ### Optional organizer column
 
@@ -196,6 +197,50 @@ previous deployment instead of publishing another payment page with a missing QR
 After deployment, verify `https://wacci2026.github.io/local-payment/QR_pago_WACCI.png` loads.
 Keep Step 2 open until the receipt upload is complete.
 
-Local regression checks: `node tests/registration.cjs` (both backend variants, eligibility, upload
+Local regression checks: `node tests/registration.cjs` and `node tests/payment-step.cjs` (both backend variants, eligibility, upload
 credentials, PDF rejection, same-row receipt persistence, and retries). These tests use mocks;
 Apps Script authorization and actual Drive/Sheets operations must also be checked in the deployment.
+
+
+## Confirmation email and PDF after receipt upload
+
+The attendee confirmation is sent **after the PDF receipt has been saved**, to the email address
+on that registration row. The attachment includes the WACCI logo and Pucón waterfront image.
+The website then shows a thank-you view and the registered email address; it removes the QR and
+upload form and allows registering another person. The website says the email was sent only when
+Apps Script reports that MailApp accepted it for sending; inbox delivery is not tracked.
+
+Both the email and attachment use an explicit allowlist: registration reference, full name, email,
+institution/company, country, paper IDs, position and selected registration fee. Empty answers are
+omitted. Author Status, Travel Grant, Code of Conduct, Payment Status, Registration Fee Waiver,
+Receipt Upload Token, Payment Receipt PDF, Receipt Uploaded At and the confirmation timestamp
+are never included. Payment approval remains an organizer task.
+
+To activate this update:
+
+1. In the spreadsheet, open **Extensions → Apps Script**.
+2. Replace the existing script contents with this repository's updated
+   `apps-script/registration/Code.gs` (or the faster variant if that is your current version).
+   Preserve custom configuration such as `SPREADSHEET_ID`, `SHEET_NAME` and organizer email.
+3. Save. In the dropdown next to **Run**, choose **setupSheet**, then click **Run**.
+   This appends **Confirmation Email Sent At** without changing existing registrations.
+   Accept the new permissions for sending mail and fetching the branding images.
+4. To check PDF conversion and permissions without sending an email, optionally select
+   **authorizeConfirmationEmail** and click **Run**. The log should report a PDF byte count
+   and remaining recipient quota.
+5. **Deploy → Manage deployments → pencil → Version: New version → Deploy**.
+   Update the existing deployment; the `/exec` URL stays the same.
+6. Publish the website changes as usual. Test the process with an email account you control:
+   register, upload a PDF, confirm the thank-you view contains no QR, and inspect the received
+   email and attached PDF. Actual Apps Script rendering and email delivery require this live check.
+
+The internal sent timestamp makes ordinary retries idempotent. If mail sending or PDF creation
+fails, the receipt remains saved and the thank-you view offers **Retry confirmation email**.
+A retry authenticates against the same registration and does not upload another receipt.
+The email sender is the Google account that executes the Apps Script deployment; replies go to
+`CONFIG.CONTACT_EMAIL`. Google mail/PDF conversion quotas still apply.
+
+Brand assets are configured through `CONFIRMATION_LOGO_URL` and `CONFIRMATION_BANNER_URL`.
+Keep these URLs accessible to Apps Script. The local example in
+`output/pdf/wacci-registration-example.pdf` is rendered from the same HTML template using sample
+attendee information; it is a layout preview, not an actual registration or receipt.

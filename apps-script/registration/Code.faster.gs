@@ -46,7 +46,6 @@ const CONFIG = {
   REJECT_DUPLICATE_EMAILS: true,
 
   // Optional emails (each failure is logged but never breaks the registration).
-  SEND_CONFIRMATION_EMAIL: false, // email the registrant a copy
   ORGANIZER_NOTIFY_EMAIL: '', // e.g. 'wacci2026@gmail.com' — empty = disabled
   CONTACT_EMAIL: 'wacci2026@gmail.com',
 
@@ -54,7 +53,8 @@ const CONFIG = {
   ADVANCED_FEE: 'US$150',
   STANDARD_FEE: 'US$180',
   ADVANCED_DEADLINE: '30 November 2026',
-  RECEIPT_UPLOAD_URL: 'https://forms.gle/JUQLd4nAq2gkP4tq5',
+  CONFIRMATION_LOGO_URL: 'https://wacci2026.github.io/images/wacci-122x64.png',
+  CONFIRMATION_BANNER_URL: 'https://wacci2026.github.io/images/hero/pucon.png',
 
   LOCK_TIMEOUT_MS: 25000,
   MAX_PAYLOAD_CHARS: 7 * 1024 * 1024, // 5 MB PDF encoded as base64 plus JSON
@@ -83,6 +83,7 @@ const COLUMNS = [
   { key: 'receiptToken', title: 'Receipt Upload Token' },
   { key: 'receiptUrl', title: 'Payment Receipt PDF' },
   { key: 'receiptUploadedAt', title: 'Receipt Uploaded At' },
+  { key: 'confirmationEmailSentAt', title: 'Confirmation Email Sent At' },
 ];
 
 // Optional organizer columns: filled with a default ONLY if the header exists.
@@ -331,6 +332,7 @@ function saveRegistration_(d, token) {
     receiptToken: receiptToken,
     receiptUrl: '',
     receiptUploadedAt: '',
+    confirmationEmailSentAt: '',
     fullName: d.fullName,
     email: d.email,
     institution: d.institution,
@@ -437,7 +439,7 @@ function uploadReceipt_(input) {
       return fail_('UNAUTHORIZED', 'Invalid receipt upload reference.');
     }
     if (sheet.getRange(row, index('Payment Receipt PDF')).getDisplayValue()) {
-      return { ok: true, submissionId: submissionId, alreadyProcessed: true };
+      return sendReceiptConfirmation_(sheet, row, map, submissionId);
     }
     const encoded = typeof input.receiptBase64 === 'string' ? input.receiptBase64 : '';
     if (!encoded || encoded.length > 4 * Math.ceil(CONFIG.MAX_RECEIPT_BYTES / 3) ||
@@ -465,7 +467,7 @@ function uploadReceipt_(input) {
     // Write the link last: this is the marker used for safe retries.
     sheet.getRange(row, index('Payment Receipt PDF')).setValue(file.getUrl());
     SpreadsheetApp.flush();
-    return { ok: true, submissionId: submissionId };
+    return sendReceiptConfirmation_(sheet, row, map, submissionId);
   } finally {
     lock.releaseLock();
   }
@@ -538,32 +540,111 @@ function columnLetter_(n) {
 }
 
 // ============================================================================
-// EMAILS (optional, never break the registration)
+// EMAILS (attendee confirmation is sent only after receipt upload)
 // ============================================================================
 
-function sendEmails_(d, submissionId) {
-  if (CONFIG.SEND_CONFIRMATION_EMAIL) {
-    try {
-      if (MailApp.getRemainingDailyQuota() > 0) {
-        MailApp.sendEmail({
-          to: d.email,
-          replyTo: CONFIG.CONTACT_EMAIL,
-          subject: 'WACCI 2026 — Registration received (' + submissionId + ')',
-          body:
-            'Dear ' + d.fullName + ',\n\n' +
-            'Thank you for registering for WACCI 2026 (Pucón, Chile, December 14–17, 2026).\n' +
-            'Your reference is ' + submissionId + '.\n\n' +
-            'Use Step 2 on the registration page to pay and upload your PDF receipt. If you requested a fee waiver, wait for the committee decision before paying.\n\n' +
-            'Questions: ' + CONFIG.CONTACT_EMAIL + '\n\nWACCI 2026 Organizing Committee',
-        });
-      } else {
-        console.warn('Mail quota exhausted; confirmation not sent to ' + d.email);
-      }
-    } catch (err) {
-      console.error('Confirmation email failed for ' + d.email + ': ' + err);
-    }
-  }
+/** Explicit attendee-facing allowlist. Internal sheet columns never enter the email or PDF. */
+function confirmationDetails_(sheet, row, map) {
+  const fields = [
+    ['Submission ID', 'Registration reference'],
+    ['Full Name', 'Full name'],
+    ['Email', 'Email'],
+    ['Institution', 'Institution / company'],
+    ['Country', 'Country'],
+    ['Paper IDs', 'Paper IDs'],
+    ['Position', 'Position'],
+    ['Registration Fee', 'Selected registration fee'],
+  ];
+  return fields.map(function (field) {
+    const column = map.index[normalizeHeader_(field[0])];
+    return [field[1], sheet.getRange(row, column + 1).getDisplayValue()];
+  }).filter(function (field) { return field[1] !== ''; });
+}
 
+function escapeHtml_(value) {
+  return String(value).replace(/[&<>"']/g, function (ch) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+  });
+}
+
+function confirmationPdfHtml_(details, logo, destination) {
+  const rows = details.map(function (field) {
+    return '<tr><th>' + escapeHtml_(field[0]) + '</th><td>' + escapeHtml_(field[1]) + '</td></tr>';
+  }).join('');
+  return '<!doctype html><html lang="en"><head><meta charset="UTF-8"><style>' +
+    '@page{size:A4;margin:32pt 36pt}body{font-family:Arial,sans-serif;color:#173b48;font-size:10pt;line-height:1.4;margin:0}' +
+    '.brand{width:100%;border-bottom:2pt solid #1684aa;margin-bottom:16pt}.brand td{border:0;padding:0 0 10pt}.brand .event{text-align:right;font-size:17pt;font-weight:bold}' +
+    '.destination{display:block;width:100%;height:auto;margin-bottom:16pt}' +
+    'h1{font-size:23pt;line-height:1.15;margin:0 0 8pt}p{margin:0 0 12pt}.eyebrow{font-size:9pt;color:#25728b;letter-spacing:1pt;font-weight:bold}' +
+    '.details{border-collapse:collapse;width:100%;margin:14pt 0;table-layout:fixed}.details th,.details td{padding:8pt 10pt;border-bottom:1pt solid #dbe7eb;vertical-align:top;text-align:left;overflow-wrap:anywhere;word-wrap:break-word}' +
+    '.details th{width:33%;background:#f1f7f9;font-weight:bold}.details tr{page-break-inside:avoid}' +
+    '.footer{margin-top:18pt;border-top:1pt solid #dbe7eb;padding-top:10pt;font-size:9pt;color:#496774}' +
+    '</style></head><body>' +
+    '<table class="brand"><tr><td><img src="' + logo + '" width="122" height="64" alt="WACCI logo"></td>' +
+    '<td class="event">WACCI 2026<br><span style="font-size:10pt;font-weight:normal">Pucón, Chile · December 14-17, 2026</span></td></tr></table>' +
+    '<img class="destination" src="' + destination + '" alt="Pucón waterfront and Villarrica volcano">' +
+    '<p class="eyebrow">REGISTRATION CONFIRMATION</p><h1>See you in Pucón!</h1>' +
+    '<p>Thank you for completing your registration and submitting your receipt. We look forward to welcoming you to WACCI 2026.</p>' +
+    '<table class="details">' + rows + '</table>' +
+    '<p class="footer">Please keep this confirmation for your records.<br>Questions or corrections? ' + escapeHtml_(CONFIG.CONTACT_EMAIL) +
+    '<br>WACCI 2026 Organizing Committee</p></body></html>';
+}
+
+function confirmationImage_(url) {
+  const response = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+  if (response.getResponseCode() !== 200) throw new Error('Confirmation branding image could not be loaded.');
+  const blob = response.getBlob();
+  const type = blob.getContentType();
+  if (!/^image\/(png|jpeg|webp)$/.test(type)) throw new Error('Invalid confirmation branding image.');
+  return 'data:' + type + ';base64,' + Utilities.base64Encode(blob.getBytes());
+}
+
+/** Receipt persistence succeeds independently of email delivery; retries never upload it twice. */
+function sendReceiptConfirmation_(sheet, row, map, submissionId) {
+  const sentCell = sheet.getRange(row, map.index[normalizeHeader_('Confirmation Email Sent At')] + 1);
+  if (sentCell.getDisplayValue()) {
+    return { ok: true, submissionId: submissionId, receiptSaved: true, confirmationEmailSent: true, alreadyProcessed: true };
+  }
+  try {
+    if (MailApp.getRemainingDailyQuota() < 1) throw new Error('Email quota exhausted.');
+    const details = confirmationDetails_(sheet, row, map);
+    const email = sheet.getRange(row, map.index[normalizeHeader_('Email')] + 1).getDisplayValue().trim();
+    const name = sheet.getRange(row, map.index[normalizeHeader_('Full Name')] + 1).getDisplayValue();
+    if (!EMAIL_REGEX.test(email)) throw new Error('Invalid registration email.');
+    const html = confirmationPdfHtml_(details, confirmationImage_(CONFIG.CONFIRMATION_LOGO_URL), confirmationImage_(CONFIG.CONFIRMATION_BANNER_URL));
+    const pdf = HtmlService.createHtmlOutput(html).getBlob().getAs('application/pdf').setName(submissionId + '-registration.pdf');
+    const detailText = details.map(function (field) { return field[0] + ': ' + field[1]; }).join('\n');
+    MailApp.sendEmail({
+      to: email,
+      name: 'WACCI 2026 Organizing Committee',
+      replyTo: CONFIG.CONTACT_EMAIL,
+      subject: 'WACCI 2026 - Registration confirmation (' + submissionId + ')',
+      body: 'Dear ' + name + ',\n\nThank you for completing your WACCI 2026 registration and submitting your receipt.\n' +
+        'We look forward to welcoming you in Pucón, Chile, December 14-17, 2026.\n\n' + detailText +
+        '\n\nYour registration confirmation PDF is attached. Please keep it for your records.\n\n' +
+        'Questions or corrections? ' + CONFIG.CONTACT_EMAIL + '\n\nWACCI 2026 Organizing Committee',
+      attachments: [pdf],
+    });
+    sentCell.setValue(new Date());
+    SpreadsheetApp.flush();
+    return { ok: true, submissionId: submissionId, receiptSaved: true, confirmationEmailSent: true };
+  } catch (err) {
+    console.error('Receipt confirmation failed for ' + submissionId + ': ' + err);
+    return {
+      ok: true, submissionId: submissionId, receiptSaved: true, confirmationEmailSent: false,
+      message: 'Your receipt is saved, but we could not send your confirmation email. Please retry or contact ' + CONFIG.CONTACT_EMAIL + '.',
+    };
+  }
+}
+
+/** Run once manually after updating the script to authorize email, image fetching and PDF conversion. Sends no email. */
+function authorizeConfirmationEmail() {
+  const html = confirmationPdfHtml_([['Full name', 'Setup preview']], confirmationImage_(CONFIG.CONFIRMATION_LOGO_URL), confirmationImage_(CONFIG.CONFIRMATION_BANNER_URL));
+  const pdf = HtmlService.createHtmlOutput(html).getBlob().getAs('application/pdf');
+  console.log('Confirmation PDF ready (' + pdf.getBytes().length + ' bytes). Remaining email recipients today: ' + MailApp.getRemainingDailyQuota());
+}
+
+function sendEmails_(d, submissionId) {
   if (CONFIG.ORGANIZER_NOTIFY_EMAIL) {
     try {
       MailApp.sendEmail(
