@@ -60,10 +60,10 @@ test('successful upload switches to thank-you view with email address and no pay
 });
 
 test('email failure still hides QR; retry sends only the existing registration credentials', async () => {
-  const c = paymentStep([{ ok: true, receiptSaved: true, confirmationEmailSent: false, message: 'Please retry email.' }, { ok: true, receiptSaved: true, confirmationEmailSent: true }]);
+  const c = paymentStep([{ ok: true, receiptSaved: true, confirmationEmailSent: false, message: 'Your receipt is saved. We could not confirm that your email was sent. Please retry or contact wacci2026@gmail.com.' }, { ok: true, receiptSaved: true, confirmationEmailSent: true }]);
   await upload(c);
   assert.match(c.markup(), /Thank you for registering!/);
-  assert.doesNotMatch(c.markup(), /QR_pago_WACCI|has been sent/);
+  assert.doesNotMatch(c.markup(), /QR_pago_WACCI|has been sent|We could not confirm|Please retry or contact/);
   const retry = find(c.render(), node => node.type === 'button' && node.props.children === 'Retry confirmation email');
   await retry.props.onClick();
   assert.match(c.markup(), /has been sent/);

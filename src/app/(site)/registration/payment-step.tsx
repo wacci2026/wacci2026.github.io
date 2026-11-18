@@ -30,9 +30,6 @@ export default function PaymentStep({ submissionId, receiptToken, email, onRegis
       if (!result.ok) throw new Error(result.message || 'The receipt could not be saved. Please try again.');
       setSaved(true);
       setEmailSent(result.confirmationEmailSent === true);
-      if (result.confirmationEmailSent !== true) {
-        setError(result.message || `Your receipt is saved. We could not confirm that your email was sent. Please retry or contact ${REGISTRATION_INFO.contactEmail}.`);
-      }
     } catch (err) {
       setError(err instanceof Error && err.name !== 'AbortError'
         ? err.message
@@ -87,7 +84,6 @@ export default function PaymentStep({ submissionId, receiptToken, email, onRegis
           <p>A confirmation email with your registration details and a PDF attachment has been sent to <strong>{email}</strong>. Please check your inbox and spam folder.</p>
         ) : (
           <div className="space-y-3">
-            <p role="alert">{error}</p>
             <button type="button" disabled={uploading} onClick={() => submitReceipt()} className="rounded-xl bg-primary-500 px-5 py-3 font-semibold text-white disabled:opacity-60">
               {uploading ? 'Sending confirmation…' : 'Retry confirmation email'}
             </button>
