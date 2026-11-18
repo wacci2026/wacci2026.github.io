@@ -41,11 +41,12 @@ const CONFIG = {
   // Text shown in the sheet / emails. Keep in sync with src/lib/registration.ts.
   ADVANCED_FEE: 'US$150',
   STANDARD_FEE: 'US$180',
-  ADVANCED_DEADLINE: 'November 22, 2026',
+  ADVANCED_DEADLINE: '30 November 2026',
   RECEIPT_UPLOAD_URL: 'https://forms.gle/JUQLd4nAq2gkP4tq5',
 
   LOCK_TIMEOUT_MS: 25000,
-  MAX_PAYLOAD_CHARS: 10000,
+  MAX_PAYLOAD_CHARS: 7 * 1024 * 1024, // 5 MB PDF encoded as base64 plus JSON
+  MAX_RECEIPT_BYTES: 5 * 1024 * 1024,
   IDEMPOTENCY_TTL_SECONDS: 21600, // 6 h (CacheService maximum)
 };
 
@@ -67,6 +68,9 @@ const COLUMNS = [
   { key: 'feeWaiver', title: 'Registration Fee Waiver' },
   { key: 'codeOfConduct', title: 'Code of Conduct' },
   { key: 'feeOption', title: 'Registration Fee' },
+  { key: 'receiptToken', title: 'Receipt Upload Token' },
+  { key: 'receiptUrl', title: 'Payment Receipt PDF' },
+  { key: 'receiptUploadedAt', title: 'Receipt Uploaded At' },
 ];
 
 // Optional organizer columns: filled with a default ONLY if the header exists.
@@ -137,6 +141,9 @@ function doPost(e) {
       console.warn('Honeypot triggered; submission ignored.');
       return json_({ ok: true, submissionId: 'WACCI-' + shortId_() });
     }
+
+    if (input.action === 'uploadReceipt') return json_(uploadReceipt_(input));
+    if (input.action && input.action !== 'register') return json_(fail_('BAD_REQUEST', 'Unknown action.'));
 
     const result = validate_(input);
     if (!result.ok) return json_(result);
@@ -222,7 +229,8 @@ function validate_(input) {
   if (!d.institution) errors.institution = 'Please enter your institution or company.';
   else if (d.institution.length > LIMITS.institution) errors.institution = 'Maximum ' + LIMITS.institution + ' characters.';
 
-  if (d.country.length > LIMITS.country) errors.country = 'Maximum ' + LIMITS.country + ' characters.';
+  if (!d.country) errors.country = 'Please select your country of origin.';
+  else if (d.country.length > LIMITS.country) errors.country = 'Maximum ' + LIMITS.country + ' characters.';
 
   if (!has_(OPTIONS.authorStatus, d.authorStatus)) errors.authorStatus = 'Please select a valid option.';
 
@@ -240,8 +248,9 @@ function validate_(input) {
 
     const asksGrant = d.position === 'student';
     if (asksGrant) {
-      // Required when asked (only the Country question is optional).
-      if (!has_(OPTIONS.travelGrant, d.travelGrant)) errors.travelGrant = 'Please select an option.';
+      // Required when asked; Chilean students skip only the travel grant.
+      if (d.country.toLowerCase() === 'chile') d.travelGrant = '';
+      else if (!has_(OPTIONS.travelGrant, d.travelGrant)) errors.travelGrant = 'Please select an option.';
       if (!has_(OPTIONS.feeWaiver, d.feeWaiver)) errors.feeWaiver = 'Please select an option.';
     } else {
       d.travelGrant = ''; // Funding questions are only asked to students.
@@ -324,9 +333,13 @@ function saveRegistration_(d, token) {
     }
 
     const submissionId = 'WACCI-' + shortId_();
+    const receiptToken = Utilities.getUuid();
     const values = {
       timestamp: new Date(),
       submissionId: submissionId,
+      receiptToken: receiptToken,
+      receiptUrl: '',
+      receiptUploadedAt: '',
       fullName: d.fullName,
       email: d.email,
       institution: d.institution,
@@ -355,7 +368,7 @@ function saveRegistration_(d, token) {
     sheet.appendRow(row);
     SpreadsheetApp.flush(); // make sure the row is written before releasing the lock
 
-    const response = { ok: true, submissionId: submissionId };
+    const response = { ok: true, submissionId: submissionId, receiptToken: receiptToken };
     if (cacheKey) {
       try {
         cache.put(cacheKey, JSON.stringify(response), CONFIG.IDEMPOTENCY_TTL_SECONDS);
@@ -365,6 +378,62 @@ function saveRegistration_(d, token) {
     }
     console.log('Registered ' + submissionId + ' (' + d.email + ')');
     return response;
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/** Private Drive file; only a link is stored in Sheets. Never grant public sharing. */
+function uploadReceipt_(input) {
+  const submissionId = str_(input.submissionId);
+  const receiptToken = str_(input.receiptToken);
+  if (!/^WACCI-[A-F0-9]{8}$/.test(submissionId) || !/^[a-f0-9-]{36}$/i.test(receiptToken)) {
+    return fail_('UNAUTHORIZED', 'Invalid receipt upload reference.');
+  }
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(CONFIG.LOCK_TIMEOUT_MS)) return fail_('BUSY', 'The server is busy. Please try again.');
+  try {
+    const sheet = getSheet_();
+    const map = getHeaderMap_(sheet);
+    const index = function (title) { return map.index[normalizeHeader_(title)] + 1; };
+    const count = sheet.getLastRow() - 1;
+    const matches = count > 0 ? sheet.getRange(2, index('Submission ID'), count, 1)
+      .createTextFinder(submissionId).matchEntireCell(true).matchCase(true).findAll() : [];
+    if (matches.length !== 1) return fail_('UNAUTHORIZED', 'Invalid receipt upload reference.');
+    const row = matches[0].getRow();
+    if (sheet.getRange(row, index('Receipt Upload Token')).getDisplayValue() !== receiptToken) {
+      return fail_('UNAUTHORIZED', 'Invalid receipt upload reference.');
+    }
+    if (sheet.getRange(row, index('Payment Receipt PDF')).getDisplayValue()) {
+      return { ok: true, submissionId: submissionId, alreadyProcessed: true };
+    }
+    const encoded = typeof input.receiptBase64 === 'string' ? input.receiptBase64 : '';
+    if (!encoded || encoded.length > 4 * Math.ceil(CONFIG.MAX_RECEIPT_BYTES / 3) ||
+        encoded.length % 4 !== 0 || !/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)) {
+      return fail_('INVALID_RECEIPT', 'Please upload a PDF no larger than 5 MB.');
+    }
+    let bytes;
+    try { bytes = Utilities.base64Decode(encoded); }
+    catch (err) { return fail_('INVALID_RECEIPT', 'The PDF could not be decoded.'); }
+    if (bytes.length > CONFIG.MAX_RECEIPT_BYTES || bytes.length < 5 ||
+        String.fromCharCode.apply(null, bytes.slice(0, 5)) !== '%PDF-') {
+      return fail_('INVALID_RECEIPT', 'Please upload a valid PDF no larger than 5 MB.');
+    }
+    const folderId = PropertiesService.getScriptProperties().getProperty('RECEIPT_FOLDER_ID');
+    if (!folderId) return fail_('NOT_CONFIGURED', 'Receipt uploads are not available yet. Please contact ' + CONFIG.CONTACT_EMAIL + '.');
+    const folder = DriveApp.getFolderById(folderId);
+    const filename = submissionId + '-receipt.pdf';
+    // Reuse the file if a previous upload saved it but failed to update the Sheet.
+    const existing = folder.getFilesByName(filename);
+    const file = existing.hasNext() ? existing.next() : folder.createFile(Utilities.newBlob(bytes, 'application/pdf', filename));
+    sheet.getRange(row, index('Receipt Uploaded At')).setValue(new Date());
+    if (map.index[normalizeHeader_('Payment Status')] !== undefined) {
+      sheet.getRange(row, index('Payment Status')).setValue('Receipt received — pending review');
+    }
+    // Write the link last: this is the marker used for safe retries.
+    sheet.getRange(row, index('Payment Receipt PDF')).setValue(file.getUrl());
+    SpreadsheetApp.flush();
+    return { ok: true, submissionId: submissionId };
   } finally {
     lock.releaseLock();
   }
@@ -436,8 +505,7 @@ function sendEmails_(d, submissionId) {
             'Dear ' + d.fullName + ',\n\n' +
             'Thank you for registering for WACCI 2026 (Pucón, Chile, December 14–17, 2026).\n' +
             'Your reference is ' + submissionId + '.\n\n' +
-            'You will receive a link to the registration payment shortly. Please check your spam folder, just in case.\n' +
-            'After making the payment, upload your receipt here: ' + CONFIG.RECEIPT_UPLOAD_URL + '\n\n' +
+            'Use Step 2 on the registration page to pay and upload your PDF receipt. If you requested a fee waiver, wait for the committee decision before paying.\n\n' +
             'Questions: ' + CONFIG.CONTACT_EMAIL + '\n\nWACCI 2026 Organizing Committee',
         });
       } else {
@@ -508,6 +576,10 @@ function shortId_() {
 
 /** Creates the sheet if needed, writes missing headers, formats it. Safe to run many times. */
 function setupSheet() {
+  const properties = PropertiesService.getScriptProperties();
+  if (!properties.getProperty('RECEIPT_FOLDER_ID')) {
+    properties.setProperty('RECEIPT_FOLDER_ID', DriveApp.createFolder('WACCI 2026 Payment Receipts').getId());
+  }
   const ss = getSpreadsheet_();
   let sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
   if (!sheet) sheet = ss.insertSheet(CONFIG.SHEET_NAME);
@@ -568,7 +640,9 @@ function runSelfTests() {
     ['invalid fee waiver value', w({ feeWaiver: 'maybe' }), false, 'feeWaiver'],
     ['fee waiver independent of travel grant', w({ travelGrant: 'no', feeWaiver: 'yes' }), true],
     ['travel grant not required for professor', w({ position: 'professor', travelGrant: '' }), true],
-    ['country optional', w({ country: '' }), true],
+    ['country required', w({ country: '' }), false, 'country'],
+    ['Chilean student skips travel grant', w({ country: 'Chile', travelGrant: '' }), true],
+    ['Chilean student still needs waiver answer', w({ country: 'Chile', travelGrant: '', feeWaiver: '' }), false, 'feeWaiver'],
     ['paper IDs with # and ;', w({ paperIds: '#12; 34 / 56' }), true],
     ['missing name', w({ fullName: ' ' }), false, 'fullName'],
     ['invalid email', w({ email: 'not-an-email' }), false, 'email'],
@@ -629,7 +703,7 @@ function runEndToEndTest() {
     fullName: 'E2E Test',
     email: email,
     institution: '=1+1 Test Institution',
-    country: '',
+    country: 'Colombia',
     authorStatus: 'author',
     paperIds: '7',
     position: 'postdoc',

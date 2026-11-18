@@ -1,5 +1,7 @@
 'use client';
 
+import { COUNTRY_OPTIONS } from '@/lib/countries';
+import PaymentStep from './payment-step';
 import React, { useId, useRef, useState } from 'react';
 import {
   AUTHOR_STATUS_OPTIONS,
@@ -12,12 +14,13 @@ import {
   REGISTRATION_INFO,
   TRAVEL_GRANT_OPTIONS,
   asksTravelGrant,
+  asksFeeWaiver,
   isAuthor,
   isValidRegistrationEndpoint,
   parsePaperIds,
 } from '@/lib/registration';
 
-const REGISTRATION_ENABLED = false;
+const REGISTRATION_ENABLED = true;
 const SHOW_FEE_AGREEMENT = true;
 
 type FormValues = {
@@ -39,7 +42,7 @@ type FieldName = Exclude<keyof FormValues, 'website'>;
 type FieldErrors = Partial<Record<FieldName, string>>;
 
 type ServerResponse =
-  | { ok: true; submissionId: string; alreadyProcessed?: boolean }
+  | { ok: true; submissionId: string; receiptToken: string; alreadyProcessed?: boolean }
   | {
       ok: false;
       code?: string;
@@ -50,7 +53,7 @@ type ServerResponse =
 type Status =
   | { kind: 'idle' }
   | { kind: 'submitting' }
-  | { kind: 'success'; submissionId: string; email: string }
+  | { kind: 'success'; submissionId: string; receiptToken: string; email: string }
   | { kind: 'error'; message: string };
 
 const INITIAL_VALUES: FormValues = {
@@ -115,8 +118,8 @@ function validate(values: FormValues): FieldErrors {
   else if (institution.length > FIELD_LIMITS.institution)
     errors.institution = `Maximum ${FIELD_LIMITS.institution} characters.`;
 
-  if (country.length > FIELD_LIMITS.country)
-    errors.country = `Maximum ${FIELD_LIMITS.country} characters.`;
+  if (!COUNTRY_OPTIONS.some((option) => option === country))
+    errors.country = 'Please select your country of origin.';
 
   if (!values.authorStatus) errors.authorStatus = 'Please select an option.';
 
@@ -130,10 +133,10 @@ function validate(values: FormValues): FieldErrors {
     if (!values.position) errors.position = 'Please select your position.';
   }
 
-  if (asksTravelGrant(values.authorStatus, values.position) && !values.travelGrant)
+  if (asksTravelGrant(values.authorStatus, values.position, values.country) && !values.travelGrant)
     errors.travelGrant = 'Please select an option.';
 
-  if (asksTravelGrant(values.authorStatus, values.position) && !values.feeWaiver)
+  if (asksFeeWaiver(values.authorStatus, values.position) && !values.feeWaiver)
     errors.feeWaiver = 'Please select an option.';
 
   if (!values.codeOfConduct) errors.codeOfConduct = 'Please select an option.';
@@ -148,7 +151,7 @@ function validate(values: FormValues): FieldErrors {
 /** Only send the answers to questions the user actually saw (mirrors the Google Form branching). */
 function buildPayload(values: FormValues, token: string) {
   const author = isAuthor(values.authorStatus);
-  const grant = asksTravelGrant(values.authorStatus, values.position);
+  const grant = asksTravelGrant(values.authorStatus, values.position, values.country);
   return {
     submissionToken: token,
     fullName: collapse(values.fullName),
@@ -159,7 +162,7 @@ function buildPayload(values: FormValues, token: string) {
     paperIds: author ? (parsePaperIds(values.paperIds) ?? []).join(', ') : '',
     position: author ? values.position : '',
     travelGrant: grant ? values.travelGrant : '',
-    feeWaiver: grant ? values.feeWaiver : '',
+    feeWaiver: asksFeeWaiver(values.authorStatus, values.position) ? values.feeWaiver : '',
     codeOfConduct: values.codeOfConduct,
     feeOption: values.feeOption,
     website: values.website,
@@ -180,7 +183,8 @@ export default function RegistrationForm() {
   const endpointConfigured = isValidRegistrationEndpoint(REGISTRATION_ENDPOINT);
   const submitting = status.kind === 'submitting';
   const showAuthorSection = isAuthor(values.authorStatus);
-  const showTravelGrant = asksTravelGrant(values.authorStatus, values.position);
+  const showFeeWaiver = asksFeeWaiver(values.authorStatus, values.position);
+  const showTravelGrant = asksTravelGrant(values.authorStatus, values.position, values.country);
 
   function setField<K extends keyof FormValues>(name: K, value: FormValues[K]) {
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -244,7 +248,7 @@ export default function RegistrationForm() {
       }
 
       if (data.ok) {
-        setStatus({ kind: 'success', submissionId: data.submissionId, email: payload.email });
+        setStatus({ kind: 'success', submissionId: data.submissionId, receiptToken: data.receiptToken, email: payload.email });
         setValues(INITIAL_VALUES);
         tokenRef.current = null;
         containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -298,27 +302,7 @@ export default function RegistrationForm() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-primary-100 bg-primary-50 p-5 space-y-3 text-gray-700 leading-relaxed">
-            <h3 className="text-sm font-bold uppercase tracking-widest text-primary-600">
-              Final steps
-            </h3>
-            <p>
-              You&apos;ll receive a link to the registration payment at{' '}
-              <span className="font-semibold">{status.email}</span> shortly. Please check your spam
-              folder, just in case.
-            </p>
-            <p>
-              After making the payment, upload your receipt here:{' '}
-              <a
-                href={REGISTRATION_INFO.receiptUploadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-primary-500 underline underline-offset-4 hover:text-primary-700"
-              >
-                {REGISTRATION_INFO.receiptUploadUrl}
-              </a>
-            </p>
-          </div>
+          <PaymentStep submissionId={status.submissionId} receiptToken={status.receiptToken} />
 
           <button
             type="button"
@@ -404,17 +388,26 @@ export default function RegistrationForm() {
                 error={errors.institution}
                 onChange={(v) => setField('institution', v)}
               />
-              <TextField
-                id={fieldId('country')}
-                errorId={errorId('country')}
-                name="country"
-                label="Country of origin"
-                autoComplete="country-name"
-                maxLength={FIELD_LIMITS.country}
-                value={values.country}
-                error={errors.country}
-                onChange={(v) => setField('country', v)}
-              />
+              <div className="space-y-1.5">
+                <label htmlFor={fieldId('country')} className="block text-sm font-semibold text-gray-800">
+                  Country of origin<RequiredMark />
+                </label>
+                <select
+                  id={fieldId('country')}
+                  name="country"
+                  autoComplete="country-name"
+                  required
+                  value={values.country}
+                  onChange={(e) => setField('country', e.target.value)}
+                  aria-invalid={Boolean(errors.country)}
+                  aria-describedby={errors.country ? errorId('country') : undefined}
+                  className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 focus:ring-2 focus:ring-primary-300"
+                >
+                  <option value="">Select your country</option>
+                  {COUNTRY_OPTIONS.map((country) => <option key={country} value={country}>{country}</option>)}
+                </select>
+                {errors.country && <p id={errorId('country')} className="text-sm text-red-600">{errors.country}</p>}
+              </div>
             </Section>
 
             <Section title="Conference Authorship">
@@ -458,23 +451,25 @@ export default function RegistrationForm() {
               </Section>
             )}
 
-            {showTravelGrant && (
+            {showFeeWaiver && (
               <Section title="Student Financial Support">
-                <RadioGroup
+                {showTravelGrant && <RadioGroup
                   name="travelGrant"
                   errorId={errorId('travelGrant')}
                   required
                   legend={`Do you want to apply for the WACCI Travel Grant (${REGISTRATION_INFO.travelGrantAmount})?`}
+                  description={<p className="text-red-600">Applying does not guarantee an award. Travel grants are subject to available funding and approval by the organizing committee.</p>}
                   options={TRAVEL_GRANT_OPTIONS}
                   value={values.travelGrant}
                   error={errors.travelGrant}
                   onChange={(v) => setField('travelGrant', v)}
-                />
+                />}
                 <RadioGroup
                   name="feeWaiver"
                   errorId={errorId('feeWaiver')}
                   required
                   legend={`Do you want to apply for a registration fee waiver (${REGISTRATION_INFO.registrationFeeWaiverAmount})?`}
+                  description={<p className="text-red-600">Applying does not guarantee a fee waiver. Waivers are subject to availability and approval by the organizing committee.</p>}
                   options={TRAVEL_GRANT_OPTIONS}
                   value={values.feeWaiver}
                   error={errors.feeWaiver}

@@ -46,3 +46,5 @@ next-env.d.ts
 .drizzle
 .vscode
 .idea
+# Local payment QR (never commit)
+/public/local-payment/

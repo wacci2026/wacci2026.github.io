@@ -41,14 +41,22 @@ The script finds columns **by header text, not by position**. That means:
 | C | `Full Name` | `Ana Pérez` | Extra spaces collapsed. Max 120 chars. |
 | D | `Email` | `ana@uis.edu.co` | Always **lowercase**. Used for the duplicate check. |
 | E | `Institution` | `Universidad Industrial de Santander` | Max 200 chars. |
-| F | `Country` | `Colombia` | **The only optional question** → may be empty. |
+| F | `Country` | `Colombia` | Required country/territory selected from the dropdown. |
 | G | `Author Status` | `Yes, I am a presenting author` | One of the 3 labels below. |
 | H | `Paper IDs` | `12, 34` | EasyChair IDs, stored as **text**. Empty for non-authors. |
 | I | `Position` | `Postdoc` | Empty for non-authors. |
-| J | `Travel Grant` | `Yes` | Required for student authors; empty for everyone else (not asked). |
+| J | `Travel Grant` | `Yes` | Required for student authors outside Chile; empty for Chilean students and everyone else (not asked). |
 | K | `Registration Fee Waiver` | `No` | Required for student authors; empty for everyone else. |
 | L | `Code of Conduct` | `Yes, I accept` | Always this value (declining blocks the registration). |
-| M | `Registration Fee` | `Advance fee (US$150 by November 22, 2026)` | One of the 2 labels below. |
+| M | `Registration Fee` | `Advance fee (US$150 by 30 November 2026)` | One of the 2 labels below. |
+
+Additional required headers (appended automatically by `setupSheet()`):
+
+| Header | Content |
+|---|---|
+| `Receipt Upload Token` | Private upload credential. Keep this column and the spreadsheet restricted to organizers. |
+| `Payment Receipt PDF` | Link to the PDF stored in a private Google Drive folder. Empty until uploaded. |
+| `Receipt Uploaded At` | Timestamp of receipt upload. |
 
 ### Optional organizer column
 
@@ -65,7 +73,7 @@ The script finds columns **by header text, not by position**. That means:
 | Travel Grant | `Yes` · `No` · *(empty)* |
 | Registration Fee Waiver | `Yes` · `No` · *(empty)* |
 | Code of Conduct | `Yes, I accept` |
-| Registration Fee | `Advance fee (US$150 by November 22, 2026)` · `Pay after November 22, 2026 (US$180)` |
+| Registration Fee | `Advance fee (US$150 by 30 November 2026)` · `Pay after 30 November 2026 (US$180)` |
 
 Branching (same as the original Google Form):
 
@@ -146,3 +154,33 @@ the registration is still saved; only the email is skipped (logged as a warning)
 | No execution appears at all | Wrong URL, `/dev` URL, or access ≠ *Anyone* | Recheck deployment step 7–9 |
 
 After updating either backend script for the student funding questions, run `setupSheet()` to append the `Registration Fee Waiver` header, then deploy a new Apps Script version. Existing rows are preserved.
+
+
+## Payment step and PDF receipt uploads
+
+1. Replace the deployed script with the updated `Code.gs` **or** `Code.faster.gs` (never both).
+2. Run `setupSheet()` again. It adds the receipt columns without deleting data and creates a private
+   **WACCI 2026 Payment Receipts** Drive folder. Accept the new Drive authorization when prompted.
+   Its ID is saved in the Script Property `RECEIPT_FOLDER_ID`. You may instead set this property to
+   an existing private folder's ID. Share the folder only with committee members who review receipts;
+   sharing the spreadsheet does not automatically grant access to the PDFs.
+3. Publish a **new Apps Script deployment version**. Keep Execute as **Me**, access **Anyone**.
+4. Configure `NEXT_PUBLIC_REGISTRATION_ENDPOINT` (the `/exec` URL) for local development or builds.
+   The form enables submission when that URL is configured.
+5. After a successful registration, Step 2 shows the payment QR and accepts one PDF, up to 5 MB.
+   The server validates its size and PDF header, checks the registration's private upload token,
+   saves the PDF in Drive, and writes its link into that same row. Retries reuse the existing receipt.
+   `Payment Status` becomes **Receipt received — pending review**, never automatically **Paid**.
+6. Test with a real deployment and a test registration before opening registration to attendees:
+   select Chile as a student author (Travel Grant hidden, fee waiver visible), submit, upload a PDF,
+   and confirm the file link and payment review status on that row. Verify unauthorized uploads fail.
+
+The QR asset is local at `public/local-payment/QR_pago_WACCI.png`, copied from the organizer's
+provided image. `/public/local-payment/` is ignored by Git. **It is intentionally absent from GitHub
+and GitHub Actions builds.** To show it on a deployed website without committing it, provide the image
+separately during that deployment or host it separately and update the image URL. The page shows a
+contact message if the image is missing. Keep Step 2 open until the receipt upload is complete.
+
+Local regression checks: `node tests/registration.cjs` (both backend variants, eligibility, upload
+credentials, PDF rejection, same-row receipt persistence, and retries). These tests use mocks;
+Apps Script authorization and actual Drive/Sheets operations must also be checked in the deployment.
