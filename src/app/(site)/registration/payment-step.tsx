@@ -4,7 +4,7 @@ import { useId, useState } from 'react';
 import { withBasePath } from '@/lib/base-path';
 import { MAX_RECEIPT_BYTES, REGISTRATION_ENDPOINT, REGISTRATION_INFO } from '@/lib/registration';
 
-export default function PaymentStep({ submissionId, receiptToken }: { submissionId: string; receiptToken: string }) {
+export default function PaymentStep({ submissionId, receiptToken, onRegisterAnother }: { submissionId: string; receiptToken: string; onRegisterAnother: () => void }) {
   const id = useId();
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -66,7 +66,6 @@ export default function PaymentStep({ submissionId, receiptToken }: { submission
     <section className="rounded-2xl border border-primary-100 bg-primary-50 p-5 space-y-5 text-gray-700">
       <h3 className="text-xl font-bold text-primary-600">Step 2: Payment and receipt</h3>
       <p>Your registration has been saved. Scan the QR code to make your payment, then upload your PDF receipt below. Keep this page open until your receipt has been uploaded.</p>
-      <p>If you applied for a fee waiver, wait for the organizing committee’s decision before paying.</p>
       {qrUnavailable ? (
         <p className="text-sm text-red-600">Payment QR unavailable. Please contact {REGISTRATION_INFO.contactEmail} for payment instructions.</p>
       ) : (
@@ -75,7 +74,16 @@ export default function PaymentStep({ submissionId, receiptToken }: { submission
         <img src={withBasePath('/local-payment/QR_pago_WACCI.png')} alt="Scan this QR code to pay the WACCI registration fee" className="mx-auto w-full max-w-xs h-auto rounded-xl bg-white p-3" onError={() => setQrUnavailable(true)} />
       )}
       {saved ? (
-        <p role="status" className="font-semibold text-emerald-700">Receipt received. The organizing committee will review your payment. Uploading a receipt does not confirm payment approval.</p>
+        <div className="space-y-4">
+          <p role="status" className="font-semibold text-emerald-700">Receipt received. The organizing committee will review your payment. Uploading a receipt does not confirm payment approval.</p>
+          <button
+            type="button"
+            onClick={onRegisterAnother}
+            className="text-sm font-semibold text-primary-500 underline underline-offset-4 hover:text-primary-700"
+          >
+            Register another person
+          </button>
+        </div>
       ) : (
         <form onSubmit={uploadReceipt} className="space-y-3" aria-busy={uploading}>
           <label htmlFor={id} className="block text-sm font-semibold">Upload payment receipt (PDF, maximum 5 MB)</label>

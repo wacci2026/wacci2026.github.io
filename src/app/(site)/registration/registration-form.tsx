@@ -302,15 +302,11 @@ export default function RegistrationForm() {
             </div>
           </div>
 
-          <PaymentStep submissionId={status.submissionId} receiptToken={status.receiptToken} />
-
-          <button
-            type="button"
-            onClick={() => setStatus({ kind: 'idle' })}
-            className="text-sm font-semibold text-primary-500 underline underline-offset-4 hover:text-primary-700"
-          >
-            Register another person
-          </button>
+          <PaymentStep
+            submissionId={status.submissionId}
+            receiptToken={status.receiptToken}
+            onRegisterAnother={() => setStatus({ kind: 'idle' })}
+          />
         </div>
       ) : (
         <form

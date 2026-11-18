@@ -175,11 +175,26 @@ After updating either backend script for the student funding questions, run `set
    select Chile as a student author (Travel Grant hidden, fee waiver visible), submit, upload a PDF,
    and confirm the file link and payment review status on that row. Verify unauthorized uploads fail.
 
-The QR asset is local at `public/local-payment/QR_pago_WACCI.png`, copied from the organizer's
-provided image. `/public/local-payment/` is ignored by Git. **It is intentionally absent from GitHub
-and GitHub Actions builds.** To show it on a deployed website without committing it, provide the image
-separately during that deployment or host it separately and update the image URL. The page shows a
-contact message if the image is missing. Keep Step 2 open until the receipt upload is complete.
+### Publish the QR without committing the image
+
+The local image is `public/local-payment/QR_pago_WACCI.png`. The whole folder is ignored by Git.
+GitHub Actions restores it from the `PAYMENT_QR_BASE64` Actions secret before building the site,
+so the image is included in the deployed website without being added to the repository or Git history.
+The QR is publicly accessible on the published website; the secret keeps it out of source control.
+
+From this repository directory, configure the secret once using an account with repository access:
+
+```bash
+gh auth login
+base64 -w 0 public/local-payment/QR_pago_WACCI.png | gh secret set PAYMENT_QR_BASE64 --repo wacci2026/wacci2026.github.io
+```
+
+Then commit/push the workflow change and let the **Deploy to GitHub Pages** workflow finish.
+For future QR changes, update the local PNG, run the secret command again, and rerun the workflow.
+The build deliberately fails if the secret is missing or does not contain a PNG, preserving the
+previous deployment instead of publishing another payment page with a missing QR.
+After deployment, verify `https://wacci2026.github.io/local-payment/QR_pago_WACCI.png` loads.
+Keep Step 2 open until the receipt upload is complete.
 
 Local regression checks: `node tests/registration.cjs` (both backend variants, eligibility, upload
 credentials, PDF rejection, same-row receipt persistence, and retries). These tests use mocks;

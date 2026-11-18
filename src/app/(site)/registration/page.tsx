@@ -88,22 +88,6 @@ export default function RegistrationPage() {
                 <li className="flex items-start gap-3">
                   <span className="text-primary-500 font-bold">b.</span>
                   <span>
-                    After registering you will receive the online payment link by email. Once paid,
-                    upload your receipt{' '}
-                    <a
-                      href={REGISTRATION_INFO.receiptUploadUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-semibold text-primary-500 underline underline-offset-4 hover:text-primary-700"
-                    >
-                      here
-                    </a>
-                    .
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary-500 font-bold">c.</span>
-                  <span>
                     Questions? Write to{' '}
                     <a
                       href={`mailto:${REGISTRATION_INFO.contactEmail}`}
