@@ -52,7 +52,7 @@ const CONFIG = {
   // Text shown in the sheet / emails. Keep in sync with src/lib/registration.ts.
   ADVANCED_FEE: 'US$150',
   STANDARD_FEE: 'US$180',
-  ADVANCED_DEADLINE: '30 November 2026',
+  ADVANCED_DEADLINE: '9 December 2026',
   CONFIRMATION_LOGO_URL: 'https://wacci2026.github.io/images/wacci-122x64.png',
   CONFIRMATION_BANNER_URL: 'https://wacci2026.github.io/images/hero/pucon.png',
 

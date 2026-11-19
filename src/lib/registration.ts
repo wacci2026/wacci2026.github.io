@@ -22,7 +22,7 @@ export const isValidRegistrationEndpoint = (url: string) =>
 export const REGISTRATION_INFO = {
   advancedFee: 'US$150',
   standardFee: 'US$180',
-  advancedDeadline: '30 November 2026',
+  advancedDeadline: '9 December 2026',
   travelGrantAmount: 'US$500',
   registrationFeeWaiverAmount: 'CLP 150,000 / US$150',
   codeOfConductUrl: 'https://www.optica.org/events/code_of_conduct/',

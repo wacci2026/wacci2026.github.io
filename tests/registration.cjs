@@ -139,5 +139,5 @@ test('frontend eligibility matches backend; countries include Chile and all ISO 
   assert.equal(lib.asksTravelGrant('author', 'student', 'Colombia'), true);
   assert.equal(lib.asksTravelGrant('not_author', 'student', 'Colombia'), false);
   assert.equal(lib.asksFeeWaiver('author', 'student'), true);
-  assert.equal(lib.REGISTRATION_INFO.advancedDeadline, '30 November 2026');
+  assert.equal(lib.REGISTRATION_INFO.advancedDeadline, '9 December 2026');
 });

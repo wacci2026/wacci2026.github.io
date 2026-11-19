@@ -48,7 +48,7 @@ The script finds columns **by header text, not by position**. That means:
 | J | `Travel Grant` | `Yes` | Required for student authors outside Chile; empty for Chilean students and everyone else (not asked). |
 | K | `Registration Fee Waiver` | `No` | Required for student authors; empty for everyone else. |
 | L | `Code of Conduct` | `Yes, I accept` | Always this value (declining blocks the registration). |
-| M | `Registration Fee` | `Advance fee (US$150 by 30 November 2026)` | One of the 2 labels below. |
+| M | `Registration Fee` | `Advance fee (US$150 by 9 December 2026)` | One of the 2 labels below. |
 
 Additional required headers (appended automatically by `setupSheet()`):
 
@@ -74,7 +74,7 @@ Additional required headers (appended automatically by `setupSheet()`):
 | Travel Grant | `Yes` · `No` · *(empty)* |
 | Registration Fee Waiver | `Yes` · `No` · *(empty)* |
 | Code of Conduct | `Yes, I accept` |
-| Registration Fee | `Advance fee (US$150 by 30 November 2026)` · `Pay after 30 November 2026 (US$180)` |
+| Registration Fee | `Advance fee (US$150 by 9 December 2026)` · `Pay after 9 December 2026 (US$180)` |
 
 Branching (same as the original Google Form):
 
