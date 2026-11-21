@@ -12,22 +12,6 @@ export const INVITED_SPEAKERS = [
     scholarCitations: 52684,
   },
   {
-    name: "David Brady",
-    affiliation: "University of Arizona",
-    country: "United States",
-    imageUrl: withBasePath("/images/speakers/david-brady.webp"),
-    scholarUrl: "https://scholar.google.com.mx/citations?user=CcSZwTsAAAAJ&hl=es&oi=ao",
-    scholarCitations: 25955,
-  },
-  {
-    name: "Gonzalo R. Arce",
-    affiliation: "University of Delaware",
-    country: "United States",
-    imageUrl: withBasePath("/images/speakers/gonzalo-arce.webp"),
-    scholarUrl: "https://scholar.google.com/citations?user=1JyQMewAAAAJ&hl=en",
-    scholarCitations: 21118,
-  },
-  {
     name: "Xin Yuan",
     affiliation: "Westlake University",
     country: "China",
