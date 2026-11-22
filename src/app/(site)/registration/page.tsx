@@ -58,10 +58,8 @@ export default function RegistrationPage() {
                   <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">
                     Advance fee
                   </div>
-                  <div className="text-2xl font-extrabold text-primary-500">
-                    {REGISTRATION_INFO.advancedFee.split(' / ').map((amount) => (
-                      <span key={amount} className="block">{amount}</span>
-                    ))}
+                  <div className="text-base font-extrabold text-primary-500">
+                    {REGISTRATION_INFO.advancedFee}
                   </div>
                   <p className="mt-2 text-sm text-gray-500">By {REGISTRATION_INFO.advancedDeadline}</p>
                 </div>
@@ -69,10 +67,8 @@ export default function RegistrationPage() {
                   <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">
                     Standard fee
                   </div>
-                  <div className="text-2xl font-extrabold text-primary-500">
-                    {REGISTRATION_INFO.standardFee.split(' / ').map((amount) => (
-                      <span key={amount} className="block">{amount}</span>
-                    ))}
+                  <div className="text-base font-extrabold text-primary-500">
+                    {REGISTRATION_INFO.standardFee}
                   </div>
                   <p className="mt-2 text-sm text-gray-500">After {REGISTRATION_INFO.advancedDeadline}</p>
                 </div>

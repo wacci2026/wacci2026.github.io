@@ -20,11 +20,11 @@ export const isValidRegistrationEndpoint = (url: string) =>
 
 // Registration fees and early registration deadline for 2026.
 export const REGISTRATION_INFO = {
-  advancedFee: 'CLP 150,000 / US$150',
-  standardFee: 'CLP 180,000 / US$180',
+  advancedFee: 'CLP 150,000 (approx. US$150)',
+  standardFee: 'CLP 180,000 (approx. US$180)',
   advancedDeadline: '9 December 2026',
   travelGrantAmount: 'US$500',
-  registrationFeeWaiverAmount: 'CLP 150,000 / US$150',
+  registrationFeeWaiverAmount: 'CLP 150,000 (approx. US$150)',
   codeOfConductUrl: 'https://www.optica.org/events/code_of_conduct/',
   // TODO: replace with the 2026 receipt-upload form if it changed.
   receiptUploadUrl: '',
@@ -57,7 +57,7 @@ export const FEE_OPTIONS = [
   { value: 'advanced', label: 'I agree' },
   {
     value: 'later',
-    label: `I will pay after ${REGISTRATION_INFO.advancedDeadline} (${REGISTRATION_INFO.standardFee})`,
+    label: `I will pay after ${REGISTRATION_INFO.advancedDeadline} at the standard fee of ${REGISTRATION_INFO.standardFee}`,
   },
 ] as const;
 
