@@ -53,22 +53,26 @@ export default function RegistrationPage() {
 
             <div>
               <h3 className="text-lg font-bold text-primary-500 mb-4">WACCI Registration Fee</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,13rem),1fr))] gap-4">
+                <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
                   <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">
                     Advance fee
                   </div>
-                  <div className="text-3xl font-extrabold text-primary-500">
-                    {REGISTRATION_INFO.advancedFee}
+                  <div className="text-2xl font-extrabold text-primary-500">
+                    {REGISTRATION_INFO.advancedFee.split(' / ').map((amount) => (
+                      <span key={amount} className="block">{amount}</span>
+                    ))}
                   </div>
                   <p className="mt-2 text-sm text-gray-500">By {REGISTRATION_INFO.advancedDeadline}</p>
                 </div>
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
+                <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
                   <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">
                     Standard fee
                   </div>
-                  <div className="text-3xl font-extrabold text-primary-500">
-                    {REGISTRATION_INFO.standardFee}
+                  <div className="text-2xl font-extrabold text-primary-500">
+                    {REGISTRATION_INFO.standardFee.split(' / ').map((amount) => (
+                      <span key={amount} className="block">{amount}</span>
+                    ))}
                   </div>
                   <p className="mt-2 text-sm text-gray-500">After {REGISTRATION_INFO.advancedDeadline}</p>
                 </div>

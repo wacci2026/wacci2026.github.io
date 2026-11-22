@@ -20,8 +20,8 @@ export const isValidRegistrationEndpoint = (url: string) =>
 
 // Registration fees and early registration deadline for 2026.
 export const REGISTRATION_INFO = {
-  advancedFee: 'US$150',
-  standardFee: 'US$180',
+  advancedFee: 'CLP 150,000 / US$150',
+  standardFee: 'CLP 180,000 / US$180',
   advancedDeadline: '9 December 2026',
   travelGrantAmount: 'US$500',
   registrationFeeWaiverAmount: 'CLP 150,000 / US$150',
@@ -57,7 +57,7 @@ export const FEE_OPTIONS = [
   { value: 'advanced', label: 'I agree' },
   {
     value: 'later',
-    label: `I will pay after ${REGISTRATION_INFO.advancedDeadline} (CLP 180,000 / US 180)`,
+    label: `I will pay after ${REGISTRATION_INFO.advancedDeadline} (${REGISTRATION_INFO.standardFee})`,
   },
 ] as const;
 
