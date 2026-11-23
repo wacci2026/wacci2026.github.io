@@ -36,6 +36,7 @@ const CONFIG = {
   // Optional emails (each failure is logged but never breaks the registration).
   ORGANIZER_NOTIFY_EMAIL: '', // e.g. 'wacci2026@gmail.com' — empty = disabled
   CONTACT_EMAIL: 'wacci2026@gmail.com',
+  CONFIRMATION_FROM: 'wacci2026@gmail.com',
 
   // Text shown in the sheet / emails. Keep in sync with src/lib/registration.ts.
   ADVANCED_FEE: 'US$150',
@@ -559,6 +560,14 @@ function sendReceiptConfirmation_(sheet, row, map, submissionId) {
   }
   try {
     if (MailApp.getRemainingDailyQuota() < 1) throw new Error('Email quota exhausted.');
+    const sender = CONFIG.CONFIRMATION_FROM;
+    const sendOptions = {};
+    if (Session.getEffectiveUser().getEmail().toLowerCase() !== sender) {
+      if (!GmailApp.getAliases().includes(sender)) {
+        throw new Error('Configure ' + sender + ' as a verified Gmail send-as address.');
+      }
+      sendOptions.from = sender;
+    }
     const details = confirmationDetails_(sheet, row, map);
     const email = sheet.getRange(row, map.index[normalizeHeader_('Email')] + 1).getDisplayValue().trim();
     const name = sheet.getRange(row, map.index[normalizeHeader_('Full Name')] + 1).getDisplayValue();
@@ -566,15 +575,15 @@ function sendReceiptConfirmation_(sheet, row, map, submissionId) {
     const html = confirmationPdfHtml_(details, confirmationImage_(CONFIG.CONFIRMATION_LOGO_URL), confirmationImage_(CONFIG.CONFIRMATION_BANNER_URL));
     const pdf = HtmlService.createHtmlOutput(html).getBlob().getAs('application/pdf').setName(submissionId + '-registration.pdf');
     const detailText = details.map(function (field) { return field[0] + ': ' + field[1]; }).join('\n');
-    MailApp.sendEmail({
-      to: email,
-      name: 'WACCI 2026 Organizing Committee',
-      replyTo: CONFIG.CONTACT_EMAIL,
-      subject: 'WACCI 2026 - Registration confirmation (' + submissionId + ')',
-      body: 'Dear ' + name + ',\n\nThank you for completing your WACCI 2026 registration and submitting your receipt.\n' +
+    const subject = 'WACCI 2026 - Registration confirmation (' + submissionId + ')';
+    const body = 'Dear ' + name + ',\n\nThank you for completing your WACCI 2026 registration and submitting your receipt.\n' +
         'We look forward to welcoming you in Pucón, Chile, December 14-17, 2026.\n\n' + detailText +
         '\n\nYour registration confirmation PDF is attached. Please keep it for your records.\n\n' +
-        'Questions or corrections? ' + CONFIG.CONTACT_EMAIL + '\n\nWACCI 2026 Organizing Committee',
+        'Questions or corrections? ' + CONFIG.CONTACT_EMAIL + '\n\nWACCI 2026 Organizing Committee';
+    GmailApp.sendEmail(email, subject, body, {
+      ...sendOptions,
+      name: 'WACCI 2026 Organizing Committee',
+      replyTo: CONFIG.CONTACT_EMAIL,
       attachments: [pdf],
     });
     sentCell.setValue(new Date());

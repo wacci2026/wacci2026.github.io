@@ -208,7 +208,14 @@ The attendee confirmation is sent **after the PDF receipt has been saved**, to t
 on that registration row. The attachment includes the WACCI logo and Pucón waterfront image.
 The website then shows a thank-you view and the registered email address; it removes the QR and
 upload form and allows registering another person. The website says the email was sent only when
-Apps Script reports that MailApp accepted it for sending; inbox delivery is not tracked.
+Apps Script records when Gmail accepts the confirmation for sending. Inbox delivery is not tracked.
+
+The confirmation with the PDF uses `wacci2026@gmail.com` as its From address.
+If the web app runs as another account, add and verify `wacci2026@gmail.com` in that
+account’s Gmail settings under **Accounts and Import → Send mail as** before updating
+the deployment. Authorize the new Gmail scopes in Apps Script and update the existing
+web app deployment to a new version. If the alias is unavailable, the receipt stays
+saved and the confirmation can be retried after the alias is configured.
 
 Both the email and attachment use an explicit allowlist: registration reference, full name, email,
 institution/company, country, paper IDs, position and selected registration fee. Empty answers are

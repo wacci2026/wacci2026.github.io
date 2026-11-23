@@ -29,6 +29,14 @@ for (const filename of ['Code.gs', 'Code.faster.gs']) {
     };
     const context = vm.createContext({
       MailApp: { getRemainingDailyQuota: () => settings.quota, sendEmail: options => { if (settings.failMail) throw new Error('Temporary mail failure'); sentEmails.push(options); } },
+      Session: { getEffectiveUser: () => ({ getEmail: () => 'deployer@example.test' }) },
+      GmailApp: {
+        getAliases: () => ['wacci2026@gmail.com'],
+        sendEmail: (to, subject, body, options) => {
+          if (settings.failMail) throw new Error('Temporary mail failure');
+          sentEmails.push({ to, subject, body, ...options });
+        },
+      },
       UrlFetchApp: { fetch: () => ({ getResponseCode: () => 200, getBlob: () => ({ getContentType: () => 'image/png', getBytes: () => [137,80,78,71] }) }) },
       HtmlService: { createHtmlOutput: html => ({ getBlob: () => ({ getAs: type => ({ html, type, setName(name) { this.name = name; return this; } }) }) }) },
       console: { log() {}, warn() {}, error() {} },
@@ -74,6 +82,7 @@ for (const filename of ['Code.gs', 'Code.faster.gs']) {
     assert.ok(b.value('Confirmation Email Sent At'));
     assert.equal(b.sentEmails.length, 1);
     assert.equal(b.sentEmails[0].to, base.email);
+    assert.equal(b.sentEmails[0].from, 'wacci2026@gmail.com');
     assert.equal(b.sentEmails[0].attachments[0].type, 'application/pdf');
     assert.match(b.sentEmails[0].attachments[0].name, /-registration\.pdf$/);
     const attendeeContent = b.sentEmails[0].body + b.sentEmails[0].attachments[0].html;
