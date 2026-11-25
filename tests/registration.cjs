@@ -45,7 +45,7 @@ for (const filename of ['Code.gs', 'Code.faster.gs']) {
       CacheService: { getScriptCache: () => ({ get: key => cache.get(key), put: (key, value) => cache.set(key, value) }) },
       PropertiesService: { getScriptProperties: () => ({ getProperty: key => properties.get(key) }) },
       SpreadsheetApp: { getActiveSpreadsheet: () => ({ getSheetByName: () => sheet }), flush() {} },
-      Utilities: { getUuid: () => '12345678-1234-1234-1234-123456789abc', base64Decode: s => Array.from(Buffer.from(s, 'base64')), base64Encode: bytes => Buffer.from(bytes).toString('base64'), newBlob: (bytes, type, name) => ({ bytes, type, name }) },
+      Utilities: { getUuid: () => require('node:crypto').randomUUID(), base64Decode: s => Array.from(Buffer.from(s, 'base64')), base64Encode: bytes => Buffer.from(bytes).toString('base64'), newBlob: (bytes, type, name) => ({ bytes, type, name }) },
       DriveApp: { getFolderById: () => ({ getFilesByName: () => ({ hasNext: () => files > 0, next: () => file }), createFile: blob => { assert.equal(blob.type, 'application/pdf'); files++; return file; } }) },
     });
     vm.runInContext(fs.readFileSync(`apps-script/registration/${filename}`, 'utf8'), context);
@@ -66,30 +66,20 @@ for (const filename of ['Code.gs', 'Code.faster.gs']) {
     assert.equal(b.validate_({ ...base, position: 'professor', travelGrant: '', feeWaiver: '' }).ok, true);
   });
 
-  test(`${filename}: resume a pending receipt after verifying the registered inbox`, () => {
+  test(`${filename}: resume a pending receipt by matching the registered email`, () => {
     const b = backend();
     const registration = b.context.saveRegistration_(base, '');
-    const request = email => post({ action: 'requestReceiptRecovery', email });
-    const verify = (email, code) => post({ action: 'verifyReceiptRecovery', email, code });
+    const resume = email => post({ action: 'resumeReceiptUpload', email });
     function post(body) {
       return b.context.doPost({ postData: { type: 'text/plain', contents: JSON.stringify(body) } });
     }
 
-    assert.deepEqual(request('unknown@example.com'), { ok: true });
+    assert.equal(resume('unknown@example.com').code, 'NO_PENDING_RECEIPT');
+    const recovered = resume(' ADA@EXAMPLE.COM ');
+    assert.equal(recovered.ok, true);
+    assert.equal(recovered.submissionId, registration.submissionId);
+    assert.notEqual(recovered.receiptToken, registration.receiptToken);
     assert.equal(b.sentEmails.length, 0);
-    assert.deepEqual(request(' ADA@EXAMPLE.COM '), { ok: true });
-    assert.deepEqual(request(base.email), { ok: true });
-    assert.equal(b.sentEmails.length, 1);
-    assert.equal(b.sentEmails[0].to, base.email);
-    const code = b.sentEmails[0].body.match(/^([a-f0-9]{32})$/m)[1];
-    assert.equal(verify('unknown@example.com', code).code, 'INVALID_CODE');
-    assert.equal(verify(base.email, '0'.repeat(32)).code, 'INVALID_CODE');
-    const recovered = verify(base.email, code);
-    assert.deepEqual(recovered, {
-      ok: true,
-      submissionId: registration.submissionId,
-      receiptToken: registration.receiptToken,
-    });
 
     const uploaded = post({
       action: 'uploadReceipt',
@@ -99,9 +89,10 @@ for (const filename of ['Code.gs', 'Code.faster.gs']) {
     assert.equal(uploaded.ok, true);
     assert.equal(b.rows.length, 2);
     assert.equal(b.fileCount(), 1);
-    assert.equal(verify(base.email, code).code, 'INVALID_CODE');
-    assert.deepEqual(request(base.email), { ok: true });
-    assert.equal(b.sentEmails.length, 2);
+    assert.equal(resume(base.email).code, 'NO_PENDING_RECEIPT');
+    assert.equal(b.sentEmails.length, 1);
+    assert.equal(b.sentEmails[0].to, base.email);
+    assert.equal(b.sentEmails[0].attachments[0].type, 'application/pdf');
   });
 
   test(`${filename}: save registration, authenticate PDF upload, update same row and retry`, () => {

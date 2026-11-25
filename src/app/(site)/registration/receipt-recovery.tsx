@@ -7,13 +7,11 @@ import PaymentStep from './payment-step';
 export default function ReceiptRecovery() {
   const id = useId();
   const [email, setEmail] = useState('');
-  const [code, setCode] = useState('');
-  const [codeRequested, setCodeRequested] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [recovered, setRecovered] = useState<{ submissionId: string; receiptToken: string } | null>(null);
 
-  async function recover(verify: boolean) {
+  async function recover() {
     if (busy) return;
     setError('');
     if (!isValidRegistrationEndpoint(REGISTRATION_ENDPOINT)) {
@@ -29,9 +27,8 @@ export default function ReceiptRecovery() {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
-          action: verify ? 'verifyReceiptRecovery' : 'requestReceiptRecovery',
+          action: 'resumeReceiptUpload',
           email: email.trim().toLowerCase(),
-          ...(verify ? { code: code.trim() } : {}),
         }),
         signal: controller.signal,
       });
@@ -40,12 +37,10 @@ export default function ReceiptRecovery() {
         setError(`Receipt recovery is unavailable. Please contact ${REGISTRATION_INFO.contactEmail}.`);
       } else if (!result.ok) {
         setError(result.message || 'We could not resume your receipt upload. Please try again.');
-      } else if (!verify) {
-        setCodeRequested(true);
       } else if (result.submissionId && result.receiptToken) {
         setRecovered({ submissionId: result.submissionId, receiptToken: result.receiptToken });
       } else {
-        setError('We could not verify your code. Request a new code and try again.');
+        setError('We could not resume your receipt upload. Please try again.');
       }
     } catch {
       setError(`We could not reach the registration server. Please try again or contact ${REGISTRATION_INFO.contactEmail}.`);
@@ -67,9 +62,7 @@ export default function ReceiptRecovery() {
             email={email.trim().toLowerCase()}
             onRegisterAnother={() => {
               setRecovered(null);
-              setCodeRequested(false);
               setEmail('');
-              setCode('');
               document.getElementById('registration-form')?.scrollIntoView();
             }}
           />
@@ -80,58 +73,25 @@ export default function ReceiptRecovery() {
           aria-busy={busy}
           onSubmit={(event) => {
             event.preventDefault();
-            void recover(codeRequested);
+            void recover();
           }}
         >
-          {codeRequested ? (
-            <>
-              <p role="status">
-                If <strong className="break-all">{email.trim()}</strong> matches a registration with a pending receipt,
-                you’ll receive a verification code. Check your inbox and spam folder.
-              </p>
-              <label htmlFor={`${id}-code`} className="block font-semibold">Verification code</label>
-              <input
-                id={`${id}-code`}
-                type="text"
-                autoComplete="one-time-code"
-                spellCheck={false}
-                required
-                disabled={busy}
-                value={code}
-                onChange={(event) => setCode(event.target.value)}
-                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2"
-              />
-            </>
-          ) : (
-            <>
-              <label htmlFor={`${id}-email`} className="block font-semibold">Email used to register</label>
-              <input
-                id={`${id}-email`}
-                type="email"
-                autoComplete="email"
-                maxLength={FIELD_LIMITS.email}
-                required
-                disabled={busy}
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2"
-              />
-            </>
-          )}
+          <label htmlFor={`${id}-email`} className="block font-semibold">Email used to register</label>
+          <input
+            id={`${id}-email`}
+            type="email"
+            autoComplete="email"
+            maxLength={FIELD_LIMITS.email}
+            required
+            disabled={busy}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2"
+          />
           {error && <p role="alert" className="text-red-600">{error}</p>}
           <button type="submit" disabled={busy} className="rounded-lg bg-primary-500 px-4 py-2 font-semibold text-white disabled:opacity-60">
-            {busy ? 'Please wait…' : codeRequested ? 'Verify and continue' : 'Email me a code'}
+            {busy ? 'Checking registration…' : 'Continue to payment and receipt'}
           </button>
-          {codeRequested && (
-            <div className="flex flex-wrap gap-3">
-              <button type="button" disabled={busy} onClick={() => { setCodeRequested(false); setCode(''); setError(''); }} className="font-semibold text-primary-500 underline disabled:opacity-60">
-                Change email
-              </button>
-              <button type="button" disabled={busy} onClick={() => void recover(false)} className="font-semibold text-primary-500 underline disabled:opacity-60">
-                Resend code
-              </button>
-            </div>
-          )}
         </form>
       )}
     </details>

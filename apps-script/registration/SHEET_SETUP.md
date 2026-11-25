@@ -254,4 +254,4 @@ attendee information; it is a layout preview, not an actual registration or rece
 
 ### Verify receipt recovery after deployment
 
-Publish a new version of the active Apps Script deployment using the updated script, then publish the website. With a test registration that has no receipt, reopen the registration page and choose **Resume receipt upload** under Notes. Confirm that the verification code arrives, opens the existing payment step, and saves a PDF to the original row. Recovery codes are sent using the Apps Script deployer's MailApp quota.
+Publish a new version of the active Apps Script deployment using the updated script, then publish the website. With a test registration that has no receipt, reopen the registration page and choose **Resume receipt upload** under Notes. Enter the registered email and confirm that the existing payment step opens directly and saves a PDF to the original row. Check that an unknown email or a registration with a saved receipt cannot reopen the payment step.
