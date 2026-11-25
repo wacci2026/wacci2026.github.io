@@ -4,6 +4,7 @@ import { COUNTRY_OPTIONS } from '@/lib/countries';
 import PaymentStep from './payment-step';
 import React, { useId, useRef, useState } from 'react';
 import {
+  type PaymentDetails,
   AUTHOR_STATUS_OPTIONS,
   CODE_OF_CONDUCT_OPTIONS,
   EMAIL_REGEX,
@@ -53,7 +54,6 @@ type ServerResponse =
 type Status =
   | { kind: 'idle' }
   | { kind: 'submitting' }
-  | { kind: 'success'; submissionId: string; receiptToken: string; email: string }
   | { kind: 'error'; message: string };
 
 const INITIAL_VALUES: FormValues = {
@@ -169,7 +169,15 @@ function buildPayload(values: FormValues, token: string) {
   };
 }
 
-export default function RegistrationForm() {
+export default function RegistrationForm({
+  payment,
+  onRegistered,
+  onRegisterAnother,
+}: {
+  payment: PaymentDetails | null;
+  onRegistered: (details: PaymentDetails) => void;
+  onRegisterAnother: () => void;
+}) {
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
@@ -177,7 +185,6 @@ export default function RegistrationForm() {
   // so the Apps Script can recognise a duplicate and not write a second row.
   const tokenRef = useRef<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const idPrefix = useId();
 
   const endpointConfigured = isValidRegistrationEndpoint(REGISTRATION_ENDPOINT);
@@ -248,10 +255,10 @@ export default function RegistrationForm() {
       }
 
       if (data.ok) {
-        setStatus({ kind: 'success', submissionId: data.submissionId, receiptToken: data.receiptToken, email: payload.email });
+        onRegistered({ submissionId: data.submissionId, receiptToken: data.receiptToken, email: payload.email });
+        setStatus({ kind: 'idle' });
         setValues(INITIAL_VALUES);
         tokenRef.current = null;
-        containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
 
@@ -283,14 +290,12 @@ export default function RegistrationForm() {
   const errorId = (name: string) => `${idPrefix}-${name}-error`;
 
   return (
-    <div ref={containerRef} className="scroll-mt-28">
-      {status.kind === 'success' ? (
+    <div>
+      {payment ? (
         <div className="p-6 md:p-8 space-y-6" role="status" aria-live="polite">
           <PaymentStep
-            submissionId={status.submissionId}
-            receiptToken={status.receiptToken}
-            email={status.email}
-            onRegisterAnother={() => setStatus({ kind: 'idle' })}
+            {...payment}
+            onRegisterAnother={onRegisterAnother}
           />
         </div>
       ) : (

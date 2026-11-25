@@ -85,6 +85,8 @@ export const asksFeeWaiver = (status: string, position: string) =>
 export const asksTravelGrant = (status: string, position: string, country: string) =>
   asksFeeWaiver(status, position) && country !== '' && country !== 'Chile';
 
+export type PaymentDetails = { submissionId: string; receiptToken: string; email: string };
+
 export const MAX_RECEIPT_BYTES = 5 * 1024 * 1024;
 
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
