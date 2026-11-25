@@ -101,7 +101,8 @@ export default function PaymentStep({ submissionId, receiptToken, email, onRegis
     <section className="rounded-2xl border border-primary-100 bg-primary-50 p-5 space-y-5 text-gray-700">
       <h2 className="text-xl font-bold text-primary-600">Step 2: Payment and receipt</h2>
       <p className="text-sm">Registration reference: <span className="font-mono font-semibold">{submissionId}</span></p>
-      <p>Your registration has been saved. Scan the QR code to make your payment, then upload your PDF receipt below. Keep this page open until your receipt has been uploaded.</p>
+      <p>Your registration has been saved. If you still need to pay, scan the QR code below, then upload your PDF receipt.</p>
+      <p className="font-semibold">If you already paid, just upload your PDF receipt below.</p>
       {qrUnavailable ? (
         <p className="text-sm text-red-600">Payment QR unavailable. Please contact {REGISTRATION_INFO.contactEmail} for payment instructions.</p>
       ) : (

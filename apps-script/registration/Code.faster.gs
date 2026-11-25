@@ -157,6 +157,9 @@ function doPost(e) {
     }
 
     if (input.action === 'uploadReceipt') return json_(uploadReceipt_(input));
+    if (input.action === 'requestReceiptRecovery' || input.action === 'verifyReceiptRecovery') {
+      return json_(recoverReceipt_(input));
+    }
     if (input.action && input.action !== 'register') return json_(fail_('BAD_REQUEST', 'Unknown action.'));
 
     const result = validate_(input);
@@ -378,7 +381,7 @@ function saveRegistration_(d, token) {
         ok: false,
         code: 'DUPLICATE_EMAIL',
         message:
-          'This email is already registered. To change your registration, please write to ' +
+          'This email is already registered. To upload a pending receipt, choose Resume receipt upload in Notes. For registration changes, write to ' +
           CONFIG.CONTACT_EMAIL +
           '.',
         fieldErrors: { email: 'This email is already registered.' },
@@ -419,6 +422,73 @@ function cachedResponse_(cache, cacheKey) {
 }
 
 /** Private Drive file; only a link is stored in Sheets. Never grant public sharing. */
+// Recovery requires access to the registered inbox before returning upload credentials.
+function recoverReceipt_(input) {
+  const email = str_(input.email).toLowerCase();
+  const verifying = input.action === 'verifyReceiptRecovery';
+  const code = str_(input.code).toLowerCase();
+  const invalidCode = fail_('INVALID_CODE', 'This code is invalid or has expired. Request a new code and try again.');
+  if (email.length > LIMITS.email || !EMAIL_REGEX.test(email)) {
+    return fail_('INVALID_EMAIL', 'Enter the email address you used to register.');
+  }
+  if (verifying && !/^[a-f0-9]{32}$/.test(code)) return invalidCode;
+
+  // Use the same response for unregistered addresses and completed registrations.
+  const accepted = { ok: true };
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(CONFIG.LOCK_TIMEOUT_MS)) return fail_('BUSY', 'The server is busy. Please try again.');
+  try {
+    const sheet = getSheet_();
+    const map = getHeaderMap_(sheet);
+    const index = function (title) { return map.index[normalizeHeader_(title)] + 1; };
+    const count = sheet.getLastRow() - 1;
+    const emails = count > 0 ? sheet.getRange(2, index('Email'), count, 1).getDisplayValues() : [];
+    const matches = [];
+    for (let i = 0; i < emails.length; i++) {
+      if (str_(emails[i][0]).toLowerCase() === email) matches.push(i + 2);
+    }
+    if (matches.length !== 1) return verifying ? invalidCode : accepted;
+    const row = matches[0];
+    const submissionId = sheet.getRange(row, index('Submission ID')).getDisplayValue();
+    if (!/^WACCI-[A-F0-9]{8}$/.test(submissionId) ||
+        sheet.getRange(row, index('Payment Receipt PDF')).getDisplayValue()) {
+      return verifying ? invalidCode : accepted;
+    }
+
+    const cache = CacheService.getScriptCache();
+    const key = 'receipt_recovery_' + submissionId;
+    if (!verifying) {
+      if (cache.get(key + '_cooldown')) return accepted;
+      cache.put(key + '_cooldown', '1', 60);
+      const recoveryCode = Utilities.getUuid().replace(/-/g, '').toLowerCase();
+      try {
+        MailApp.sendEmail({
+          to: email,
+          subject: 'WACCI 2026 receipt upload verification code',
+          body: 'Enter this code on the WACCI 2026 registration page to resume your receipt upload:\n\n' +
+            recoveryCode + '\n\nThe code expires in 15 minutes. If you already paid, just upload your PDF receipt.',
+        });
+        cache.put(key, recoveryCode, 15 * 60);
+      } catch (err) {
+        console.error('Receipt recovery email failed: ' + err);
+      }
+      return accepted;
+    }
+
+    if (cache.get(key) !== code) return invalidCode;
+    const tokenCell = sheet.getRange(row, index('Receipt Upload Token'));
+    let receiptToken = tokenCell.getDisplayValue();
+    if (!receiptToken) {
+      receiptToken = Utilities.getUuid();
+      tokenCell.setValue(receiptToken);
+      SpreadsheetApp.flush();
+    }
+    return { ok: true, submissionId: submissionId, receiptToken: receiptToken };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 function uploadReceipt_(input) {
   const submissionId = str_(input.submissionId);
   const receiptToken = str_(input.receiptToken);

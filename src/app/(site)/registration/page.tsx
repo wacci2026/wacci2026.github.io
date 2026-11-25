@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import ReceiptRecovery from './receipt-recovery';
 import RegistrationForm from './registration-form';
 import { REGISTRATION_INFO } from '@/lib/registration';
 
@@ -31,7 +32,7 @@ export default function RegistrationPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-8 lg:gap-12 items-start">
           {/* Left Column: Registration form */}
-          <div className="bg-white rounded-[24px] shadow-lg shadow-gray-200/50 border border-gray-100 p-2 md:p-4 w-full animate-fade-up animate-delay-2 relative">
+          <div id="registration-form" className="scroll-mt-28 bg-white rounded-[24px] shadow-lg shadow-gray-200/50 border border-gray-100 p-2 md:p-4 w-full animate-fade-up animate-delay-2 relative">
             <RegistrationForm />
           </div>
 
@@ -97,6 +98,13 @@ export default function RegistrationPage() {
                     </a>
                     .
                   </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-primary-500 font-bold">c.</span>
+                  <div className="min-w-0 w-full">
+                    Already registered and still need to upload your receipt? Resume with the email you used to register.
+                    <ReceiptRecovery />
+                  </div>
                 </li>
               </ul>
             </div>

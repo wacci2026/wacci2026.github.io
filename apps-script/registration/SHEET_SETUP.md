@@ -251,3 +251,7 @@ Brand assets are configured through `CONFIRMATION_LOGO_URL` and `CONFIRMATION_BA
 Keep these URLs accessible to Apps Script. The local example in
 `output/pdf/wacci-registration-example.pdf` is rendered from the same HTML template using sample
 attendee information; it is a layout preview, not an actual registration or receipt.
+
+### Verify receipt recovery after deployment
+
+Publish a new version of the active Apps Script deployment using the updated script, then publish the website. With a test registration that has no receipt, reopen the registration page and choose **Resume receipt upload** under Notes. Confirm that the verification code arrives, opens the existing payment step, and saves a PDF to the original row. Recovery codes are sent using the Apps Script deployer's MailApp quota.

@@ -28,6 +28,7 @@ for (const filename of ['Code.gs', 'Code.faster.gs']) {
       appendRow: row => rows.push(row),
     };
     const context = vm.createContext({
+      ContentService: { MimeType: { JSON: "json" }, createTextOutput: json => ({ setMimeType: () => JSON.parse(json) }) },
       MailApp: { getRemainingDailyQuota: () => settings.quota, sendEmail: options => { if (settings.failMail) throw new Error('Temporary mail failure'); sentEmails.push(options); } },
       Session: { getEffectiveUser: () => ({ getEmail: () => 'deployer@example.test' }) },
       GmailApp: {
@@ -63,6 +64,44 @@ for (const filename of ['Code.gs', 'Code.faster.gs']) {
     assert.equal(b.validate_({ ...base, travelGrant: '' }).ok, false);
     assert.equal(b.validate_({ ...base, country: '' }).ok, false);
     assert.equal(b.validate_({ ...base, position: 'professor', travelGrant: '', feeWaiver: '' }).ok, true);
+  });
+
+  test(`${filename}: resume a pending receipt after verifying the registered inbox`, () => {
+    const b = backend();
+    const registration = b.context.saveRegistration_(base, '');
+    const request = email => post({ action: 'requestReceiptRecovery', email });
+    const verify = (email, code) => post({ action: 'verifyReceiptRecovery', email, code });
+    function post(body) {
+      return b.context.doPost({ postData: { type: 'text/plain', contents: JSON.stringify(body) } });
+    }
+
+    assert.deepEqual(request('unknown@example.com'), { ok: true });
+    assert.equal(b.sentEmails.length, 0);
+    assert.deepEqual(request(' ADA@EXAMPLE.COM '), { ok: true });
+    assert.deepEqual(request(base.email), { ok: true });
+    assert.equal(b.sentEmails.length, 1);
+    assert.equal(b.sentEmails[0].to, base.email);
+    const code = b.sentEmails[0].body.match(/^([a-f0-9]{32})$/m)[1];
+    assert.equal(verify('unknown@example.com', code).code, 'INVALID_CODE');
+    assert.equal(verify(base.email, '0'.repeat(32)).code, 'INVALID_CODE');
+    const recovered = verify(base.email, code);
+    assert.deepEqual(recovered, {
+      ok: true,
+      submissionId: registration.submissionId,
+      receiptToken: registration.receiptToken,
+    });
+
+    const uploaded = post({
+      action: 'uploadReceipt',
+      ...recovered,
+      receiptBase64: Buffer.from('%PDF-1.4\nRecovered receipt').toString('base64'),
+    });
+    assert.equal(uploaded.ok, true);
+    assert.equal(b.rows.length, 2);
+    assert.equal(b.fileCount(), 1);
+    assert.equal(verify(base.email, code).code, 'INVALID_CODE');
+    assert.deepEqual(request(base.email), { ok: true });
+    assert.equal(b.sentEmails.length, 2);
   });
 
   test(`${filename}: save registration, authenticate PDF upload, update same row and retry`, () => {
@@ -135,7 +174,8 @@ for (const filename of ['Code.gs', 'Code.faster.gs']) {
 
 test('frontend eligibility matches backend; countries include Chile and all ISO entries', () => {
   function load(path) {
-    const context = vm.createContext({ exports: {}, process: { env: {} } });
+    const context = vm.createContext({
+      ContentService: { MimeType: { JSON: "json" }, createTextOutput: json => ({ setMimeType: () => JSON.parse(json) }) }, exports: {}, process: { env: {} } });
     vm.runInContext(ts.transpileModule(fs.readFileSync(path, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText, context);
     return context.exports;
   }
