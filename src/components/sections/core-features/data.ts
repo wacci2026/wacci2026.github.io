@@ -1,7 +1,7 @@
 import { withBasePath } from "@/lib/base-path";
 
-// Google Scholar total citations (the "All" column), checked 18 November 2026.
-// Counts are an ordering snapshot; refresh them from each scholarUrl when needed.
+// Google Scholar total citations (the "All" column).
+// Most counts were checked 18 November 2026; Alonso and Peters Rodríguez were checked 25 November 2026.
 export const INVITED_SPEAKERS = [
   {
     name: "Demetri Psaltis",
@@ -10,14 +10,6 @@ export const INVITED_SPEAKERS = [
     imageUrl: withBasePath("/images/speakers/demetri-psaltis.jpg"),
     scholarUrl: "https://scholar.google.com/citations?user=-CVR2h8AAAAJ&hl=en",
     scholarCitations: 52684,
-  },
-  {
-    name: "Xin Yuan",
-    affiliation: "Westlake University",
-    country: "China",
-    imageUrl: withBasePath("/images/speakers/xin-yuan.jpg"),
-    scholarUrl: "https://scholar.google.com/citations?user=cS9CbWkAAAAJ&hl=en",
-    scholarCitations: 18344,
   },
   {
     name: "Mauro Dalla Mura",
@@ -60,14 +52,6 @@ export const INVITED_SPEAKERS = [
     scholarCitations: 3205,
   },
   {
-    name: "Lars Lötgering",
-    affiliation: "ZEISS",
-    country: "Germany",
-    imageUrl: withBasePath("/images/speakers/lars-loetgering.jpeg"),
-    scholarUrl: "https://scholar.google.com/citations?user=RPBTQIcAAAAJ&hl=en",
-    scholarCitations: 1409,
-  },
-  {
     name: "Kristina Irsch",
     affiliation: "Institut de la Vision, Paris",
     country: "France",
@@ -92,11 +76,27 @@ export const INVITED_SPEAKERS = [
     scholarCitations: 723,
   },
   {
+    name: "Julia R. Alonso",
+    affiliation: "Universidad de la República",
+    country: "Uruguay",
+    imageUrl: withBasePath("/images/org_committee/Julia Alonso.jpg"),
+    scholarUrl: "https://scholar.google.com/citations?user=5qltrLYAAAAJ&hl=es",
+    scholarCitations: 615,
+  },
+  {
     name: "Juan P. Staforelli Vivanco",
     affiliation: "Universidad de Concepción",
     country: "Chile",
     imageUrl: withBasePath("/images/speakers/juan-staforelli.jpeg"),
     scholarUrl: "https://scholar.google.com/citations?user=fEK64woAAAAJ&hl=en",
     scholarCitations: 544,
+  },
+  {
+    name: "Eduardo Peters Rodríguez",
+    affiliation: "Pontificia Universidad Católica de Valparaíso",
+    country: "Chile",
+    imageUrl: withBasePath("/images/speakers/eduardo-peters.webp"),
+    scholarUrl: "https://scholar.google.com/citations?hl=es&user=Bnihd6UAAAAJ&view_op=list_works&sortby=pubdate",
+    scholarCitations: 130,
   },
 ].sort((a, b) => b.scholarCitations - a.scholarCitations);
